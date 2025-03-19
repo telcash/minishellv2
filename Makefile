@@ -16,14 +16,9 @@ CFLAGS += -I$(READLINE_DIR)/include
 LDFLAGS = -L$(READLINE_DIR)/lib -lreadline -lcurses
 
 SRCS = $(SRC_DIR)/main.c \
-       #$(addprefix $(SRC_DIR)/signals/, ) \
-	   $(addprefix $(SRC_DIR)/parse/ ), \
-	   $(addprefix $(SRC_DIR)/built-ins/, ) \
-	   $(addprefix $(SRC_DIR)/init/, ) \
-	   $(addprefix $(SRC_DIR)/redirections/, ) \
-	   $(addprefix $(SRC_DIR)/bin-exec/, ) \
-	   $(addprefix $(SRC_DIR)/free/, ) \
-	   $(addprefix $(SRC_DIR)/pipeline/, ) \
+	   $(addprefix $(SRC_DIR)/init/, init.c) \
+	   $(addprefix $(SRC_DIR)/error/, error.c) \
+	   $(addprefix $(SRC_DIR)/free/, free.c) \
 
 OBJS = $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 

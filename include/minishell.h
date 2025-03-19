@@ -15,7 +15,9 @@
 # include <sys/wait.h>
 # include <unistd.h>
 
-
+# ifndef MALLOC_ERR_MSG
+#  define MALLOC_ERR_MSG "Error: malloc failed"
+# endif
 
 typedef enum
 {
@@ -52,5 +54,9 @@ typedef struct s_shell
 {
     t_env       **env;
 }               t_shell;
+
+void            init_minishell(t_shell **shell, char **envp);
+void            ft_error(char *message, int status, t_shell *shell);
+void            free_shell(t_shell *shell);
 
 #endif

@@ -1,31 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/19 08:38:43 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/03/19 11:01:30 by carlossalaz      ###   ########.fr       */
+/*   Created: 2025/03/19 09:24:50 by carlossalaz       #+#    #+#             */
+/*   Updated: 2025/03/19 09:30:22 by carlossalaz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
-static void verify_input(int argc, char **argv)
+static void free_env(t_env **env)
 {
-    if (argc && argv)
-        return ;
-    else
-        ft_putstr_fd("Error: invalid input\n", 2);
-    exit(1);
+    t_env *tmp;
+
+    while (*env)
+	{
+		if ((*env)->name)
+			free((*env)->name);
+		if ((*env)->value)
+			free((*env)->value);
+		tmp = *env;
+		*env = (*env)->next;
+		free(tmp);
+	}
+	free(env);
 }
 
-int main(int argc, char **argv, char **envp)
+void free_shell(t_shell *shell)
 {
-    t_shell *shell;
-
-    verify_input(argc, argv);
-    init_minishell(&shell, envp);
-    return (0);
+    if (!shell)
+        return ;
+    if (shell->env)
+        free_env(shell->env);
+    free(shell);
 }
