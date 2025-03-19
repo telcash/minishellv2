@@ -16,7 +16,7 @@ CFLAGS += -I$(READLINE_DIR)/include
 LDFLAGS = -L$(READLINE_DIR)/lib -lreadline -lcurses
 
 SRCS = $(SRC_DIR)/main.c \
-       $(addprefix $(SRC_DIR)/signals/, ) \
+       #$(addprefix $(SRC_DIR)/signals/, ) \
 	   $(addprefix $(SRC_DIR)/parse/ ), \
 	   $(addprefix $(SRC_DIR)/built-ins/, ) \
 	   $(addprefix $(SRC_DIR)/init/, ) \
