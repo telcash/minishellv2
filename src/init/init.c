@@ -6,7 +6,7 @@
 /*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 09:05:29 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/03/19 10:59:17 by carlossalaz      ###   ########.fr       */
+/*   Updated: 2025/03/28 17:05:13 by carlossalaz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,5 +106,10 @@ void    init_minishell(t_shell **shell, char **envp)
     *shell = malloc(sizeof(t_shell));
     if (!*shell)
         ft_error(MALLOC_ERR_MSG, 1, NULL);
+    (*shell)->home = getenv("HOME");
+    (*shell)->path = getcwd(NULL, 0);
+    (*shell)->oldpath = NULL;
+    (*shell)->fds = NULL;  
+    (*shell)->com_count = 0;
     init_env(*shell, envp);
 }
