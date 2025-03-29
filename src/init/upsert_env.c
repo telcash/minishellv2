@@ -6,7 +6,7 @@
 /*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 17:24:16 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/03/29 18:36:04 by carlossalaz      ###   ########.fr       */
+/*   Updated: 2025/03/29 18:57:11 by carlossalaz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static t_env *find_env_var_by_name(t_shell *shell, char *name)
     return (NULL);
 }
 
-static int is_valid_env_var(char *str)
+int is_valid_env_var(char *str)
 {
 	int i;
 
@@ -79,7 +79,6 @@ int upsert_env(t_shell *shell, char *envp)
         return (0);
     name = ft_substr(envp, 0, equal_sign - envp);
     value = ft_strdup(equal_sign + 1);
-    printf("value string: >%s<\n", value);
     if (!name || !value)
         ft_error(MALLOC_ERR_MSG, 1, shell);
     upsert = find_env_var_by_name(shell, name);

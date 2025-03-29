@@ -100,5 +100,6 @@ int             process_append(char *file);
 int             process_in(char *file);
 void            set_pipes(t_shell *shell, t_io *io);
 int             upsert_env(t_shell *shell, char *envp);
+int             is_valid_env_var(char *str);
 
 #endif
