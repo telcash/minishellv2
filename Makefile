@@ -16,12 +16,12 @@ CFLAGS += -I$(READLINE_DIR)/include
 LDFLAGS = -L$(READLINE_DIR)/lib -lreadline -lcurses
 
 SRCS = $(SRC_DIR)/main.c \
-	   $(addprefix $(SRC_DIR)/init/, init.c) \
+	   $(addprefix $(SRC_DIR)/init/, init.c upsert_env.c) \
 	   $(addprefix $(SRC_DIR)/error/, error.c) \
 	   $(addprefix $(SRC_DIR)/free/, free.c) \
 	   $(addprefix $(SRC_DIR)/parse/, token.c utils.c) \
 	   $(addprefix $(SRC_DIR)/pipeline/, pipeline.c process_command.c init_pipes.c set_pipes.c) \
-	   $(addprefix $(SRC_DIR)/builtins/, exec.c exit.c pwd.c) \
+	   $(addprefix $(SRC_DIR)/builtins/, exec.c exit.c pwd.c cd.c echo.c env.c export.c unset.c) \
 	   $(addprefix $(SRC_DIR)/bins/, exec.c) \
 	   $(addprefix $(SRC_DIR)/redirections/, process.c out.c append.c in.c here_doc.c) \
 

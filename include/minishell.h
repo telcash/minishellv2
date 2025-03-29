@@ -82,6 +82,11 @@ int             cmd_is_builtin(char *com);
 int             exec_built_in(t_shell *minishell, char **cmdargs, int out);
 int             ft_pwd(t_shell *minishell, int out);
 int             ft_exit(t_shell *minishell, char **cmdargs);
+int             ft_cd(t_shell *minishell, char **cmdargs);
+int             ft_echo(char **cmdargs);
+int             ft_env(t_shell *minishell, int out);
+int             ft_export(t_shell *minishell, char **cmdargs);
+int             ft_unset(t_shell *minishell, char **cmdargs);
 int             process_output_redirections(t_token *token);
 int             process_input_redirections(t_token *token);
 int             process_here_doc(char *delimiter);
@@ -93,6 +98,7 @@ void            wait_all_childs(void);
 int             process_out(char *file);
 int             process_append(char *file);
 int             process_in(char *file);
-void set_pipes(t_shell *shell, t_io *io);
+void            set_pipes(t_shell *shell, t_io *io);
+int             upsert_env(t_shell *shell, char *envp);
 
 #endif
