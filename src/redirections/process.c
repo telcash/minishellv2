@@ -6,7 +6,7 @@
 /*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 15:25:30 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/03/29 10:09:04 by carlossalaz      ###   ########.fr       */
+/*   Updated: 2025/03/29 11:46:30 by carlossalaz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ int process_input_redirections(t_token *token)
             close(in);
         if (token->type == IN)
             in = process_in(token->data);
+        else if (token->type == HERE_DOC)
+            in = process_here_doc(token->data);
         token = token->next;
     }
     return (in);

@@ -84,6 +84,7 @@ int             ft_pwd(t_shell *minishell, int out);
 int             ft_exit(t_shell *minishell, char **cmdargs);
 int             process_output_redirections(t_token *token);
 int             process_input_redirections(t_token *token);
+int             process_here_doc(char *delimiter);
 void            free_split(char **split);
 void            exec_bin(t_shell *minishell, char **cmdargs);
 void            close_pipes(t_pipe *pipes);
