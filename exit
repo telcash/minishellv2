@@ -1,0 +1,6 @@
+minishell: 2004hminishell: command not found
+minishell> 2004l
+minishell: 2004l: command not found
+minishell> exit
+exit
+minishell> 2004hminishell> 

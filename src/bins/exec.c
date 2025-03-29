@@ -6,7 +6,7 @@
 /*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:28:14 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/03/26 22:42:19 by carlossalaz      ###   ########.fr       */
+/*   Updated: 2025/03/29 12:08:03 by carlossalaz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,14 +63,18 @@ void exec_bin(t_shell *minishell, char **cmdargs)
 	path = get_path(cmdargs[0], minishell->env);
 	if (path == NULL)
 	{
-		printf("minishell: %s: command not found\n", cmdargs[0]);
-		return ;
+		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd(cmdargs[0], 2);
+		ft_putstr_fd(": command not found\n", 2);
+		exit(127);
 	}
 
 	if (execve(path, cmdargs, NULL) == -1)
 	{
 		free(path);
-		printf("minishell: %s: %s\n", cmdargs[0], strerror(errno));
-		return ;
+		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd(cmdargs[0], 2);
+		ft_putstr_fd(strerror(errno), 2);
+		exit(1);
 	}
 }
