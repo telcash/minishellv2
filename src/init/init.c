@@ -6,7 +6,7 @@
 /*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 09:05:29 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/03/28 17:05:13 by carlossalaz      ###   ########.fr       */
+/*   Updated: 2025/03/29 10:17:40 by carlossalaz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ void    init_minishell(t_shell **shell, char **envp)
     (*shell)->home = getenv("HOME");
     (*shell)->path = getcwd(NULL, 0);
     (*shell)->oldpath = NULL;
-    (*shell)->fds = NULL;  
+    (*shell)->pipes = NULL;  
     (*shell)->com_count = 0;
     init_env(*shell, envp);
 }

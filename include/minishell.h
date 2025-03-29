@@ -36,11 +36,11 @@ typedef struct s_io
     int                 com_count;
 }						t_io;
 
-typedef struct s_fds
+typedef struct s_pipe
 {
 	int					**pipes;
 	int					nb_pipes;
-}						t_fds;
+}						t_pipe;
 
 typedef struct s_token
 {
@@ -62,7 +62,7 @@ typedef struct s_shell
     char        *home;
     char        *oldpath;
     int         com_count;
-    t_fds       *fds;      
+    t_pipe       *pipes;      
     t_env       **env;
 }               t_shell;
 
@@ -72,25 +72,26 @@ void            free_shell(t_shell *shell);
 void	        free_token(t_token **token);
 t_token	        **get_token(char *line);
 int             pipeline(t_token **token, t_shell *shell);
-t_fds           *init_fds(t_token *token);
+t_pipe          *init_pipes(t_token *token);
 int             process_command(char **cmdargs, t_shell *shell, t_token *segment, int i);
 int             ft_isspace(char c);
 int             isseparator(char c);
 void            append_token(t_token **token, char *data, t_token_type type);
 char            *trim_quotes(char *word);
 int             cmd_is_builtin(char *com);
-int             exec_built_in(t_shell *minishell, char **cmdargs);
-int             ft_pwd(t_shell *minishell);
+int             exec_built_in(t_shell *minishell, char **cmdargs, int out);
+int             ft_pwd(t_shell *minishell, int out);
 int             ft_exit(t_shell *minishell, char **cmdargs);
 int             process_output_redirections(t_token *token);
 int             process_input_redirections(t_token *token);
 void            free_split(char **split);
 void            exec_bin(t_shell *minishell, char **cmdargs);
-void            close_fds(t_fds *fds);
-void            free_fds(t_fds *fds);
+void            close_pipes(t_pipe *pipes);
+void            free_pipes(t_pipe *pipes);
 void            wait_all_childs(void);
 int             process_out(char *file);
 int             process_append(char *file);
 int             process_in(char *file);
+void set_pipes(t_shell *shell, t_io *io);
 
 #endif

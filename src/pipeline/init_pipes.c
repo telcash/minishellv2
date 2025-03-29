@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fds.c                                              :+:      :+:    :+:   */
+/*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 12:14:50 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/03/26 13:37:01 by carlossalaz      ###   ########.fr       */
+/*   Updated: 2025/03/29 10:15:56 by carlossalaz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,30 +28,30 @@ static int get_number_of_pipes(t_token *token)
 	return (nb_pipes);
 }
 
-t_fds *init_fds(t_token *token)
+t_pipe *init_pipes(t_token *token)
 {
-	t_fds *fds;
+	t_pipe *pipes;
 	int i;
 
-	fds = ft_calloc(1, sizeof(t_fds));
-	if (!fds)
+	pipes = ft_calloc(1, sizeof(t_pipe));
+	if (!pipes)
 		return (NULL);
-	fds->nb_pipes = get_number_of_pipes(token);
-	fds->pipes = ft_calloc(fds->nb_pipes, sizeof(int *));
-	if (!fds->pipes)
+	pipes->nb_pipes = get_number_of_pipes(token);
+	pipes->pipes = ft_calloc(pipes->nb_pipes, sizeof(int *));
+	if (!pipes->pipes)
 		return (NULL);
 	i = 0;
-	while (i < fds->nb_pipes)
+	while (i < pipes->nb_pipes)
 	{
-		fds->pipes[i] = ft_calloc(2, sizeof(int));
-		if (!fds->pipes[i])
+		pipes->pipes[i] = ft_calloc(2, sizeof(int));
+		if (!pipes->pipes[i])
 			return (NULL);
-		if (pipe(fds->pipes[i]) == -1)
+		if (pipe(pipes->pipes[i]) == -1)
 		{
 			perror("pipe");
 			return (NULL);
 		}
 		i++;
 	}
-	return (fds);
+	return (pipes);
 }

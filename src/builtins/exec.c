@@ -6,7 +6,7 @@
 /*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 14:22:53 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/03/26 21:22:38 by carlossalaz      ###   ########.fr       */
+/*   Updated: 2025/03/29 10:20:36 by carlossalaz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,12 @@ int	cmd_is_builtin(char *com)
 		|| ft_strcmp("unset", com) == 0);
 }
 
-int	exec_built_in(t_shell *minishell, char **cmdargs)
+int	exec_built_in(t_shell *minishell, char **cmdargs, int out)
 {
 	int code;
 
 	if (ft_strcmp("pwd", cmdargs[0]) == 0)
-		code = ft_pwd(minishell);
+		code = ft_pwd(minishell, out);
 	/* else if (ft_strcmp("cd", cmdargs[0]) == 0)
 		code = ft_cd(minishell, cmdargs);
 	else if (ft_strcmp("echo", cmdargs[0]) == 0)
@@ -38,7 +38,7 @@ int	exec_built_in(t_shell *minishell, char **cmdargs)
 		code = ft_export(minishell, cmdargs);
 	else if(ft_strcmp("unset", cmdargs[0]) == 0)
 		code = ft_unset(minishell, cmdargs); */
-	if (minishell->fds->nb_pipes > 0)
+	if (minishell->pipes->nb_pipes > 0)
 		exit (code);
 	return (0);
 }

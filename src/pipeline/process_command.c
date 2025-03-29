@@ -6,7 +6,7 @@
 /*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 12:20:50 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/03/26 22:42:35 by carlossalaz      ###   ########.fr       */
+/*   Updated: 2025/03/29 10:29:12 by carlossalaz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,58 +25,20 @@ static t_io *get_io(t_token *segment, int com_count)
     return (io);
 }
 
-static void set_pipes(t_shell *shell, t_io *io)
+static int exec_built_in_alone(t_shell *shell, char **cmdargs, t_token *segment)
 {
-	if (shell->fds->nb_pipes > 0)
-	{
-		if (io->com_count == 0)
-		{
-			if (io->in != STDIN_FILENO)
-				dup2(io->in, STDIN_FILENO);
-			if (io->out != STDOUT_FILENO)
-				dup2(io->out, STDOUT_FILENO);
-			else
-				dup2(shell->fds->pipes[io->com_count][1], STDOUT_FILENO);
+	t_io	*io;
+	int		code;
 
-		}
-		else if (io->com_count == shell->fds->nb_pipes)
-		{
-			if (io->in != STDIN_FILENO)
-				dup2(io->in, STDIN_FILENO);
-			else
-				dup2(shell->fds->pipes[io->com_count - 1][0], STDIN_FILENO);
-			if (io->out != STDOUT_FILENO)
-				dup2(io->out, STDOUT_FILENO);
-		}
-		else
-		{
-			if (io->in != STDIN_FILENO)
-				dup2(io->in, STDIN_FILENO);
-			else
-				dup2(shell->fds->pipes[io->com_count - 1][0], STDIN_FILENO);
-			if (io->out != STDOUT_FILENO)
-				dup2(io->out, STDOUT_FILENO);
-			else
-				dup2(shell->fds->pipes[io->com_count][1], STDOUT_FILENO);
-		}
-	}
-	else
+	io = get_io(segment, 0);
+	if (io->in == -1)
 	{
-		if (io->in != STDIN_FILENO)
-			dup2(io->in, STDIN_FILENO);
-		if (io->out != STDOUT_FILENO)
-			dup2(io->out, STDOUT_FILENO);
+		free(io);
+		return (-1);
 	}
-	if (io->in != STDIN_FILENO)
-		close(io->in);
-	if (io->out != STDOUT_FILENO)
-		close(io->out);
-	close_fds(shell->fds);
-}
-
-static int exec_built_in_alone(t_shell *shell, char **cmdargs)
-{
-	return (exec_built_in(shell, cmdargs));
+	code = exec_built_in(shell, cmdargs, io->out);
+	free(io);
+	return (code);
 }
 
 int process_command(char **cmdargs, t_shell *shell, t_token *segment, int i)
@@ -84,8 +46,8 @@ int process_command(char **cmdargs, t_shell *shell, t_token *segment, int i)
 	int		pid;
 	t_io	*io;
 
-	if (cmd_is_builtin(cmdargs[0]) && shell->fds->nb_pipes == 0)
-		return (exec_built_in_alone(shell, cmdargs));
+	if (cmd_is_builtin(cmdargs[0]) && shell->pipes->nb_pipes == 0)
+		return (exec_built_in_alone(shell, cmdargs, segment));
 	pid = fork();
 	if (pid < 0)
 		return (perror("fork"), 1);
@@ -93,9 +55,11 @@ int process_command(char **cmdargs, t_shell *shell, t_token *segment, int i)
 	{
 		io = get_io(segment, i);
 		set_pipes(shell, io);
+		if (io->in == -1)
+			exit (1);
 		free(io);
 		if (cmd_is_builtin(cmdargs[0]))
-			return (exec_built_in(shell, cmdargs));
+			return (exec_built_in(shell, cmdargs, STDOUT_FILENO));
 		else
 			exec_bin(shell, cmdargs);
 	}

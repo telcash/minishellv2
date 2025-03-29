@@ -6,21 +6,21 @@
 /*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 09:24:50 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/03/26 20:03:31 by carlossalaz      ###   ########.fr       */
+/*   Updated: 2025/03/29 10:15:50 by carlossalaz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void close_fds(t_fds *fds)
+void close_pipes(t_pipe *pipes)
 {
 	int i;
 
 	i = 0;
-	while (i < fds->nb_pipes)
+	while (i < pipes->nb_pipes)
 	{
-		close(fds->pipes[i][0]);
-		close(fds->pipes[i][1]);
+		close(pipes->pipes[i][0]);
+		close(pipes->pipes[i][1]);
 		i++;
 	}
 }
@@ -81,18 +81,18 @@ void free_split(char **split)
     free(split);
 }
 
-void free_fds(t_fds *fds)
+void free_pipes(t_pipe *pipes)
 {
 	int i;
 
 	i = 0;
-	while (i < fds->nb_pipes)
+	while (i < pipes->nb_pipes)
 	{
-		free(fds->pipes[i]);
+		free(pipes->pipes[i]);
 		i++;
 	}
-	free(fds->pipes);
-	free(fds);
+	free(pipes->pipes);
+	free(pipes);
 }
 
 void wait_all_childs(void)

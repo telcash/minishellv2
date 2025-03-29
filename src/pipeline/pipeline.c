@@ -6,7 +6,7 @@
 /*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 12:07:37 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/03/26 22:41:24 by carlossalaz      ###   ########.fr       */
+/*   Updated: 2025/03/29 10:19:14 by carlossalaz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int pipeline(t_token **token, t_shell *shell)
 
     i = 0;
     segment = *token;
-    shell->fds = init_fds(*token);
+    shell->pipes = init_pipes(*token);
     while (segment)
     {
         cmdargs = get_cmdargs(segment);
@@ -70,8 +70,8 @@ int pipeline(t_token **token, t_shell *shell)
         free(cmdargs);
         segment = get_next_segment(segment);
     }
-    close_fds(shell->fds);
-    free_fds(shell->fds);
+    close_pipes(shell->pipes);
+    free_pipes(shell->pipes);
     wait_all_childs();
     return (0);
 }

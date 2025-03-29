@@ -6,7 +6,7 @@
 /*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 15:25:30 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/03/28 17:11:45 by carlossalaz      ###   ########.fr       */
+/*   Updated: 2025/03/29 10:09:04 by carlossalaz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@ int process_input_redirections(t_token *token)
 {
     int in;
 
-    in = dup(STDIN_FILENO);
-    while(token && token->type != PIPE)
+    in = STDIN_FILENO;
+    while(token && in != -1 && token->type != PIPE)
     {
-        if (token->type == IN)
+        if (in != STDIN_FILENO && (token->type == IN || token->type == HERE_DOC))
             close(in);
         if (token->type == IN)
             in = process_in(token->data);

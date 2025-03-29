@@ -6,7 +6,7 @@
 /*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 14:16:33 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/03/26 14:50:48 by carlossalaz      ###   ########.fr       */
+/*   Updated: 2025/03/29 10:21:18 by carlossalaz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ static void ft_exit_no_pipes(t_shell *minishell, char **cmdargs)
 
 int	ft_exit(t_shell *minishell, char **cmdargs)
 {
-	if (minishell->fds->nb_pipes > 0)
+	if (minishell->pipes->nb_pipes > 0)
 		return (ft_exit_pipes(cmdargs));
 	else
 		ft_exit_no_pipes(minishell, cmdargs);
