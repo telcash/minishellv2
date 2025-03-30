@@ -6,7 +6,7 @@
 /*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 09:05:29 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/03/29 17:25:34 by carlossalaz      ###   ########.fr       */
+/*   Updated: 2025/03/30 20:04:10 by carlossalaz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,6 @@ void    init_minishell(t_shell **shell, char **envp)
     (*shell)->oldpath = NULL;
     (*shell)->pipes = NULL;  
     (*shell)->com_count = 0;
+    (*shell)->last_exit_status = 0;
     init_env(*shell, envp);
 }

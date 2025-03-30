@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csalazar <csalazar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 09:19:39 by csalazar          #+#    #+#             */
-/*   Updated: 2025/03/04 17:26:25 by csalazar         ###   ########.fr       */
+/*   Updated: 2025/03/30 09:08:53 by carlossalaz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	isseparator(char c)
 	return (c == '|' || c == '<' || c == '>');
 }
 
-void	append_token(t_token **token, char *data, t_token_type type)
+void	append_token(t_token **token, char *data, t_token_type type, t_shell *shell)
 {
 	t_token	*curr_token;
 	t_token	*last_token;
@@ -41,7 +41,13 @@ void	append_token(t_token **token, char *data, t_token_type type)
 	new_token = malloc(sizeof(t_token));
 	if (!new_token)
 		return ;
-	new_token->data = data;
+	new_token->data = expand_variable(data, shell);
+	free(data);
+	if (!new_token->data)
+	{
+		free(new_token);
+		return ;
+	}
 	new_token->type = type;
 	new_token->next = NULL;
 	if (!last_token)

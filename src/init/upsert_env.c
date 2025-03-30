@@ -6,7 +6,7 @@
 /*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 17:24:16 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/03/29 18:57:11 by carlossalaz      ###   ########.fr       */
+/*   Updated: 2025/03/30 18:56:13 by carlossalaz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,17 @@ static t_env *append_env_var(t_shell *shell)
     return (new);    
 }
 
-static t_env *find_env_var_by_name(t_shell *shell, char *name)
+char *get_env_var_value(t_shell *shell, char *name)
+{
+    t_env *tmp;
+
+    tmp = find_env_var_by_name(shell, name);
+    if (!tmp || !tmp->value)
+        return (NULL);
+    return (tmp->value);
+}
+
+t_env *find_env_var_by_name(t_shell *shell, char *name)
 {
     t_env *tmp;
 

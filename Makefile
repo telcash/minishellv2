@@ -19,11 +19,12 @@ SRCS = $(SRC_DIR)/main.c \
 	   $(addprefix $(SRC_DIR)/init/, init.c upsert_env.c) \
 	   $(addprefix $(SRC_DIR)/error/, error.c) \
 	   $(addprefix $(SRC_DIR)/free/, free.c) \
-	   $(addprefix $(SRC_DIR)/parse/, token.c utils.c) \
+	   $(addprefix $(SRC_DIR)/parse/, token.c utils.c expand.c) \
 	   $(addprefix $(SRC_DIR)/pipeline/, pipeline.c process_command.c init_pipes.c set_pipes.c) \
 	   $(addprefix $(SRC_DIR)/builtins/, exec.c exit.c pwd.c cd.c echo.c env.c export.c unset.c) \
 	   $(addprefix $(SRC_DIR)/bins/, exec.c) \
 	   $(addprefix $(SRC_DIR)/redirections/, process.c out.c append.c in.c here_doc.c) \
+	   $(addprefix $(SRC_DIR)/signals/, signals.c) \
 
 OBJS = $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 

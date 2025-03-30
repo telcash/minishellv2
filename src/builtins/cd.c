@@ -6,7 +6,7 @@
 /*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 13:41:58 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/03/29 13:42:40 by carlossalaz      ###   ########.fr       */
+/*   Updated: 2025/03/30 20:28:36 by carlossalaz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 
 #include "../../include/minishell.h"
 
-static void	update_path(t_shell *minishell)
+static int	update_path(t_shell *minishell)
 {
 	if (minishell->oldpath)
 		free(minishell->oldpath);
@@ -32,44 +32,58 @@ static void	update_path(t_shell *minishell)
 	free(minishell->path);
 	minishell->path = getcwd(NULL, 0);
 	if (!minishell->path)
-		perror("Error updating the path");
+		return (perror("Error updating the path"), 1);
+	return (0);
 }
 
-void	ft_cd_no_pipes(t_shell *minishell, char **cmdargs)
+/* static int	ft_cd_no_pipes(t_shell *minishell, char **cmdargs)
 {
 	if (cmdargs[2])
-	{
-		perror("too many arguments");
-		return ;
-	}
+		return (perror("too many arguments"), 1);
 	if (!cmdargs[1])
 	{
 		if (!minishell->home || chdir(minishell->home) != 0)
-			perror("Error accessing HOME");
+			return (perror("Error accessing HOME"), 1);
 		else
-			update_path(minishell);
+			return (update_path(minishell));
 	}
 	else if (ft_strcmp(cmdargs[1], "..") == 0)
 	{
 		if (chdir("..") != 0)
-			perror("Error accessing directory");
+			return (perror("Error accessing directory"), 1);
 		else
-			update_path(minishell);
+			return (update_path(minishell));
 	}
 	else if (ft_strcmp(cmdargs[1], "-") == 0)
 	{
 		if (chdir(minishell->oldpath) != 0)
-			perror("Error accessing directory");
+			return (perror("Error accessing directory"), 1);
 		else
-			update_path(minishell);
+			return (update_path(minishell));
 	}
 	else
 	{
 		if (chdir(cmdargs[1]) != 0)
-			perror("Error accesing");
+			return (perror("Error accesing"), 1);
 		else
-			update_path(minishell);
+			return (update_path(minishell));
 	}
+} */
+
+static int ft_cd_no_pipes(t_shell *shell, char **cmdargs)
+{
+	if (cmdargs[2])
+		return (perror("too many arguments"), 1);
+	if (!cmdargs[1] && (!shell->home || chdir(shell->home) != 0))
+		return (perror("Error accessing HOME"), 1);
+	else if (ft_strcmp(cmdargs[1], "..") == 0 && chdir("..") != 0)
+		return (perror("Error accessing directory"), 1);
+	else if (ft_strcmp(cmdargs[1], "-") == 0 && chdir(shell->oldpath) != 0)
+		return (perror("Error accessing directory"), 1);
+	else if (chdir(cmdargs[1]) != 0)
+		return (perror("Error accessing"), 1);
+	else
+		return (update_path(shell));
 }
 
 int ft_cd(t_shell *minishell, char **cmdargs)
@@ -77,6 +91,5 @@ int ft_cd(t_shell *minishell, char **cmdargs)
 	if (minishell->pipes->nb_pipes > 0)
 		return (0);
 	else
-		ft_cd_no_pipes(minishell, cmdargs);
-	return (0);
+		return (ft_cd_no_pipes(minishell, cmdargs));
 }

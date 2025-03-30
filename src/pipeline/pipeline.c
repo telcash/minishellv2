@@ -6,7 +6,7 @@
 /*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 12:07:37 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/03/29 10:19:14 by carlossalaz      ###   ########.fr       */
+/*   Updated: 2025/03/30 20:13:46 by carlossalaz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ int pipeline(t_token **token, t_shell *shell)
     int i;
 
     i = 0;
+    if (!token || !*token)
+        return (0);
     segment = *token;
     shell->pipes = init_pipes(*token);
     while (segment)
@@ -66,7 +68,7 @@ int pipeline(t_token **token, t_shell *shell)
         cmdargs = get_cmdargs(segment);
         if (!cmdargs)
             ft_error(MALLOC_ERR_MSG, 1, shell);
-        process_command(cmdargs, shell, segment, i++);
+        shell->last_exit_status = process_command(cmdargs, shell, segment, i++);
         free(cmdargs);
         segment = get_next_segment(segment);
     }

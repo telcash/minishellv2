@@ -6,7 +6,7 @@
 /*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 12:20:50 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/03/29 10:29:12 by carlossalaz      ###   ########.fr       */
+/*   Updated: 2025/03/30 21:43:02 by carlossalaz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int exec_built_in_alone(t_shell *shell, char **cmdargs, t_token *segment)
 	if (io->in == -1)
 	{
 		free(io);
-		return (-1);
+		return (1);
 	}
 	code = exec_built_in(shell, cmdargs, io->out);
 	free(io);
