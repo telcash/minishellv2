@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipeline.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
+/*   By: csalazar <csalazar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 12:07:37 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/03/30 20:13:46 by carlossalaz      ###   ########.fr       */
+/*   Updated: 2025/04/01 18:19:01 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,17 +63,20 @@ int pipeline(t_token **token, t_shell *shell)
         return (0);
     segment = *token;
     shell->pipes = init_pipes(*token);
+    shell->pids = ft_calloc(shell->pipes->nb_pipes + 1, sizeof(int));
     while (segment)
     {
         cmdargs = get_cmdargs(segment);
         if (!cmdargs)
             ft_error(MALLOC_ERR_MSG, 1, shell);
-        shell->last_exit_status = process_command(cmdargs, shell, segment, i++);
+        process_command(cmdargs, shell, segment, i++);
         free(cmdargs);
         segment = get_next_segment(segment);
     }
     close_pipes(shell->pipes);
     free_pipes(shell->pipes);
-    wait_all_childs();
+    wait_all_childs(shell);
+    shell->launched_procs = 0;
+    free(shell->pids);
     return (0);
 }

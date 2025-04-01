@@ -19,6 +19,8 @@
 #  define MALLOC_ERR_MSG "Error: malloc failed"
 # endif
 
+extern int g_interactive;
+
 typedef enum
 {
     WORD,
@@ -63,6 +65,8 @@ typedef struct s_shell
     char        *oldpath;
     int         com_count;
     int         last_exit_status;
+    int         *pids;
+    int         launched_procs;
     t_pipe       *pipes;      
     t_env       **env;
 }               t_shell;
@@ -95,7 +99,7 @@ void            free_split(char **split);
 void            exec_bin(t_shell *minishell, char **cmdargs);
 void            close_pipes(t_pipe *pipes);
 void            free_pipes(t_pipe *pipes);
-void            wait_all_childs(void);
+void            wait_all_childs(t_shell *shell);
 int             process_out(char *file);
 int             process_append(char *file);
 int             process_in(char *file);

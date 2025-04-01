@@ -6,7 +6,7 @@
 /*   By: csalazar <csalazar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 08:38:43 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/01 15:35:48 by csalazar         ###   ########.fr       */
+/*   Updated: 2025/04/01 19:11:23 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int	main(int argc, char **argv, char **envp)
 	set_signal();
 	while (1)
 	{
+		g_interactive = 1;
 		line = readline("minishell> ");
 		if (!line)
 		{
@@ -41,6 +42,7 @@ int	main(int argc, char **argv, char **envp)
 		if (line && *line)
 		{
 			add_history(line);
+			g_interactive = 0;
 			token = get_token(line, shell);
 			pipeline(token, shell);
 			free(line);

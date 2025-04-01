@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process_command.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
+/*   By: csalazar <csalazar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 12:20:50 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/03/30 21:43:02 by carlossalaz      ###   ########.fr       */
+/*   Updated: 2025/04/01 19:18:13 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,16 +43,19 @@ static int exec_built_in_alone(t_shell *shell, char **cmdargs, t_token *segment)
 
 int process_command(char **cmdargs, t_shell *shell, t_token *segment, int i)
 {
-	int		pid;
+	pid_t		pid;
 	t_io	*io;
 
 	if (cmd_is_builtin(cmdargs[0]) && shell->pipes->nb_pipes == 0)
 		return (exec_built_in_alone(shell, cmdargs, segment));
+	g_interactive = 0;
 	pid = fork();
 	if (pid < 0)
 		return (perror("fork"), 1);
 	if (pid == 0)
 	{
+		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
 		io = get_io(segment, i);
 		set_pipes(shell, io);
 		if (io->in == -1)
@@ -62,6 +65,12 @@ int process_command(char **cmdargs, t_shell *shell, t_token *segment, int i)
 			return (exec_built_in(shell, cmdargs, STDOUT_FILENO));
 		else
 			exec_bin(shell, cmdargs);
+	}
+	else
+	{
+		shell->launched_procs++;
+		shell->pids[i] = pid;
+		return (0);
 	}
 	return (0);
 }
