@@ -6,7 +6,7 @@
 /*   By: csalazar <csalazar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:28:14 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/03 12:47:11 by csalazar         ###   ########.fr       */
+/*   Updated: 2025/04/03 13:17:58 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,9 @@ void exec_bin(t_shell *minishell, char **cmdargs)
 		ft_putstr_fd("minishell: ", 2);
 		ft_putstr_fd(cmdargs[0], 2);
 		ft_putstr_fd(": command not found\n", 2);
+		free_split(envp);
 		free_shell(minishell);
+		free(cmdargs);
 		exit(127);
 	}
 

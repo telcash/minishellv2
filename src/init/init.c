@@ -6,7 +6,7 @@
 /*   By: csalazar <csalazar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 09:05:29 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/01 16:20:07 by csalazar         ###   ########.fr       */
+/*   Updated: 2025/04/03 13:04:06 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,6 @@ void    init_minishell(t_shell **shell, char **envp)
     (*shell)->com_count = 0;
     (*shell)->last_exit_status = 0;
     (*shell)->launched_procs = 0;
+    (*shell)->token = NULL;
     init_env(*shell, envp);
 }

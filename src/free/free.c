@@ -6,7 +6,7 @@
 /*   By: csalazar <csalazar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 09:24:50 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/03 11:51:05 by csalazar         ###   ########.fr       */
+/*   Updated: 2025/04/03 13:12:57 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,12 @@ void	free_shell(t_shell *shell)
 		free_env(shell->env);
 	if (shell->path)
 		free(shell->path);
+	if (shell->token)
+		free_token(shell->token);
+	if (shell->pipes)
+		free_pipes(shell->pipes);
+	if (shell->pids)
+		free(shell->pids);
 	free(shell);
 }
 

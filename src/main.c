@@ -6,7 +6,7 @@
 /*   By: csalazar <csalazar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 08:38:43 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/03 12:01:14 by csalazar         ###   ########.fr       */
+/*   Updated: 2025/04/03 13:22:23 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ static void	verify_input(int argc, char **argv)
 int	main(int argc, char **argv, char **envp)
 {
 	t_shell	*shell;
-	t_token	**token;
 	char	*line;
 
 	verify_input(argc, argv);
@@ -43,10 +42,10 @@ int	main(int argc, char **argv, char **envp)
 		{
 			add_history(line);
 			g_interactive = 0;
-			token = get_token(line, shell);
-			pipeline(token, shell);
+			shell->token = get_token(line, shell);
 			free(line);
-			free_token(token);
+			pipeline(shell);
+			free_token(shell->token);
 		}
 	}
 	return (free_shell(shell), 0);

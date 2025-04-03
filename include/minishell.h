@@ -67,7 +67,8 @@ typedef struct s_shell
     int         last_exit_status;
     int         *pids;
     int         launched_procs;
-    t_pipe       *pipes;      
+    t_pipe       *pipes;
+    t_token     **token;      
     t_env       **env;
 }               t_shell;
 
@@ -76,7 +77,7 @@ void            ft_error(char *message, int status, t_shell *shell);
 void            free_shell(t_shell *shell);
 void	        free_token(t_token **token);
 t_token	        **get_token(char *line, t_shell *shell);
-int             pipeline(t_token **token, t_shell *shell);
+int             pipeline(t_shell *shell);
 t_pipe          *init_pipes(t_token *token);
 int             process_command(char **cmdargs, t_shell *shell, t_token *segment, int i);
 int             ft_isspace(char c);

@@ -6,7 +6,7 @@
 /*   By: csalazar <csalazar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 12:07:37 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/03 10:45:04 by csalazar         ###   ########.fr       */
+/*   Updated: 2025/04/03 13:09:46 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,17 +52,17 @@ static t_token	*get_next_segment(t_token *segment)
 	return (tmp);
 }
 
-int	pipeline(t_token **token, t_shell *shell)
+int	pipeline(t_shell *shell)
 {
 	t_token	*segment;
 	char	**cmdargs;
 	int		i;
 
 	i = 0;
-	if (!token || !*token)
+	if (!shell->token || !*(shell->token))
 		return (0);
-	segment = *token;
-	shell->pipes = init_pipes(*token);
+	segment = *(shell->token);
+	shell->pipes = init_pipes(*(shell->token));
 	shell->pids = ft_calloc(shell->pipes->nb_pipes + 1, sizeof(int));
 	while (segment)
 	{
