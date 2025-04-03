@@ -6,7 +6,7 @@
 /*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 14:22:53 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/03/29 13:46:36 by carlossalaz      ###   ########.fr       */
+/*   Updated: 2025/04/03 08:42:30 by carlossalaz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	exec_built_in(t_shell *minishell, char **cmdargs, int out)
 	else if (ft_strcmp("cd", cmdargs[0]) == 0)
 		code = ft_cd(minishell, cmdargs);
 	else if (ft_strcmp("echo", cmdargs[0]) == 0)
-		code = ft_echo(cmdargs);
+		code = ft_echo(cmdargs, out);
 	else if (ft_strcmp("exit", cmdargs[0]) == 0)
 		code = ft_exit(minishell, cmdargs);
 	else if(ft_strcmp("env", cmdargs[0]) == 0)

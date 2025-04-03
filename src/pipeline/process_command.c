@@ -6,7 +6,7 @@
 /*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 12:20:50 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/03 08:33:28 by carlossalaz      ###   ########.fr       */
+/*   Updated: 2025/04/03 08:40:22 by carlossalaz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,10 @@ int process_command(char **cmdargs, t_shell *shell, t_token *segment, int i)
 		io = get_io(segment, i);
 		set_pipes(shell, io);
  		if (io->in == -1)
+		{
+			free(io);
 			exit (1);
+		}
 		free(io);
 		if (cmdargs == NULL || cmdargs[0] == NULL)
 			exit (0);
