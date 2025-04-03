@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
+/*   By: csalazar <csalazar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 11:24:45 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/02 23:13:22 by carlossalaz      ###   ########.fr       */
+/*   Updated: 2025/04/03 11:23:07 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static int	tokenize_separator(char *line, int *i, t_token **token, t_shell *shel
 	else if (line[*i] == '<')
 	{
 		if (line[*i + 1] == '<')
-			append_token(token, ft_substr(line, (*i)++, 2), HERE_DOC,shell);
+			append_token(token, ft_substr(line, (*i)++, 2), HERE_DOC, shell);
 		else
 			append_token(token, ft_substr(line, *i, 1), IN, shell);
 	}
@@ -77,38 +77,12 @@ static int	tokenize(char *line, t_token **token, t_shell *shell)
 		}
 		else
 		{
-			if (tokenize_separator(line, &i, token,shell))
+			if (tokenize_separator(line, &i, token, shell))
 				return (1);
 		}
 	}
 	return (0);
 }
-/* static int verify_token(t_token **token)
-{
-	t_token *tmp;
-
-	tmp = *token;
-	if (!tmp || (tmp && tmp->type == PIPE))
-		return (1);
-	while (tmp)
-	{
-		if (tmp->type == IN || tmp->type == OUT || tmp->type == HERE_DOC
-			|| tmp->type == APPEND || tmp->type == PIPE)
-		{
-			if (!tmp->next || tmp->next->type == IN || tmp->next->type == OUT 
-				|| tmp->next->type == APPEND || tmp->next->type == HERE_DOC || tmp->next->type == PIPE)
-				return (1);
-			else if(tmp->next && tmp->type != PIPE)
-			{
-				tmp->data = tmp->next->data;
-				tmp->next = tmp->next->next;
-			}
-		}
-		if (tmp)
-			tmp = tmp->next;
-	}
-	return (0);
-} */
 
 t_token	**get_token(char *line, t_shell *shell)
 {

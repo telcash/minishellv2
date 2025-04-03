@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
+/*   By: csalazar <csalazar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 09:19:39 by csalazar          #+#    #+#             */
-/*   Updated: 2025/03/30 09:08:53 by carlossalaz      ###   ########.fr       */
+/*   Updated: 2025/04/03 09:46:26 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,15 @@ int	ft_isspace(char c)
 {
 	return (c == ' ' || c == '\t' || c == '\n' || c == '\v' || c == '\f'
 		|| c == '\r');
-} 
+}
 
 int	isseparator(char c)
 {
 	return (c == '|' || c == '<' || c == '>');
 }
 
-void	append_token(t_token **token, char *data, t_token_type type, t_shell *shell)
+void	append_token(t_token **token, char *data, t_token_type type,
+		t_shell *shell)
 {
 	t_token	*curr_token;
 	t_token	*last_token;
@@ -58,10 +59,10 @@ void	append_token(t_token **token, char *data, t_token_type type, t_shell *shell
 
 char	*trim_quotes(char *word)
 {
-	char *trimmed;
-	int i;
-	int j;
-	char quote;
+	char	*trimmed;
+	int		i;
+	int		j;
+	char	quote;
 
 	i = 0;
 	j = 0;
@@ -76,7 +77,7 @@ char	*trim_quotes(char *word)
 			quote = word[i];
 			i++;
 		}
-		else 
+		else
 		{
 			trimmed[j] = word[i];
 			i++;

@@ -6,7 +6,7 @@
 /*   By: csalazar <csalazar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 09:24:50 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/01 19:32:22 by csalazar         ###   ########.fr       */
+/*   Updated: 2025/04/03 11:51:05 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,13 @@ void	free_token(t_token **token)
 {
 	t_token	*tmp;
 
-	if (!token || !*token)
+	if (!token)
 		return ;
+	if (!*token)
+	{
+		free (token);
+		return ;
+	}
 	while (*token)
 	{
 		if ((*token)->data)

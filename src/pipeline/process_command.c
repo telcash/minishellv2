@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process_command.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
+/*   By: csalazar <csalazar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 12:20:50 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/03 08:40:22 by carlossalaz      ###   ########.fr       */
+/*   Updated: 2025/04/03 10:45:11 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

@@ -111,5 +111,6 @@ char            *expand_variable(char *data, t_shell *shell);
 void            set_signal(void);
 char            *get_env_var_value(t_shell *shell, char *name);
 int             verify_token(t_token **token);
+void			test_print_tokens(t_token **token);
 
 #endif
