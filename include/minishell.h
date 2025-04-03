@@ -110,5 +110,6 @@ t_env           *find_env_var_by_name(t_shell *shell, char *name);
 char            *expand_variable(char *data, t_shell *shell);
 void            set_signal(void);
 char            *get_env_var_value(t_shell *shell, char *name);
+int             verify_token(t_token **token);
 
 #endif

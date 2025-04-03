@@ -6,7 +6,7 @@
 /*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 11:24:45 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/03/30 08:32:01 by carlossalaz      ###   ########.fr       */
+/*   Updated: 2025/04/02 23:13:22 by carlossalaz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ static int	tokenize(char *line, t_token **token, t_shell *shell)
 	}
 	return (0);
 }
-static int verify_token(t_token **token)
+/* static int verify_token(t_token **token)
 {
 	t_token *tmp;
 
@@ -108,7 +108,7 @@ static int verify_token(t_token **token)
 			tmp = tmp->next;
 	}
 	return (0);
-}
+} */
 
 t_token	**get_token(char *line, t_shell *shell)
 {
