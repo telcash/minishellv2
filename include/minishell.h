@@ -27,6 +27,33 @@
 # ifndef SIGQUIT_ERR
 #  define SIGQUIT_ERR "ERROR registering SIGQUIT handler"
 # endif
+# ifndef PATH_UPDATE_ERR
+#  define PATH_UPDATE_ERR "Error updating the path"
+# endif
+# ifndef DIR_ACCESS_ERR
+#  define DIR_ACCESS_ERR "Error accessing directory"
+# endif
+# ifndef NO_FILE_ERR
+#  define NO_FILE_ERR "Error: no such file or directory"
+# endif
+# ifndef CD_TOO_MANY_ARGS_ERR
+#  define CD_TOO_MANY_ARGS_ERR "minishell: cd: too many arguments"
+# endif
+# ifndef CD_NO_HOME_ERR
+#  define CD_NO_HOME_ERR "minishell: cd: HOME not set"
+# endif
+# ifndef NO_PATH_ERR
+#  define NO_PATH_ERR "Error getting the path"
+# endif
+# ifndef UN_TOKEN_NL_ERR
+#  define UN_TOKEN_NL_ERR "minishell: syntax error near unexpected token `newline'"
+# endif
+# ifndef UN_TOKEN_PIPE_ERR
+#  define UN_TOKEN_PIPE_ERR "minishell: syntax error near unexpected token `|'"
+# endif
+# ifndef UN_TOKEN_2PIPE_ERR
+#  define UN_TOKEN_2PIPE_ERR "minishell: syntax error near unexpected token `||'"
+# endif
 
 extern int			g_interactive;
 
@@ -112,7 +139,6 @@ void				free_split(char **split);
 void				exec_bin(t_shell *minishell, char **cmdargs);
 void				close_pipes(t_pipe *pipes);
 void				free_pipes(t_pipe *pipes);
-void				wait_all_childs(t_shell *shell);
 int					process_out(char *file);
 int					process_append(char *file);
 int					process_in(char *file);
@@ -124,6 +150,7 @@ char				*expand_variable(char *data, t_shell *shell);
 void				set_signal(void);
 char				*get_env_value(t_shell *shell, char *name);
 int					verify_token(t_token **token);
-void				test_print_tokens(t_token **token);
+char 				*ft_strjoin3(char *s1, char *s2, char *s3);
+int					len_2d_array(char **arr);
 
 #endif

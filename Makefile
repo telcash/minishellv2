@@ -25,6 +25,7 @@ SRCS = $(SRC_DIR)/main.c \
 	   $(addprefix $(SRC_DIR)/bins/, exec.c) \
 	   $(addprefix $(SRC_DIR)/redirections/, process.c out.c append.c in.c here_doc.c) \
 	   $(addprefix $(SRC_DIR)/signals/, signals.c) \
+	   $(addprefix $(SRC_DIR)/utils/, utils.c) \
 
 OBJS = $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 

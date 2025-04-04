@@ -3,27 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csalazar <csalazar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 09:24:50 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/04 10:06:45 by csalazar         ###   ########.fr       */
+/*   Updated: 2025/04/04 14:31:23 by carlossalaz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-void	close_pipes(t_pipe *pipes)
-{
-	int	i;
-
-	i = 0;
-	while (i < pipes->nb_pipes)
-	{
-		close(pipes->pipes[i][0]);
-		close(pipes->pipes[i][1]);
-		i++;
-	}
-}
 
 static void	free_env(t_env **env)
 {
@@ -108,31 +95,4 @@ void	free_pipes(t_pipe *pipes)
 	}
 	free(pipes->pipes);
 	free(pipes);
-}
-
-void	wait_all_childs(t_shell *shell)
-{
-	pid_t pid;
-	int status;
-	int i;
-	int sig;
-
-	i = 0;
-	while (i < shell->launched_procs)
-	{
-		pid = wait(&status);
-		if (pid == shell->pids[shell->launched_procs - 1])
-		{
-			if ((status & 0x7F) == 0)
-				shell->last_exit_status = (status >> 8) & 0xFF;
-			else
-			{
-				sig = status & 0x7F;
-				shell->last_exit_status = 128 + (status & 0x7F);
-				if (sig == 3)
-					ft_putendl_fd("Quit (core dumped)", 2);
-			}
-		}
-		i++;
-	}
 }

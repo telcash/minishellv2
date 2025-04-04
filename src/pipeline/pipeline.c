@@ -6,11 +6,38 @@
 /*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 12:07:37 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/04 12:38:54 by carlossalaz      ###   ########.fr       */
+/*   Updated: 2025/04/04 14:33:43 by carlossalaz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+static void	wait_all_childs(t_shell *shell)
+{
+	pid_t pid;
+	int status;
+	int i;
+	int sig;
+
+	i = 0;
+	while (i < shell->launched_procs)
+	{
+		pid = wait(&status);
+		if (pid == shell->pids[shell->launched_procs - 1])
+		{
+			if ((status & 0x7F) == 0)
+				shell->last_exit_status = (status >> 8) & 0xFF;
+			else
+			{
+				sig = status & 0x7F;
+				shell->last_exit_status = 128 + (status & 0x7F);
+				if (sig == 3)
+					ft_putendl_fd("Quit (core dumped)", 2);
+			}
+		}
+		i++;
+	}
+}
 
 static char	**get_cmdargs(t_token *token)
 {

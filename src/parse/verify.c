@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   verify.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csalazar <csalazar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 22:39:16 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/04 11:48:04 by csalazar         ###   ########.fr       */
+/*   Updated: 2025/04/04 14:18:40 by carlossalaz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,13 @@ static int	verify_next_token_to_redirection(t_token *token)
 {
 	if (!token->next)
 	{
-		ft_putstr_fd("minishell: syntax error near unexpected token `newline'\n",
-						2);
+		ft_error(UN_TOKEN_NL_ERR);
 		return (1);
 	}
 	if (is_redirection(token->next) || token->next->type == PIPE)
 	{
-		ft_putstr_fd("minishell: syntax error near unexpected token `", 2);
-		ft_putchar_fd(token->next->data[0], 2);
-		ft_putstr_fd("'\n", 2);
+		ft_error_concat(3, "minishell: syntax error near unexpected token `",
+			token->next->data[0], "'");
 		return (1);
 	}
 	return (0);
@@ -40,13 +38,12 @@ static int	verify_next_token_to_pipe(t_token *token)
 {
 	if (!token->next)
 	{
-		ft_putstr_fd("minishell: syntax error near unexpected token `newline'\n",
-						2);
+		ft_error(UN_TOKEN_NL_ERR);
 		return (1);
 	}
 	if (token->next->type == PIPE)
 	{
-		ft_putstr_fd("minishell: syntax error near unexpected token `||'\n", 2);
+		ft_error(UN_TOKEN_2PIPE_ERR);
 		return (1);
 	}
 	return (0);
@@ -72,7 +69,7 @@ int	verify_token(t_token **token)
 		return (1);
 	if (tmp->type == PIPE && !tmp->next)
 	{
-		ft_putstr_fd("minishell: syntax error near unexpected token `|'\n", 2);
+		ft_error(UN_TOKEN_PIPE_ERR);
 		return (1);
 	}
 	while (tmp)

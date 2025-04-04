@@ -6,21 +6,11 @@
 /*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 14:16:33 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/03 08:41:05 by carlossalaz      ###   ########.fr       */
+/*   Updated: 2025/04/04 14:46:46 by carlossalaz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-static void print_exit_error(char *cmd)
-{
-	char *temp;
-
-	temp = ft_strjoin("minishell: exit: ", cmd);
-	ft_putstr_fd(temp, 2);
-	free (temp);
-	ft_putendl_fd(": numeric argument required", 2);
-}
 
 static int	is_numeric(char *str)
 {
@@ -44,12 +34,12 @@ static int ft_exit_pipes(char **cmdargs)
 {
 	if (cmdargs[1] && !is_numeric(cmdargs[1]))
 	{
-		print_exit_error(cmdargs[1]);
+		ft_error_concat(4,"exit\n", "minishell: exit: ", cmdargs[1],
+			": numeric argument required");
 		return (2);
 	}
 	if (cmdargs[1] && cmdargs[2])
-		ft_putendl_fd("minishell: exit: too many arguments",
-				STDERR_FILENO);
+		ft_error("minishell: exit: too many arguments");
 	return (0);
 }
 
@@ -59,14 +49,13 @@ static void ft_exit_no_pipes(t_shell *minishell, char **cmdargs)
 	
 	if (cmdargs[1] && !is_numeric(cmdargs[1]))
 	{
-		ft_putendl_fd("exit", 2);
-		print_exit_error(cmdargs[1]);
+		ft_error_concat(4,"exit\n", "minishell: exit: ", cmdargs[1],
+				": numeric argument required");
 		exit(2);
 	}
 	if (cmdargs[1] && cmdargs[2])
 	{
-		ft_putendl_fd("exit\nminishell: exit: too many arguments",
-				STDERR_FILENO);
+		ft_error("exit\nminishell: exit: too many arguments");
 		return ;
 	}
 	if (cmdargs[1])
