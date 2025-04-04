@@ -20,7 +20,7 @@ int	ft_export(t_shell *minishell, char **cmdargs)
 	i = 1;
 	if (!cmdargs[i])
 	{
-		ft_env(minishell, 1);
+		print_sorted_env(minishell);
 		return (0);
 	}
 	while (cmdargs[i])

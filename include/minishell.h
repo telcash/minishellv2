@@ -152,5 +152,6 @@ char				*get_env_value(t_shell *shell, char *name);
 int					verify_token(t_token **token);
 char 				*ft_strjoin3(char *s1, char *s2, char *s3);
 int					len_2d_array(char **arr);
+int 				print_sorted_env(t_shell *shell);
 
 #endif
