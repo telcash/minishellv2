@@ -6,7 +6,7 @@
 /*   By: csalazar <csalazar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 22:39:16 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/03 11:56:10 by csalazar         ###   ########.fr       */
+/*   Updated: 2025/04/04 11:48:04 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static void	set_redir_token_data(t_token *token)
 	t_token	*next_token;
 
 	next_token = token->next;
-    free(token->data);
+	free(token->data);
 	token->data = next_token->data;
 	token->next = next_token->next;
 	free(next_token);

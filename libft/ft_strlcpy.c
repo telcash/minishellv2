@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dfernan3 <dfernan3@student.42.fr>          +#+  +:+       +#+        */
+/*   By: csalazar <csalazar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:30:05 by dfernan3          #+#    #+#             */
-/*   Updated: 2024/09/27 17:00:06 by dfernan3         ###   ########.fr       */
+/*   Updated: 2025/04/04 10:24:53 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,3 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 		dst[i] = '\0';
 	return (ft_strlen(src));
 }
-/*
-int main()
-{
-	char dest[5];
-	char src[] = "Hello, World!";
-	size_t i = 5;
-
-	printf("%zu", ft_strlcpy(dest, src, i));
-	printf("%s", dest);
-}
-*/

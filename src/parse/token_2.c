@@ -1,16 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   token_2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: csalazar <csalazar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 09:19:39 by csalazar          #+#    #+#             */
-/*   Updated: 2025/04/03 09:46:26 by csalazar         ###   ########.fr       */
+/*   Updated: 2025/04/04 12:00:36 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+static t_token *get_last_token(t_token *token)
+{
+	if (!token)
+		return (NULL);
+	while (token->next)
+		token = token->next;
+	return (token);
+}
 
 int	ft_isspace(char c)
 {
@@ -23,22 +32,14 @@ int	isseparator(char c)
 	return (c == '|' || c == '<' || c == '>');
 }
 
-void	append_token(t_token **token, char *data, t_token_type type,
-		t_shell *shell)
+void	append_token(char *data, t_token_type type, t_shell *shell)
 {
 	t_token	*curr_token;
 	t_token	*last_token;
 	t_token	*new_token;
 
-	curr_token = *token;
-	if (!curr_token)
-		last_token = NULL;
-	else
-	{
-		while (curr_token->next)
-			curr_token = curr_token->next;
-		last_token = curr_token;
-	}
+	curr_token = *(shell->token);
+	last_token = get_last_token(curr_token);
 	new_token = malloc(sizeof(t_token));
 	if (!new_token)
 		return ;
@@ -52,7 +53,7 @@ void	append_token(t_token **token, char *data, t_token_type type,
 	new_token->type = type;
 	new_token->next = NULL;
 	if (!last_token)
-		*token = new_token;
+		*(shell->token) = new_token;
 	else
 		last_token->next = new_token;
 }
@@ -73,16 +74,9 @@ char	*trim_quotes(char *word)
 	while (word[i])
 	{
 		if ((word[i] == '\'' || word[i] == '"') && (!quote || quote == word[i]))
-		{
-			quote = word[i];
-			i++;
-		}
+			quote = word[i++];
 		else
-		{
-			trimmed[j] = word[i];
-			i++;
-			j++;
-		}
+			trimmed[j++] = word[i++];
 	}
 	return (trimmed);
 }

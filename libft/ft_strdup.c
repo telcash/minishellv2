@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dfernan3 <dfernan3@student.42.fr>          +#+  +:+       +#+        */
+/*   By: csalazar <csalazar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 09:55:04 by dfernan3          #+#    #+#             */
-/*   Updated: 2024/09/27 17:37:09 by dfernan3         ###   ########.fr       */
+/*   Updated: 2025/04/04 10:25:09 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,3 @@ char	*ft_strdup(const char *s)
 	ft_strlcpy(buffer, s, ft_strlen(s) + 1);
 	return (buffer);
 }
-/*
-int main()
-{
-	char s[] = "viva";
-	char *result = ft_strdup(s);
-
-	printf("%s", result);
-}
-*/

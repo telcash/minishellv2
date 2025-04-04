@@ -6,13 +6,13 @@
 /*   By: csalazar <csalazar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 11:24:45 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/03 11:23:07 by csalazar         ###   ########.fr       */
+/*   Updated: 2025/04/04 11:48:28 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static int	tokenize_word(char *line, int *i, t_token **token, t_shell *shell)
+static int	tokenize_word(char *line, int *i, t_shell *shell)
 {
 	char	quote;
 	int		start;
@@ -32,28 +32,28 @@ static int	tokenize_word(char *line, int *i, t_token **token, t_shell *shell)
 	if (quote)
 		return (1);
 	word = ft_substr(line, start, *i - start);
-	append_token(token, trim_quotes(word), WORD, shell);
+	append_token(trim_quotes(word), WORD, shell);
 	free(word);
 	return (0);
 }
 
-static int	tokenize_separator(char *line, int *i, t_token **token, t_shell *shell)
+static int	tokenize_separator(char *line, int *i, t_shell *shell)
 {
 	if (line[*i] == '|')
-		append_token(token, ft_substr(line, *i, 1), PIPE, shell);
+		append_token(ft_substr(line, *i, 1), PIPE, shell);
 	else if (line[*i] == '<')
 	{
 		if (line[*i + 1] == '<')
-			append_token(token, ft_substr(line, (*i)++, 2), HERE_DOC, shell);
+			append_token(ft_substr(line, (*i)++, 2), HERE_DOC, shell);
 		else
-			append_token(token, ft_substr(line, *i, 1), IN, shell);
+			append_token(ft_substr(line, *i, 1), IN, shell);
 	}
 	else if (line[*i] == '>')
 	{
 		if (line[*i + 1] == '>')
-			append_token(token, ft_substr(line, (*i)++, 2), APPEND, shell);
+			append_token(ft_substr(line, (*i)++, 2), APPEND, shell);
 		else
-			append_token(token, ft_substr(line, *i, 1), OUT, shell);
+			append_token(ft_substr(line, *i, 1), OUT, shell);
 	}
 	else
 		return (1);
@@ -61,7 +61,7 @@ static int	tokenize_separator(char *line, int *i, t_token **token, t_shell *shel
 	return (0);
 }
 
-static int	tokenize(char *line, t_token **token, t_shell *shell)
+static int	tokenize(char *line, t_shell *shell)
 {
 	int	i;
 
@@ -72,29 +72,26 @@ static int	tokenize(char *line, t_token **token, t_shell *shell)
 			i++;
 		else if (!isseparator(line[i]))
 		{
-			if (tokenize_word(line, &i, token, shell))
+			if (tokenize_word(line, &i, shell))
 				return (1);
 		}
 		else
 		{
-			if (tokenize_separator(line, &i, token, shell))
+			if (tokenize_separator(line, &i, shell))
 				return (1);
 		}
 	}
 	return (0);
 }
 
-t_token	**get_token(char *line, t_shell *shell)
+void	get_token(char *line, t_shell *shell)
 {
-	t_token	**token;
-
-	token = (t_token **)malloc(sizeof(t_token *));
-	if (!token)
-		return (NULL);
-	*token = NULL;
-	if (tokenize(line, token, shell))
-		return (NULL);
- 	if (verify_token(token))
-		return (NULL);
-	return (token);
+	shell->token = (t_token **)malloc(sizeof(t_token *));
+	if (!shell->token)
+		shell->token = NULL;
+	*(shell->token) = NULL;
+	if (tokenize(line, shell))
+		shell->token = NULL;
+	if (verify_token(shell->token))
+		shell->token = NULL;
 }

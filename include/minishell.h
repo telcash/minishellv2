@@ -21,6 +21,12 @@
 # ifndef MALLOC_ERR
 #  define MALLOC_ERR "Error: malloc failed"
 # endif
+# ifndef SIGINT_ERR
+#  define SIGINT_ERR "ERROR registering SIGINT handler"
+# endif
+# ifndef SIGQUIT_ERR
+#  define SIGQUIT_ERR "ERROR registering SIGQUIT handler"
+# endif
 
 extern int			g_interactive;
 
@@ -76,16 +82,18 @@ typedef struct s_shell
 
 void				init_minishell(t_shell **shell, char **envp);
 void				ft_exit_error(char *message, int status, t_shell *shell);
+void				ft_error(char *message);
+void				ft_error_concat(int count, ...);
 void				free_shell(t_shell *shell);
 void				free_token(t_token **token);
-t_token				**get_token(char *line, t_shell *shell);
+void				get_token(char *line, t_shell *shell);
 int					pipeline(t_shell *shell);
 t_pipe				*init_pipes(t_token *token);
 int					process_command(char **cmdargs, t_shell *shell,
 						t_token *segment, int i);
 int					ft_isspace(char c);
 int					isseparator(char c);
-void				append_token(t_token **token, char *data, t_token_type type,
+void				append_token(char *data, t_token_type type,
 						t_shell *shell);
 char				*trim_quotes(char *word);
 int					cmd_is_builtin(char *com);
