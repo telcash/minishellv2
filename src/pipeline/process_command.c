@@ -6,7 +6,7 @@
 /*   By: csalazar <csalazar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 12:20:50 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/03 10:45:11 by csalazar         ###   ########.fr       */
+/*   Updated: 2025/04/04 09:41:33 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static t_io *get_io(t_token *segment, int com_count)
 
     io = ft_calloc(1, sizeof(t_io));
     if (!io)
-        ft_error(MALLOC_ERR_MSG, 1, NULL);
+        ft_exit_error(MALLOC_ERR, 1, NULL);
     io->in = process_input_redirections(segment);
 	if (io->in == -1)
 		io->out = STDOUT_FILENO;

@@ -6,7 +6,7 @@
 /*   By: csalazar <csalazar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 13:41:58 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/01 20:05:46 by csalazar         ###   ########.fr       */
+/*   Updated: 2025/04/04 09:52:23 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,50 +50,55 @@ static int	update_path(t_shell *minishell)
 		return (ft_putendl_fd("Error updating the path", 2), 1);
 	return (0);
 }
-static int	ft_cd_no_pipes2(t_shell *minishell, char **cmdargs)
+static int	ft_cd_no_pipes2(t_shell *shell, char **cmdargs)
 {
 	if (ft_strcmp(cmdargs[1], "-") == 0)
 	{
-		if (chdir(minishell->oldpath) != 0)
+		if (chdir(shell->oldpath) != 0)
 			return (ft_putendl_fd("Error accessing directory", 2), 1);
 		else
-			return (update_path(minishell));
+			return (update_path(shell));
 	}
 	else
 	{
 		if (chdir(cmdargs[1]) != 0)
-			return (ft_putendl_fd("minishell: cd: No such file or directory", 2), 1);
+			return (ft_putendl_fd("minishell: cd: No such file or directory",
+									2),
+					1);
 		else
-			return (update_path(minishell));
+			return (update_path(shell));
 	}
 }
 
-static int ft_cd_no_pipes(t_shell * minishell, char **cmdargs)
+static int	ft_cd_no_pipes(t_shell *shell, char **cmdargs)
 {
+	char	*home;
+
 	if (len_2d_array(cmdargs) > 2)
 		return (ft_putendl_fd("minishell: cd: too many arguments", 2), 1);
 	if (!cmdargs[1])
 	{
-		if (!minishell->home || chdir(minishell->home) != 0)
+		home = get_env_value(shell, "HOME");
+		if (!home || chdir(home) != 0)
 			return (ft_putendl_fd("minishell: cd: HOME not set", 2), 1);
 		else
-			return (update_path(minishell));
+			return (update_path(shell));
 	}
 	else if (ft_strcmp(cmdargs[1], "..") == 0)
 	{
 		if (chdir("..") != 0)
 			return (ft_putendl_fd("Error accessing directory", 2), 1);
 		else
-			return (update_path(minishell));
+			return (update_path(shell));
 	}
 	else
-		return(ft_cd_no_pipes2(minishell, cmdargs));
+		return (ft_cd_no_pipes2(shell, cmdargs));
 }
 
-	int ft_cd(t_shell * minishell, char **cmdargs)
-	{
-		if (minishell->pipes->nb_pipes > 0)
-			return (0);
-		else
-			return (ft_cd_no_pipes(minishell, cmdargs));
-	}
+int	ft_cd(t_shell *shell, char **cmdargs)
+{
+	if (shell->pipes->nb_pipes > 0)
+		return (0);
+	else
+		return (ft_cd_no_pipes(shell, cmdargs));
+}

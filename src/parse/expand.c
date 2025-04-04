@@ -6,7 +6,7 @@
 /*   By: csalazar <csalazar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 19:42:10 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/03 10:21:51 by csalazar         ###   ########.fr       */
+/*   Updated: 2025/04/04 09:48:31 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static char	*append_env_var_value(char *expanded_data, char *data, int *i,
 		end++;
 	tmp = ft_substr(data, *i + 1, end - *i - 1);
 	new_expanded_data = append_to_expanded_data(expanded_data,
-			get_env_var_value(shell, tmp));
+			get_env_value(shell, tmp));
 	free(tmp);
 	*i = end;
 	return (new_expanded_data);

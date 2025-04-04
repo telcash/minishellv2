@@ -6,7 +6,7 @@
 /*   By: csalazar <csalazar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 12:07:37 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/03 13:09:46 by csalazar         ###   ########.fr       */
+/*   Updated: 2025/04/04 09:41:21 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	pipeline(t_shell *shell)
 	{
 		cmdargs = get_cmdargs(segment);
 		if (!cmdargs)
-			ft_error(MALLOC_ERR_MSG, 1, shell);
+			ft_exit_error(MALLOC_ERR, 1, shell);
 		process_command(cmdargs, shell, segment, i++);
 		free(cmdargs);
 		segment = get_next_segment(segment);
