@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipeline.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csalazar <csalazar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 12:07:37 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/04 09:41:21 by csalazar         ###   ########.fr       */
+/*   Updated: 2025/04/04 12:38:54 by carlossalaz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,18 +52,12 @@ static t_token	*get_next_segment(t_token *segment)
 	return (tmp);
 }
 
-int	pipeline(t_shell *shell)
+static void process_tokens(t_token *segment, t_shell *shell)
 {
-	t_token	*segment;
-	char	**cmdargs;
-	int		i;
+	int i;
+	char **cmdargs;
 
 	i = 0;
-	if (!shell->token || !*(shell->token))
-		return (0);
-	segment = *(shell->token);
-	shell->pipes = init_pipes(*(shell->token));
-	shell->pids = ft_calloc(shell->pipes->nb_pipes + 1, sizeof(int));
 	while (segment)
 	{
 		cmdargs = get_cmdargs(segment);
@@ -73,6 +67,15 @@ int	pipeline(t_shell *shell)
 		free(cmdargs);
 		segment = get_next_segment(segment);
 	}
+}
+
+int	pipeline(t_shell *shell)
+{
+	if (!shell->token || !*(shell->token))
+		return (0);
+	shell->pipes = init_pipes(*(shell->token));
+	shell->pids = ft_calloc(shell->pipes->nb_pipes + 1, sizeof(int));
+	process_tokens(*(shell->token), shell);
 	close_pipes(shell->pipes);
 	free_pipes(shell->pipes);
 	wait_all_childs(shell);
