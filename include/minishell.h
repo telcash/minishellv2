@@ -15,8 +15,11 @@
 # include <sys/wait.h>
 # include <unistd.h>
 
-# ifndef MALLOC_ERR_MSG
-#  define MALLOC_ERR_MSG "Error: malloc failed"
+# ifndef INV_ARG_ERR
+#  define INV_ARG_ERR "Error: invalid input"
+# endif
+# ifndef MALLOC_ERR
+#  define MALLOC_ERR "Error: malloc failed"
 # endif
 
 extern int g_interactive;

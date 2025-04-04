@@ -6,7 +6,7 @@
 /*   By: csalazar <csalazar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 08:38:43 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/03 13:22:23 by csalazar         ###   ########.fr       */
+/*   Updated: 2025/04/04 09:27:35 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,17 @@ static void	verify_input(int argc, char **argv)
 	if (argc && argv)
 		return ;
 	else
-		ft_putstr_fd("Error: invalid input\n", 2);
-	exit(1);
+		ft_exit_error(INV_ARG_ERR, 1, NULL);
+}
+
+static void	process_line(char *line, t_shell *shell)
+{
+	add_history(line);
+	g_interactive = 0;
+	shell->token = get_token(line, shell);
+	free(line);
+	pipeline(shell);
+	free_token(shell->token);
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -39,14 +48,7 @@ int	main(int argc, char **argv, char **envp)
 			exit(0);
 		}
 		if (line && *line)
-		{
-			add_history(line);
-			g_interactive = 0;
-			shell->token = get_token(line, shell);
-			free(line);
-			pipeline(shell);
-			free_token(shell->token);
-		}
+			process_line(line, shell);
 	}
 	return (free_shell(shell), 0);
 }
