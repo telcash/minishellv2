@@ -22,7 +22,7 @@ OBJS = $(SRCS:.c=.o)
 all: $(NAME)
 
 $(NAME): $(OBJS)
-		$(LIB) $(NAME) $(OBJS)
+		@$(LIB) $(NAME) $(OBJS)
 		@echo "$(NAME): $(GREEN)$(NAME) was compiled.$(RESET)"
 
 %.o: %.c
@@ -36,6 +36,5 @@ fclean: clean
 		@echo "$(NAME): $(GREEN)$(NAME) is clean.$(RESET)"
 
 re: fclean $(NAME)
-
 
 .PHONY: all clean fclean re 

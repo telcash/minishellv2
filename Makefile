@@ -42,7 +42,7 @@ $(LIBFT):
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
 		@echo
@@ -57,6 +57,5 @@ fclean: clean
 		@echo "$(NAME): $(GREEN)$(NAME) is clean.$(RESET)"
 
 re:		fclean all
-		@echo
 
 .PHONY: all clean fclean re
