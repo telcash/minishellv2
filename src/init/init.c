@@ -6,7 +6,7 @@
 /*   By: csalazar <csalazar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 09:05:29 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/04 10:19:28 by csalazar         ###   ########.fr       */
+/*   Updated: 2025/04/04 11:13:28 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	init_env(t_shell *shell, char **envp)
 	}
 	shell->env = malloc(sizeof(t_env *));
 	if (!shell->env)
-		ft_exit_error(MALLOC_ERR, 1, shell);
+		ft_exit_error(MALLOC_ERR, EXIT_FAILURE, shell);
 	i = 0;
 	(*shell->env) = NULL;
 	while (envp[i])
@@ -34,7 +34,7 @@ void	init_minishell(t_shell **shell, char **envp)
 {
 	*shell = malloc(sizeof(t_shell));
 	if (!*shell)
-		ft_exit_error(MALLOC_ERR, 1, NULL);
+		ft_exit_error(MALLOC_ERR, EXIT_FAILURE, NULL);
 	(*shell)->path = getcwd(NULL, 0);
 	(*shell)->oldpath = NULL;
 	(*shell)->pipes = NULL;

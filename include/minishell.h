@@ -21,6 +21,12 @@
 # ifndef MALLOC_ERR
 #  define MALLOC_ERR "Error: malloc failed"
 # endif
+# ifndef SIGINT_ERR
+#  define SIGINT_ERR "ERROR registering SIGINT handler"
+# endif
+# ifndef SIGQUIT_ERR
+#  define SIGQUIT_ERR "ERROR registering SIGQUIT handler"
+# endif
 
 extern int			g_interactive;
 
@@ -77,6 +83,7 @@ typedef struct s_shell
 void				init_minishell(t_shell **shell, char **envp);
 void				ft_exit_error(char *message, int status, t_shell *shell);
 void				ft_error(char *message);
+void				ft_error_concat(int count, ...);
 void				free_shell(t_shell *shell);
 void				free_token(t_token **token);
 t_token				**get_token(char *line, t_shell *shell);

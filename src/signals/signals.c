@@ -6,13 +6,13 @@
 /*   By: csalazar <csalazar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 09:53:39 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/01 19:32:22 by csalazar         ###   ########.fr       */
+/*   Updated: 2025/04/04 11:20:12 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int g_interactive = 1;
+int		g_interactive = 1;
 
 void	handle_signal(int sig)
 {
@@ -32,20 +32,14 @@ void	handle_signal(int sig)
 
 void	set_signal(void)
 {
-	struct sigaction sa_int;
+	struct sigaction sa;
 
-	sa_int.sa_handler = handle_signal;
-	sigemptyset(&sa_int.sa_mask);
-	sa_int.sa_flags = SA_RESTART;
-	if (sigaction(SIGINT, &sa_int, NULL) == -1)
-	{
-		perror("ERROR registering SIGINT handler");
-		exit(EXIT_FAILURE);
-	}
-	sa_int.sa_handler = SIG_IGN;
-	if (sigaction(SIGQUIT, &sa_int, NULL) == -1)
-	{
-		perror("ERROR registering SIGQUIT handler");
-		exit(EXIT_FAILURE);
-	}
+	sa.sa_handler = handle_signal;
+	sigemptyset(&sa.sa_mask);
+	sa.sa_flags = SA_RESTART;
+	if (sigaction(SIGINT, &sa, NULL) == -1)
+		ft_exit_error(SIGINT_ERR, EXIT_FAILURE, NULL);
+	sa.sa_handler = SIG_IGN;
+	if (sigaction(SIGQUIT, &sa, NULL) == -1)
+		ft_exit_error(SIGQUIT_ERR, EXIT_FAILURE, NULL);
 }
