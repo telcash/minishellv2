@@ -6,7 +6,7 @@
 /*   By: csalazar <csalazar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 17:24:16 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/04 09:46:27 by csalazar         ###   ########.fr       */
+/*   Updated: 2025/04/04 10:41:31 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static t_env	*append_env_var(t_shell *shell)
 
 	new = malloc(sizeof(t_env));
 	if (!new)
-		ft_exit_error(MALLOC_ERR, 1, shell);
+		return (NULL);
 	if (!*(shell->env))
 	{
 		*(shell->env) = new;
@@ -48,6 +48,8 @@ t_env	*find_env_var_by_name(t_shell *shell, char *name)
 {
 	t_env	*tmp;
 
+	if (!name)
+		return (NULL);
 	tmp = *(shell->env);
 	while (tmp && tmp->name)
 	{
@@ -90,10 +92,12 @@ int	upsert_env(t_shell *shell, char *envp)
 	name = ft_substr(envp, 0, equal_sign - envp);
 	value = ft_strdup(equal_sign + 1);
 	if (!name || !value)
-		ft_exit_error(MALLOC_ERR, 1, shell);
+		return (ft_error(MALLOC_ERR), 0);
 	upsert = find_env_var_by_name(shell, name);
 	if (!upsert)
 		upsert = append_env_var(shell);
+	if (!upsert)
+		return (ft_error(MALLOC_ERR), 0);
 	upsert->name = name;
 	upsert->value = value;
 	return (1);
