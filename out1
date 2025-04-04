@@ -1,0 +1,9 @@
+total 1400
+drwxr-xr-x  2 csalazar 2024_madrid      25 Apr  4 10:09 include
+drwxr-xr-x  2 csalazar 2024_madrid    4096 Apr  4 11:48 libft
+-rw-r--r--  1 csalazar 2024_madrid    1592 Apr  4 11:35 Makefile
+-rwxr-xr-x  1 csalazar 2024_madrid 1416024 Apr  4 11:48 minishell
+drwxr-xr-x 11 csalazar 2024_madrid     149 Apr  4 11:48 obj
+-rw-r--r--  1 csalazar 2024_madrid       0 Apr  4 11:49 out1
+-rw-r--r--  1 csalazar 2024_madrid      14 Apr  4 09:10 README.md
+drwxr-xr-x 11 csalazar 2024_madrid     149 Apr  4 09:10 src

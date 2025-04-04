@@ -6,7 +6,7 @@
 /*   By: csalazar <csalazar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 08:38:43 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/04 11:27:00 by csalazar         ###   ########.fr       */
+/*   Updated: 2025/04/04 11:42:32 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	process_line(char *line, t_shell *shell)
 {
 	add_history(line);
 	g_interactive = 0;
-	shell->token = get_token(line, shell);
+	get_token(line, shell);
 	free(line);
 	pipeline(shell);
 	free_token(shell->token);
