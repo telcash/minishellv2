@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process_command.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csalazar <csalazar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 12:20:50 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/04 09:41:33 by csalazar         ###   ########.fr       */
+/*   Updated: 2025/04/04 13:03:44 by carlossalaz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,32 @@ static int exec_built_in_alone(t_shell *shell, char **cmdargs, t_token *segment)
 	return (code);
 }
 
+void process_command_child(char **cmdargs, t_shell *shell, t_token *segment, int i)
+{
+	t_io *io;
+
+	signal(SIGINT, SIG_DFL);
+	signal(SIGQUIT, SIG_DFL);
+	io = get_io(segment, i);
+	set_pipes(shell, io);
+	if (io->in == -1)
+	{
+		free(io);
+		exit (1);
+	}
+	free(io);
+	if (cmdargs == NULL || cmdargs[0] == NULL)
+		exit (0);
+	if (cmd_is_builtin(cmdargs[0]))
+		exec_built_in(shell, cmdargs, STDOUT_FILENO);
+	else
+		exec_bin(shell, cmdargs);
+}
+
 int process_command(char **cmdargs, t_shell *shell, t_token *segment, int i)
 {
 	pid_t		pid;
-	t_io	*io;
+	//t_io	*io;
 
 	if (cmdargs[0] && cmd_is_builtin(cmdargs[0]) && shell->pipes->nb_pipes == 0)
 		return (exec_built_in_alone(shell, cmdargs, segment));
@@ -57,7 +79,8 @@ int process_command(char **cmdargs, t_shell *shell, t_token *segment, int i)
 		return (perror("fork"), 1);
 	if (pid == 0)
 	{
-		signal(SIGINT, SIG_DFL);
+		process_command_child(cmdargs, shell, segment, i);
+/* 		signal(SIGINT, SIG_DFL);
 		signal(SIGQUIT, SIG_DFL);
 		io = get_io(segment, i);
 		set_pipes(shell, io);
@@ -72,7 +95,7 @@ int process_command(char **cmdargs, t_shell *shell, t_token *segment, int i)
 		if (cmd_is_builtin(cmdargs[0]))
 			return (exec_built_in(shell, cmdargs, STDOUT_FILENO));
 		else
-			exec_bin(shell, cmdargs);
+			exec_bin(shell, cmdargs); */
 	}
 	else
 	{
