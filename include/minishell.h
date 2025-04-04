@@ -15,45 +15,19 @@
 # include <sys/wait.h>
 # include <unistd.h>
 
-# ifndef INV_ARG_ERR
 #  define INV_ARG_ERR "Error: invalid input"
-# endif
-# ifndef MALLOC_ERR
 #  define MALLOC_ERR "Error: malloc failed"
-# endif
-# ifndef SIGINT_ERR
 #  define SIGINT_ERR "ERROR registering SIGINT handler"
-# endif
-# ifndef SIGQUIT_ERR
 #  define SIGQUIT_ERR "ERROR registering SIGQUIT handler"
-# endif
-# ifndef PATH_UPDATE_ERR
 #  define PATH_UPDATE_ERR "Error updating the path"
-# endif
-# ifndef DIR_ACCESS_ERR
 #  define DIR_ACCESS_ERR "Error accessing directory"
-# endif
-# ifndef NO_FILE_ERR
 #  define NO_FILE_ERR "Error: no such file or directory"
-# endif
-# ifndef CD_TOO_MANY_ARGS_ERR
 #  define CD_TOO_MANY_ARGS_ERR "minishell: cd: too many arguments"
-# endif
-# ifndef CD_NO_HOME_ERR
 #  define CD_NO_HOME_ERR "minishell: cd: HOME not set"
-# endif
-# ifndef NO_PATH_ERR
 #  define NO_PATH_ERR "Error getting the path"
-# endif
-# ifndef UN_TOKEN_NL_ERR
 #  define UN_TOKEN_NL_ERR "minishell: syntax error near unexpected token `newline'"
-# endif
-# ifndef UN_TOKEN_PIPE_ERR
 #  define UN_TOKEN_PIPE_ERR "minishell: syntax error near unexpected token `|'"
-# endif
-# ifndef UN_TOKEN_2PIPE_ERR
 #  define UN_TOKEN_2PIPE_ERR "minishell: syntax error near unexpected token `||'"
-# endif
 
 extern int			g_interactive;
 
