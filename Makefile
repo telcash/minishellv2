@@ -25,7 +25,7 @@ SRCS = $(SRC_DIR)/main.c \
 	   $(addprefix $(SRC_DIR)/bins/, exec.c) \
 	   $(addprefix $(SRC_DIR)/redirections/, process.c out.c append.c in.c here_doc.c) \
 	   $(addprefix $(SRC_DIR)/signals/, signals.c) \
-	   $(addprefix $(SRC_DIR)/utils/, utils.c) \
+	   $(addprefix $(SRC_DIR)/utils/, utils.c sorted_env.c) \
 
 OBJS = $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
@@ -42,7 +42,7 @@ $(LIBFT):
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
 		@echo
@@ -57,6 +57,5 @@ fclean: clean
 		@echo "$(NAME): $(GREEN)$(NAME) is clean.$(RESET)"
 
 re:		fclean all
-		@echo
 
 .PHONY: all clean fclean re

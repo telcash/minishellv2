@@ -43,7 +43,10 @@ int	main(int argc, char **argv, char **envp)
 		g_interactive = 1;
 		line = readline("minishell> ");
 		if (!line)
-			ft_exit_error("exit", EXIT_SUCCESS, shell);
+		{
+			ft_putendl_fd("exit", STDERR_FILENO);
+			exit(0);
+		}
 		else if (!*line)
 			free(line);
 		else
