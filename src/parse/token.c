@@ -91,7 +91,15 @@ void	get_token(char *line, t_shell *shell)
 		shell->token = NULL;
 	*(shell->token) = NULL;
 	if (tokenize(line, shell))
+	{
+		free_token(shell->token);
 		shell->token = NULL;
+		return ;
+	}
 	if (verify_token(shell->token))
+	{
+		free_token(shell->token);
 		shell->token = NULL;
+		return ;
+	}
 }

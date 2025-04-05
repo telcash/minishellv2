@@ -103,7 +103,7 @@ int					ft_pwd(t_shell *minishell, int out);
 int					ft_exit(t_shell *minishell, char **cmdargs);
 int					ft_cd(t_shell *minishell, char **cmdargs);
 int					ft_echo(char **cmdargs, int out);
-int					ft_env(t_shell *minishell, int out);
+int					ft_env(t_shell *minishell);
 int					ft_export(t_shell *minishell, char **cmdargs);
 int					ft_unset(t_shell *minishell, char **cmdargs);
 int					process_output_redirections(t_token *token);
@@ -127,5 +127,6 @@ int					verify_token(t_token **token);
 char 				*ft_strjoin3(char *s1, char *s2, char *s3);
 int					len_2d_array(char **arr);
 int 				print_sorted_env(t_shell *shell);
+char 				**env_to_array(t_env *env);
 
 #endif

@@ -1,49 +1,46 @@
 #include "../../include/minishell.h"
 
-void sort_env(t_env **env)
-{
-    int ordered;
-    t_env *tmp;
-    t_env *next_node;
-    char *tmp_name;
-    char *tmp_value;
+static void sort_env(char **env) {
+    int count;
+    int i;
+    int j;
+    char *temp;
 
-    if (!env || !*env)
-        return;
-    ordered = 0;
-    while (!ordered)
-    {
-        ordered = 1;
-        tmp = *env;
-        while (tmp && tmp->next)
-        {
-            next_node = tmp->next;
-            if (ft_strcmp(tmp->name, next_node->name) > 0)
+    count = 0;
+    i = 0;
+    j = 0;
+    while (env[count] != NULL)
+        count++;
+    i = 0;
+    while (i < count - 1) {
+        j = 0;
+        while (j < count - i - 1) {
+            if (ft_strcmp(env[j], env[j + 1]) > 0) 
             {
-                tmp_name = tmp->name;
-                tmp_value = tmp->value;
-                tmp->name = next_node->name;
-                tmp->value = next_node->value;
-                next_node->name = tmp_name;
-                next_node->value = tmp_value;
-                ordered = 0;
+                temp = env[j];
+                env[j] = env[j + 1];
+                env[j + 1] = temp;
             }
-            tmp = tmp->next;
+            j++;
         }
+        i++;
     }
 }
 
 int print_sorted_env(t_shell *shell)
 {
-    t_env *env;
+    char **env;
+    int i;
     
-    env = *shell->env;
-    sort_env(&env);
-    while (env)
+    env = env_to_array(*(shell->env));
+    sort_env(env);
+    i = 0;
+    while (env[i])
     {
         printf("declare -x ");
-        printf("%s=%s\n", env->name, env->value);
-        env = env->next;
+        printf("%s\n", env[i]);
+        i++;
     }
+    free_split(env);
     return (0);
 }

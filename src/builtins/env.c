@@ -12,15 +12,13 @@
 
 #include "../../include/minishell.h"
 
-int	ft_env(t_shell *minishell, int option)
+int	ft_env(t_shell *minishell)
 {
 	t_env	*tmp;
 
 	tmp = *(minishell->env);
 	while (tmp)
 	{
-		if (option == 1)
-			printf("declare -x ");
 		printf("%s=%s\n", tmp->name, tmp->value);
 		tmp = tmp->next;
 	}

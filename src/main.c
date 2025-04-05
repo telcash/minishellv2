@@ -47,7 +47,7 @@ int	main(int argc, char **argv, char **envp)
 			ft_putendl_fd("exit", STDERR_FILENO);
 			exit(0);
 		}
-		else if (!*line)
+ 		else if (!*line)
 			free(line);
 		else
 			process_line(line, shell);

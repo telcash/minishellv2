@@ -26,6 +26,49 @@ char *ft_strjoin3(char *s1, char *s2, char *s3)
     return (result);
 }
 
+static void copy_env_to_array(char **env_array, t_env *env)
+{
+	int i;
+
+	i = 0;
+	while (env)
+	{
+		if (env->name)
+		{
+			if (env->value)
+				env_array[i] = ft_strjoin3(env->name, "=", env->value);
+			else
+				env_array[i] = ft_strdup(env->name);
+			i++;
+		}
+		env = env->next;
+	}
+	env_array[i] = NULL;
+}
+
+char **env_to_array(t_env *env)
+{
+	int len;
+	t_env *tmp;
+	char **env_array;
+
+	if (!env)
+		return (NULL);
+	tmp = env;
+	len = 0;
+	while (tmp)
+	{
+		len++;
+		tmp = tmp->next;
+	}
+	env_array = ft_calloc(len + 1, sizeof(char *));
+	if (!env_array)
+		return (NULL);
+	copy_env_to_array(env_array, env);
+	return (env_array);
+}
+
+
 int	len_2d_array(char **arr)
 {
 	int	i;
