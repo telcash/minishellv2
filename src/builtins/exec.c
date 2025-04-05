@@ -33,9 +33,9 @@ int	exec_built_in(t_shell *minishell, char **cmdargs, int out)
 	else if (ft_strcmp("exit", cmdargs[0]) == 0)
 		code = ft_exit(minishell, cmdargs);
 	else if(ft_strcmp("env", cmdargs[0]) == 0)
-		code = ft_env(minishell);
+		code = ft_env(minishell, out);
 	else if(ft_strcmp("export", cmdargs[0]) == 0)
-		code = ft_export(minishell, cmdargs);
+		code = ft_export(minishell, cmdargs, out);
 	else if(ft_strcmp("unset", cmdargs[0]) == 0)
 		code = ft_unset(minishell, cmdargs);
 	if (minishell->pipes->nb_pipes > 0)

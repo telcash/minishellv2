@@ -71,7 +71,7 @@ int process_command(char **cmdargs, t_shell *shell, t_token *segment, int i)
 	pid_t		pid;
 	//t_io	*io;
 
-	if (c  && cmd_is_builtin(cmdargs[0]) && shell->pipes->nb_pipes == 0)
+	if (cmdargs[0] && cmd_is_builtin(cmdargs[0]) && shell->pipes->nb_pipes == 0)
 		return (exec_built_in_alone(shell, cmdargs, segment));
 	g_interactive = 0;
 	pid = fork();

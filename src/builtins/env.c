@@ -12,14 +12,16 @@
 
 #include "../../include/minishell.h"
 
-int	ft_env(t_shell *minishell)
+int	ft_env(t_shell *minishell, int out)
 {
 	t_env	*tmp;
 
 	tmp = *(minishell->env);
 	while (tmp)
 	{
-		printf("%s=%s\n", tmp->name, tmp->value);
+		ft_putstr_fd(tmp->name, out);
+		ft_putstr_fd("=", out);
+		ft_putendl_fd(tmp->value, out);
 		tmp = tmp->next;
 	}
 	return (0);
