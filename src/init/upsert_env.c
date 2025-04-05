@@ -12,7 +12,7 @@
 
 #include "../../include/minishell.h"
 
-static t_env	*append_env_var(t_shell *shell)
+static t_env	*append_env_var(t_shell *shell, char *name, char *value)
 {
 	t_env	*new;
 	t_env	*tmp;
@@ -24,81 +24,64 @@ static t_env	*append_env_var(t_shell *shell)
 	{
 		*(shell->env) = new;
 		new->next = NULL;
-		return (new);
 	}
-	tmp = *(shell->env);
-	while (tmp->next)
-		tmp = tmp->next;
-	tmp->next = new;
-	new->next = NULL;
+	else
+	{
+		tmp = *(shell->env);
+		while (tmp->next)
+			tmp = tmp->next;
+		tmp->next = new;
+		new->next = NULL;
+	}
+	new->name = name;
+	new->value = value;
 	return (new);
 }
 
-char	*get_env_value(t_shell *shell, char *name)
+static t_env *append_or_update(t_shell *shell, char *name, char *value)
 {
-	t_env	*tmp;
+	t_env *upsert;
 
-	tmp = find_env_var_by_name(shell, name);
-	if (!tmp || !tmp->value)
-		return (NULL);
-	return (tmp->value);
-}
-
-t_env	*find_env_var_by_name(t_shell *shell, char *name)
-{
-	t_env	*tmp;
-
-	if (!name)
-		return (NULL);
-	tmp = *(shell->env);
-	while (tmp && tmp->name)
+	upsert = find_env_var_by_name(shell, name);
+	if (upsert)
 	{
-		if (ft_strcmp(tmp->name, name) == 0)
-			return (tmp);
-		tmp = tmp->next;
+		free(name);
+		if (upsert->value)
+			free(upsert->value);
+		upsert->value = value;
 	}
-	return (NULL);
-}
-
-int	is_valid_env_var(char *str)
-{
-	int	i;
-
-	i = 0;
-	if (!str || !(ft_isalpha(str[i]) || str[i] == '_'))
-		return (0);
-	i++;
-	while (str[i] && str[i] != '=')
+	else
+		upsert = append_env_var(shell, name, value);
+	if (!upsert)
 	{
-		if (!(ft_isalnum(str[i]) || str[i] == '_'))
-			return (0);
-		i++;
+		free(name);
+		free(value);
+		return (NULL);
 	}
-	return (1);
+	return (upsert);
 }
 
 int	upsert_env(t_shell *shell, char *envp)
 {
-	t_env	*upsert;
 	char	*name;
 	char	*value;
-	char	*equal_sign;
+	t_env	*upsert;
 
 	if (!envp || !is_valid_env_var(envp))
 		return (-1);
-	equal_sign = ft_strchr(envp, '=');
-	if (!equal_sign)
+	if (!ft_strchr(envp, '='))
 		return (0);
-	name = ft_substr(envp, 0, equal_sign - envp);
-	value = ft_strdup(equal_sign + 1);
-	if (!name || !value)
+	name = ft_substr(envp, 0, ft_strchr(envp, '=') - envp);
+	if (!name)
 		return (ft_error(MALLOC_ERR), 0);
-	upsert = find_env_var_by_name(shell, name);
-	if (!upsert)
-		upsert = append_env_var(shell);
+	value = ft_strdup(ft_strchr(envp, '=') + 1);
+	if (!value)
+	{
+		free(name);
+		return (ft_error(MALLOC_ERR), 0);
+	}
+	upsert = append_or_update(shell, name, value);
 	if (!upsert)
 		return (ft_error(MALLOC_ERR), 0);
-	upsert->name = name;
-	upsert->value = value;
 	return (1);
 }

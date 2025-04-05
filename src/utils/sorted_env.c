@@ -27,7 +27,7 @@ static void sort_env(char **env) {
     }
 }
 
-int print_sorted_env(t_shell *shell)
+int print_sorted_env(t_shell *shell, int out)
 {
     char **env;
     int i;
@@ -37,8 +37,8 @@ int print_sorted_env(t_shell *shell)
     i = 0;
     while (env[i])
     {
-        printf("declare -x ");
-        printf("%s\n", env[i]);
+        ft_putstr_fd("declare -x ", out);
+        ft_putendl_fd(env[i], out);
         i++;
     }
     free_split(env);

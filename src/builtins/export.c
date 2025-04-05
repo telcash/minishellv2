@@ -12,7 +12,7 @@
 
 #include "../../include/minishell.h"
 
-int	ft_export(t_shell *minishell, char **cmdargs)
+int	ft_export(t_shell *minishell, char **cmdargs, int out)
 {
 	int	i;
 	int	upserted;
@@ -20,7 +20,7 @@ int	ft_export(t_shell *minishell, char **cmdargs)
 	i = 1;
 	if (!cmdargs[i])
 	{
-		print_sorted_env(minishell);
+		print_sorted_env(minishell, out);
 		return (0);
 	}
 	while (cmdargs[i])
