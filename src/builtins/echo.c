@@ -16,13 +16,25 @@ int	ft_echo(char **cmdargs, int out)
 {
 	int	i;
 	int	n;
+	int j;
 
 	i = 1;
 	n = 0;
-	if (cmdargs[i] && ft_strcmp(cmdargs[i], "-n") == 0)
+	if (cmdargs[i] && ft_strncmp(cmdargs[i], "-n", 2) == 0)
 	{
-		i++;
+		j = 2;
 		n = 1;
+		while (cmdargs[i][j])
+		{
+			if (cmdargs[i][j] != 'n')
+			{
+				i--;
+				n = 0;
+				break ;
+			}
+			j++;
+		}
+		i++;
 	}
 	while (cmdargs[i])
 	{
