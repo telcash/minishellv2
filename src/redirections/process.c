@@ -1,5 +1,15 @@
 #include "../../include/minishell.h"
 
+static int set_fd(int temp, int fd, int fd_std)
+{
+	if (temp == -1)
+		return (-1);
+	if (fd != fd_std)
+		close(fd);
+	fd = temp;
+	return fd;
+}
+
 int process_input_redirections(t_token *token)
 {
 	int in;
@@ -11,20 +21,16 @@ int process_input_redirections(t_token *token)
 		if (token->type == IN)
 		{
 			tmp = process_in(token->data);
-			if (tmp == -1)
+			in = set_fd(tmp, in, STDIN_FILENO);
+			if (in == -1)
 				return -1;
-			if (in != STDIN_FILENO)
-				close(in);
-			in = tmp;
 		}
 		else if (token->type == HERE_DOC)
 		{
 			tmp = process_here_doc(token->data);
-			if (tmp == -1)
+			in = set_fd(tmp, in, STDIN_FILENO);
+			if (in == -1)
 				return -1;
-			if (in != STDIN_FILENO)
-				close(in);
-			in = tmp;
 		}
 		token = token->next;
 	}
@@ -42,20 +48,16 @@ int process_output_redirections(t_token *token)
 		if (token->type == OUT)
 		{
 			tmp = process_out(token->data);
-			if (tmp == -1)
+			out = set_fd(tmp, out, STDOUT_FILENO);
+			if (out == -1)
 				return -1;
-			if (out != STDOUT_FILENO)
-				close(out);
-			out = tmp;
 		}
 		else if (token->type == APPEND)
 		{
 			tmp = process_append(token->data);
-			if (tmp == -1)
+			out = set_fd(tmp, out, STDOUT_FILENO);
+			if (out == -1)
 				return -1;
-			if (out != STDOUT_FILENO)
-				close(out);
-			out = tmp;
 		}
 		token = token->next;
 	}

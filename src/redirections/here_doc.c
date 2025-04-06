@@ -26,6 +26,5 @@ int process_here_doc(char *delimiter)
 		write(fd[1], "\n", 1);
 		free(line);
 	}
-	close(fd[1]);
-	return fd[0];
+	return (close(fd[1]), fd[0]);
 }

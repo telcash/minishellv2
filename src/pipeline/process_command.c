@@ -1,16 +1,28 @@
 #include "../../include/minishell.h"
 
+static int process_built_in_alone(t_shell *shell, char **cmdargs, t_io *io)
+{
+	int code;
+
+	code = exec_built_in(shell, cmdargs, io->out);
+	free(io);
+	return code;
+}
+
+static int father_process_clean(t_shell *shell, pid_t pid, t_io *io, int i)
+{
+	shell->launched_procs++;
+	shell->pids[i] = pid;
+	free(io);
+	return 0;
+}
+
 int process_command(char **cmdargs, t_shell *shell, int i, t_io *io)
 {
 	pid_t pid;
-	int code;
 
 	if (cmdargs[0] && cmd_is_builtin(cmdargs[0]) && shell->pipes->nb_pipes == 0)
-	{
-		code = exec_built_in(shell, cmdargs, io->out);
-		free(io);
-		return code;
-	}
+		return process_built_in_alone(shell, cmdargs, io);
 	g_interactive = 0;
 	pid = fork();
 	if (pid < 0)
@@ -29,12 +41,7 @@ int process_command(char **cmdargs, t_shell *shell, int i, t_io *io)
 			exec_bin(shell, cmdargs);
 	}
 	else
-	{
-		shell->launched_procs++;
-		shell->pids[i] = pid;
-		free(io);
-		return 0;
-	}
+		return (father_process_clean(shell, pid, io, i));
 	return 0;
 }
 
