@@ -6,34 +6,40 @@
 /*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 13:43:02 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/03 08:44:37 by carlossalaz      ###   ########.fr       */
+/*   Updated: 2025/04/06 16:11:11 by carlossalaz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
+static int check_n(char *str)
+{
+	int i;
+
+	if (str[0] == '-' && str[1] == 'n')
+	{
+		i = 2;
+		while (str[i])
+		{
+			if (str[i] != 'n')
+				return (0);
+			i++;
+		}
+		return (1);
+	}
+	return (0);
+}
+
 int	ft_echo(char **cmdargs, int out)
 {
 	int	i;
 	int	n;
-	int j;
 
 	i = 1;
 	n = 0;
-	if (cmdargs[i] && ft_strncmp(cmdargs[i], "-n", 2) == 0)
+	if (cmdargs[i] && check_n(cmdargs[i]))
 	{
-		j = 2;
 		n = 1;
-		while (cmdargs[i][j])
-		{
-			if (cmdargs[i][j] != 'n')
-			{
-				i--;
-				n = 0;
-				break ;
-			}
-			j++;
-		}
 		i++;
 	}
 	while (cmdargs[i])
