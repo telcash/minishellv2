@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csalazar <csalazar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 09:05:29 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/04 11:13:28 by csalazar         ###   ########.fr       */
+/*   Updated: 2025/04/06 14:11:15 by carlossalaz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ void	init_minishell(t_shell **shell, char **envp)
 	(*shell)->path = getcwd(NULL, 0);
 	(*shell)->oldpath = NULL;
 	(*shell)->pipes = NULL;
-	(*shell)->com_count = 0;
 	(*shell)->last_exit_status = 0;
 	(*shell)->launched_procs = 0;
 	(*shell)->token = NULL;
