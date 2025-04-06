@@ -3,20 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csalazar <csalazar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 11:24:45 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/04 11:48:28 by csalazar         ###   ########.fr       */
+/*   Updated: 2025/04/06 17:26:53 by carlossalaz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
+static char *get_new_token_data(char *line, int start, int *i, t_shell *shell)
+{
+	char *word;
+	char *token_data;
+
+	word = ft_substr(line, start, *i - start);
+	token_data = trim_quotes_and_expand(word, shell);
+	free(word);
+	return (token_data);
+}
+
 static int	tokenize_word(char *line, int *i, t_shell *shell)
 {
 	char	quote;
 	int		start;
-	char	*word;
+	char	*token_data;
 
 	start = *i;
 	quote = '\0';
@@ -31,9 +42,8 @@ static int	tokenize_word(char *line, int *i, t_shell *shell)
 	}
 	if (quote)
 		return (1);
-	word = ft_substr(line, start, *i - start);
-	append_token(trim_quotes(word), WORD, shell);
-	free(word);
+	token_data = get_new_token_data(line, start, i, shell);
+	append_token(token_data, WORD, shell);
 	return (0);
 }
 

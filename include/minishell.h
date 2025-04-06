@@ -103,7 +103,7 @@ int ft_unset(t_shell *shell, char **cmdargs);
 int ft_exit(t_shell *shell, char **cmdargs);
 void get_token(char *line, t_shell *shell);
 void append_token(char *data, t_token_type type, t_shell *shell);
-char *trim_quotes(char *word);
+char *trim_quotes_and_expand(char *word, t_shell *shell);
 int ft_isspace(char c);
 int isseparator(char c);
 int verify_token(t_token **token);
