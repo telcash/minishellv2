@@ -12,25 +12,40 @@
 
 #include "../../include/minishell.h"
 
-static int	update_path(t_shell *minishell)
+static int	update_path(t_shell *shell)
 {
-	if (minishell->oldpath)
-		free(minishell->oldpath);
-	minishell->oldpath = ft_strdup(minishell->path);
-	free(minishell->path);
-	minishell->path = getcwd(NULL, 0);
-	if (!minishell->path)
-		return (ft_error(PATH_UPDATE_ERR), 1);
+	if (shell->oldpath)
+		free(shell->oldpath);
+	shell->oldpath = ft_strdup(shell->path);
+	if (find_env_var_by_name(shell, "OLDPWD"))
+	append_or_update(shell, ft_strdup("OLDPWD"), ft_strdup(shell->path));
+	free(shell->path);
+	shell->path = getcwd(NULL, 0);
+	if (find_env_var_by_name(shell, "PWD"))
+	append_or_update(shell, ft_strdup("PWD"), ft_strdup(shell->path));
 	return (0);
+	//	append_or_update(shell, "OLDPWD", get_env_value(shell, "PWD"));
+	// free(shell->path);
+	// shell->path = getcwd(NULL, 0);
+	// if (!shell->path)
+	// 	return (ft_error(PATH_UPDATE_ERR), 1);
+	// return (0);
 }
+
 static int	ft_cd_no_pipes2(t_shell *shell, char **cmdargs)
 {
 	if (ft_strcmp(cmdargs[1], "-") == 0)
 	{
-		if (chdir(shell->oldpath) != 0)
-			return (ft_error(DIR_ACCESS_ERR), 1);
+		if (find_env_var_by_name(shell, "OLDPWD"))
+		{
+			if (chdir(shell->oldpath) != 0)
+				return (ft_error(DIR_ACCESS_ERR), 1);
+			else
+				return (update_path(shell));
+		}
 		else
-			return (update_path(shell));
+			return(ft_error("minishell: cd: OLDPWD no está establecido"), 1);
+
 	}
 	else
 	{

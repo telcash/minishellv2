@@ -12,7 +12,7 @@
 
 #include "../../include/minishell.h"
 
-void static remove_env_var(t_env **env, char *name)
+static void remove_env_var(t_env **env, char *name)
 {
 	t_env *prev;
 	t_env *curr;

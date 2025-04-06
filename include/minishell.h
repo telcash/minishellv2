@@ -126,5 +126,6 @@ void ft_error_concat(int count, ...);
 void free_shell(t_shell *shell);
 void free_token(t_token **token);
 void free_split(char **split);
+t_env *append_or_update(t_shell *shell, char *name, char *value);
 
 #endif

@@ -12,14 +12,18 @@
 
 #include "../../include/minishell.h"
 
-int	ft_pwd(t_shell *minishell, int out)
+int	ft_pwd(t_shell *shell, int out)
 {
-	if (minishell->path)
-	{
-		ft_putendl_fd(minishell->path, out);
-		return (0);
-	}
-	else
-		ft_error(NO_PATH_ERR);
+	// if (!get_env_value(shell, "PWD"))
+	// 	append_or_update(shell, "PWD", getcwd(NULL, 0));
+	// ft_putendl_fd(pwd, out);
+	// free(pwd);
+// 		return (0);
+// 	if (shell->path)
+// 	{
+	ft_putendl_fd(shell->path, out);
+// 	}
+// 	else
+// 		ft_error(NO_PATH_ERR);
 	return (0);
 }
