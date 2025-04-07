@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csalazar <csalazar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 08:38:43 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/04 11:42:32 by csalazar         ###   ########.fr       */
+/*   Updated: 2025/04/07 15:51:55 by carlossalaz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	main(int argc, char **argv, char **envp)
 	init_minishell(&shell, envp);
 	while (1)
 	{
-		g_interactive = 1;
+		g_interactive = INTERACTIVE;
 		line = readline("minishell> ");
 		if (!line)
 		{

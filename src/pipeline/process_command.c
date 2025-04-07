@@ -23,7 +23,7 @@ int process_command(char **cmdargs, t_shell *shell, int i, t_io *io)
 
 	if (cmdargs[0] && cmd_is_builtin(cmdargs[0]) && shell->pipes->nb_pipes == 0)
 		return process_built_in_alone(shell, cmdargs, io);
-	g_interactive = 0;
+	g_interactive = NON_INTERACTIVE;
 	pid = fork();
 	if (pid < 0)
 		return (perror("fork"), 1);

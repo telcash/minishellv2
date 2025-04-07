@@ -1,13 +1,11 @@
 #include "../../include/minishell.h"
 
-int process_here_doc(char *delimiter)
+
+void static run_here_doc_loop(int write_fd, char *delimiter)
 {
-	int fd[2];
 	char *line;
 	size_t len;
 
-	if (pipe(fd) == -1)
-		return (perror("pipe"), -1);
 	while (1)
 	{
 		write(1, "> ", 2);
@@ -22,9 +20,44 @@ int process_here_doc(char *delimiter)
 			free(line);
 			break;
 		}
-		write(fd[1], line, ft_strlen(line));
-		write(fd[1], "\n", 1);
+		write(write_fd, line, len);
+		write(write_fd, "\n", 1);
 		free(line);
 	}
-	return (close(fd[1]), fd[0]);
+	close(write_fd);
+}
+
+static void run_here_doc(int *fd, char *delimiter)
+{
+	signal(SIGINT, SIG_DFL);
+	close(fd[0]);
+	run_here_doc_loop(fd[1], delimiter);
+	exit(EXIT_SUCCESS);
+}
+
+int process_here_doc(char *delimiter)
+{
+	int fd[2];
+	pid_t pid;
+	int status;
+
+	if (pipe(fd) == -1)
+		return (perror("pipe"), -1);
+	pid = fork();
+	if (pid < 0)
+		return (perror("fork"), -1);
+	if (pid == 0)
+		run_here_doc(fd, delimiter);
+	else
+	{
+		close(fd[1]);
+		waitpid(pid, &status, 0);
+		if (WIFSIGNALED(status))
+		{
+			close(fd[0]);
+			g_interactive = NON_INTERACTIVE;
+			return (-1);
+		}
+		return (fd[0]);
+	}
 }

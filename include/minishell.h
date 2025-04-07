@@ -29,7 +29,14 @@
 # define UN_TOKEN_PIPE_ERR "minishell: syntax error near unexpected token `|'"
 # define UN_TOKEN_2PIPE_ERR "minishell: syntax error near unexpected token `||'"
 
-extern int g_interactive;
+typedef enum e_interactive
+{
+	NON_INTERACTIVE,
+	INTERACTIVE,
+	INT_HERE_DOC
+} t_interactive;
+
+extern t_interactive g_interactive;
 
 typedef enum e_token_type
 {
