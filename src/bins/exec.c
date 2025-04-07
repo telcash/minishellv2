@@ -6,7 +6,7 @@
 /*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:28:14 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/06 22:54:21 by carlossalaz      ###   ########.fr       */
+/*   Updated: 2025/04/07 08:44:58 by carlossalaz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void exec_bin(t_shell *shell, char **cmdargs)
 	char **envp;
 
 	envp = env_to_array(*shell->env);
-	if (ft_strchr(cmdargs[0], '/'))
+	if (ft_strchr(cmdargs[0], '/') || get_env_value(shell, "PATH") == NULL)
 		path = ft_strdup(cmdargs[0]);
 	else
 		path = get_path(cmdargs[0], shell->env);
@@ -77,7 +77,7 @@ void exec_bin(t_shell *shell, char **cmdargs)
 	}
 	if (execve(path, cmdargs, envp) == -1)
 	{
-		ft_error_concat(3, "minishell: ", cmdargs[0], strerror(errno));
+		ft_error_concat(4, "minishell: ", cmdargs[0], ": ", strerror(errno));
 		free(path);
 		free_split(envp);
 		free_shell(shell);
