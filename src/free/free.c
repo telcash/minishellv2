@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
+/*   By: dfernan3 <dfernan3@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 09:24:50 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/04 14:31:23 by carlossalaz      ###   ########.fr       */
+/*   Updated: 2025/04/08 15:52:52 by dfernan3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,10 @@ void	free_shell(t_shell *shell)
 		return ;
 	if (shell->env)
 		free_env(shell->env);
-	if (shell->path)
-		free(shell->path);
-	if (shell->oldpath)
-		free(shell->oldpath);
+	if (shell->pwd)
+		free(shell->pwd);
+	if (shell->oldpwd)
+		free(shell->oldpwd);
 	if (shell->token)
 		free_token(shell->token);
 	if (shell->pipes)

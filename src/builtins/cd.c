@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
+/*   By: dfernan3 <dfernan3@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 13:41:58 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/07 20:43:20 by carlossalaz      ###   ########.fr       */
+/*   Updated: 2025/04/08 16:41:15 by dfernan3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 
 static int	update_path(t_shell *shell)
 {
-	if (shell->oldpath)
-		free(shell->oldpath);
-	shell->oldpath = ft_strdup(shell->path);
+	if (shell->oldpwd)
+		free(shell->oldpwd);
+	shell->oldpwd = ft_strdup(shell->pwd);
 	if (find_env_var_by_name(shell, "OLDPWD"))
-	append_or_update(shell, ft_strdup("OLDPWD"), ft_strdup(shell->path));
-	free(shell->path);
-	shell->path = getcwd(NULL, 0);
+	append_or_update(shell, ft_strdup("OLDPWD"), ft_strdup(shell->pwd));
+	free(shell->pwd);
+	shell->pwd = getcwd(NULL, 0);
 	if (find_env_var_by_name(shell, "PWD"))
-	append_or_update(shell, ft_strdup("PWD"), ft_strdup(shell->path));
+	append_or_update(shell, ft_strdup("PWD"), ft_strdup(shell->pwd));
 	return (0);
 }
 
@@ -32,7 +32,7 @@ static int	ft_cd_no_pipes2(t_shell *shell, char **cmdargs)
 	{
 		if (find_env_var_by_name(shell, "OLDPWD"))
 		{
-			if (chdir(shell->oldpath) != 0)
+			if (chdir(shell->oldpwd) != 0)
 				return (ft_error(DIR_ACCESS_ERR), 1);
 			else
 				return (update_path(shell));
@@ -59,10 +59,18 @@ static int	ft_cd_no_pipes(t_shell *shell, char **cmdargs)
 	if (!cmdargs[1])
 	{
 		home = get_env_value(shell, "HOME");
-		if (!home || chdir(home) != 0)
+		if (!home)
 			return (ft_error(CD_NO_HOME_ERR), 1);
 		else
+		{
+			if(chdir(home) != 0)
+			{
+				if (!home[0])
+					return (0);
+				return (ft_error_concat(2, "minishell: cd: ", NO_FILE_ERR), 1);
+			}
 			return (update_path(shell));
+		}
 	}
 	else if (ft_strcmp(cmdargs[1], "..") == 0)
 	{

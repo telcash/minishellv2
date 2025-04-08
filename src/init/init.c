@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
+/*   By: dfernan3 <dfernan3@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 09:05:29 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/06 14:11:15 by carlossalaz      ###   ########.fr       */
+/*   Updated: 2025/04/08 15:50:15 by dfernan3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ static void	init_env(t_shell *shell, char **envp)
 	(*shell->env) = NULL;
 	while (envp[i])
 		upsert_env(shell, envp[i++]);
+	append_or_update(shell, ft_strdup("PWD"), getcwd(NULL, 0));
 }
 
 char	*get_env_value(t_shell *shell, char *name)
@@ -78,8 +79,8 @@ void	init_minishell(t_shell **shell, char **envp)
 	*shell = malloc(sizeof(t_shell));
 	if (!*shell)
 		ft_exit_error(MALLOC_ERR, EXIT_FAILURE, NULL);
-	(*shell)->path = getcwd(NULL, 0);
-	(*shell)->oldpath = NULL;
+	(*shell)->pwd = getcwd(NULL, 0);
+	(*shell)->oldpwd = NULL;
 	(*shell)->pipes = NULL;
 	(*shell)->last_exit_status = 0;
 	(*shell)->launched_procs = 0;

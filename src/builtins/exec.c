@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
+/*   By: dfernan3 <dfernan3@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 14:22:53 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/04 14:22:49 by carlossalaz      ###   ########.fr       */
+/*   Updated: 2025/04/08 15:55:41 by dfernan3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	exec_built_in(t_shell *minishell, char **cmdargs, int out)
 	int code;
 
 	if (ft_strcmp("pwd", cmdargs[0]) == 0)
-		code = ft_pwd(minishell, out);
+		code = ft_pwd(out);
 	else if (ft_strcmp("cd", cmdargs[0]) == 0)
 		code = ft_cd(minishell, cmdargs);
 	else if (ft_strcmp("echo", cmdargs[0]) == 0)

@@ -77,8 +77,8 @@ typedef struct s_env
 
 typedef struct s_shell
 {
-	char *path;
-	char *oldpath;
+	char *pwd;
+	char *oldpwd;
 	int last_exit_status;
 	int *pids;
 	int launched_procs;
@@ -101,7 +101,7 @@ int process_out(char *file);
 int process_append(char *file);
 int exec_built_in(t_shell *minishell, char **cmdargs, int out);
 int cmd_is_builtin(char *cmd);
-int ft_pwd(t_shell *minishell, int out);
+int ft_pwd(int out);
 int ft_cd(t_shell *shell, char **cmdargs);
 int ft_echo(char **cmdargs, int out);
 int ft_env(t_shell *minishell, int out);
