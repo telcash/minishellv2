@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   upsert_env.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csalazar <csalazar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 17:24:16 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/04 10:41:31 by csalazar         ###   ########.fr       */
+/*   Updated: 2025/04/08 08:03:01 by carlossalaz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static t_env	*append_env_var(t_shell *shell, char *name, char *value)
 	return (new);
 }
 
-static t_env *append_or_update(t_shell *shell, char *name, char *value)
+t_env *append_or_update(t_shell *shell, char *name, char *value)
 {
 	t_env *upsert;
 
@@ -54,8 +54,8 @@ static t_env *append_or_update(t_shell *shell, char *name, char *value)
 		upsert = append_env_var(shell, name, value);
 	if (!upsert)
 	{
-		free(name);
-		free(value);
+		//free(name);
+		//free(value);
 		return (NULL);
 	}
 	return (upsert);

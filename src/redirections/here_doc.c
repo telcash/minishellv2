@@ -48,16 +48,13 @@ int process_here_doc(char *delimiter)
 		return (perror("fork"), -1);
 	if (pid == 0)
 		run_here_doc(fd, delimiter);
-	else
+	close(fd[1]);
+	waitpid(pid, &status, 0);
+	if (WIFSIGNALED(status))
 	{
-		close(fd[1]);
-		waitpid(pid, &status, 0);
-		if (WIFSIGNALED(status))
-		{
-			close(fd[0]);
-			g_interactive = NON_INTERACTIVE;
-			return (-1);
-		}
-		return (fd[0]);
+		close(fd[0]);
+		g_interactive = NON_INTERACTIVE;
+		return (-1);
 	}
+	return (fd[0]);
 }

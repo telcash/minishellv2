@@ -6,13 +6,13 @@
 /*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 13:45:23 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/03/29 18:58:15 by carlossalaz      ###   ########.fr       */
+/*   Updated: 2025/04/07 20:44:43 by carlossalaz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void static remove_env_var(t_env **env, char *name)
+static void remove_env_var(t_env **env, char *name)
 {
 	t_env *prev;
 	t_env *curr;
