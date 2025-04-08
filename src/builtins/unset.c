@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
+/*   By: dfernan3 <dfernan3@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 13:45:23 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/07 20:44:43 by carlossalaz      ###   ########.fr       */
+/*   Updated: 2025/04/08 18:28:30 by dfernan3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,14 @@ int	ft_unset(t_shell *shell, char **cmdargs)
 	while (cmdargs[i])
 	{
 		if (is_valid_env_var(cmdargs[i]))
+		{
+			if (ft_strcmp(cmdargs[i], "OLDPWD") == 0)
+			{
+				free(shell->oldpwd);
+				shell->oldpwd = ft_strdup("");
+			}
 			remove_env_var(shell->env, cmdargs[i]);
+		}
 		i++;
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: dfernan3 <dfernan3@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 13:41:58 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/08 16:41:15 by dfernan3         ###   ########.fr       */
+/*   Updated: 2025/04/08 18:35:14 by dfernan3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,16 @@ static int	update_path(t_shell *shell)
 		free(shell->oldpwd);
 	shell->oldpwd = ft_strdup(shell->pwd);
 	if (find_env_var_by_name(shell, "OLDPWD"))
-	append_or_update(shell, ft_strdup("OLDPWD"), ft_strdup(shell->pwd));
+	{
+		if (!find_env_var_by_name(shell, "PWD") && get_env_value(shell, "OLDPWD")[0])
+			append_or_update(shell, ft_strdup("OLDPWD"), ft_strdup(""));
+		else
+			append_or_update(shell, ft_strdup("OLDPWD"), ft_strdup(shell->pwd));
+	}
 	free(shell->pwd);
 	shell->pwd = getcwd(NULL, 0);
 	if (find_env_var_by_name(shell, "PWD"))
-	append_or_update(shell, ft_strdup("PWD"), ft_strdup(shell->pwd));
+		append_or_update(shell, ft_strdup("PWD"), ft_strdup(shell->pwd));
 	return (0);
 }
 
@@ -31,15 +36,25 @@ static int	ft_cd_no_pipes2(t_shell *shell, char **cmdargs)
 	if (ft_strcmp(cmdargs[1], "-") == 0)
 	{
 		if (find_env_var_by_name(shell, "OLDPWD"))
+			ft_putendl_fd(get_env_value(shell, "OLDPWD"), STDOUT_FILENO);
+		else if (shell->oldpwd[0])
+			ft_putendl_fd(shell->oldpwd, STDOUT_FILENO);
+		if (find_env_var_by_name(shell, "OLDPWD"))
 		{
-			if (chdir(shell->oldpwd) != 0)
+			if (!get_env_value(shell, "OLDPWD")[0])
+				return (update_path(shell));
+			if (chdir(get_env_value(shell, "OLDPWD")) != 0)
 				return (ft_error(DIR_ACCESS_ERR), 1);
 			else
 				return (update_path(shell));
 		}
+		else if (shell->oldpwd[0])
+			if (chdir(shell->oldpwd) != 0)
+				return (ft_error(DIR_ACCESS_ERR), 1);
+			else
+				return (update_path(shell));
 		else
-			return(ft_error("minishell: cd: OLDPWD no está establecido"), 1);
-
+			return(ft_error("minishell: cd: OLDPWD not set"), 1);
 	}
 	else
 	{

@@ -6,18 +6,14 @@
 /*   By: dfernan3 <dfernan3@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 14:12:00 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/08 15:55:17 by dfernan3         ###   ########.fr       */
+/*   Updated: 2025/04/08 17:05:19 by dfernan3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	ft_pwd(int out)
+int	ft_pwd(t_shell *shell, int out)
 {	
-	char *pwd;
-
-	pwd = getcwd(NULL, 0);
-	ft_putendl_fd(pwd, out);
-	free(pwd);
+	ft_putendl_fd(shell->pwd, out);
 	return (0);
 }
