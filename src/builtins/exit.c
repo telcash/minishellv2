@@ -20,7 +20,17 @@ static int	is_numeric(char *str)
 	if (!str)
 		return (0);
 	if (str[0] == '-' || str[0] == '+')
-		i++;
+	{
+		if (str [0] == '-' && str[1] == '-')
+		{
+			if (str[2] != '\0')
+				return (0);
+			return (1);
+		}
+	}
+	i++;
+	if (str[i] == '\0')
+		return (0);
 	while (str[i])
 	{
 		if (!isdigit(str[i]))

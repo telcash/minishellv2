@@ -1,7 +1,7 @@
 #include "../../include/minishell.h"
 
 
-void static run_here_doc_loop(int write_fd, char *delimiter)
+static void run_here_doc_loop(int write_fd, char *delimiter)
 {
 	char *line;
 	size_t len;
