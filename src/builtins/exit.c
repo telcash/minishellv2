@@ -27,8 +27,8 @@ static int	is_numeric(char *str)
 				return (0);
 			return (1);
 		}
+		i++;
 	}
-	i++;
 	if (str[i] == '\0')
 		return (0);
 	while (str[i])
