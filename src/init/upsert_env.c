@@ -54,8 +54,8 @@ t_env *append_or_update(t_shell *shell, char *name, char *value)
 		upsert = append_env_var(shell, name, value);
 	if (!upsert)
 	{
-		// free(name);
-		// free(value);
+		free(name);
+		free(value);
 		return (NULL);
 	}
 	return (upsert);
