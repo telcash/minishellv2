@@ -72,12 +72,6 @@ static void process_tokens(t_token *segment, t_shell *shell)
 	{
 		cmdargs = get_cmdargs(segment);
 		io = get_io(segment, i);
-		if (!io || io->in == -1)
-		{
-			free(io);
-			free(cmdargs);
-			return ;
-		}
 		process_command(cmdargs, shell, i++, io);
 		free(cmdargs);
 		segment = get_next_segment(segment);

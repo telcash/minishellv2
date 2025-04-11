@@ -17,34 +17,6 @@ static int father_process_clean(t_shell *shell, pid_t pid, t_io *io, int i)
 	return 0;
 }
 
-int process_command(char **cmdargs, t_shell *shell, int i, t_io *io)
-{
-	pid_t pid;
-
-	if (cmdargs[0] && cmd_is_builtin(cmdargs[0]) && shell->pipes->nb_pipes == 0)
-		return process_built_in_alone(shell, cmdargs, io);
-	g_interactive = NON_INTERACTIVE;
-	pid = fork();
-	if (pid < 0)
-		return (perror("fork"), 1);
-	if (pid == 0)
-	{
-		signal(SIGINT, SIG_DFL);
-		signal(SIGQUIT, SIG_DFL);
-		set_pipes(shell, io);
-		free(io);
-		if (!cmdargs[0])
-			exit(0);
-		if (cmd_is_builtin(cmdargs[0]))
-			exit(exec_built_in(shell, cmdargs, STDOUT_FILENO));
-		else
-			exec_bin(shell, cmdargs);
-	}
-	else
-		return (father_process_clean(shell, pid, io, i));
-	return 0;
-}
-
 t_io *get_io(t_token *segment, int com_count)
 {
 	t_io *io;
@@ -60,3 +32,37 @@ t_io *get_io(t_token *segment, int com_count)
 	io->com_count = com_count;
 	return io;
 }
+
+int process_command(char **cmdargs, t_shell *shell, int i, t_io *io)
+{
+	pid_t pid;
+
+	if (cmdargs[0] && cmd_is_builtin(cmdargs[0]) && shell->pipes->nb_pipes == 0)
+		return process_built_in_alone(shell, cmdargs, io);
+	g_interactive = NON_INTERACTIVE;
+	pid = fork();
+	if (pid < 0)
+		return (perror("fork"), 1);
+	if (pid == 0)
+	{
+		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
+		set_pipes(shell, io);
+		if (io->in == -1)
+		{
+			free(io);
+			exit (1);
+		}
+		free(io);
+		if (!cmdargs[0])
+			exit(0);
+		if (cmd_is_builtin(cmdargs[0]))
+			exit(exec_built_in(shell, cmdargs, STDOUT_FILENO));
+		else
+			exec_bin(shell, cmdargs);
+	}
+	else
+		return (father_process_clean(shell, pid, io, i));
+	return 0;
+}
+

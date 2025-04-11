@@ -96,7 +96,7 @@ void exec_bin(t_shell *shell, char **cmdargs);
 int process_input_redirections(t_token *token);
 int process_output_redirections(t_token *token);
 int process_here_doc(char *delimiter);
-int process_in(char *file);
+int process_in(char *file, char **err_msg);
 int process_out(char *file);
 int process_append(char *file);
 int exec_built_in(t_shell *minishell, char **cmdargs, int out);
