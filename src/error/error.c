@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csalazar <csalazar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 09:09:52 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/04 11:06:32 by csalazar         ###   ########.fr       */
+/*   Updated: 2025/04/11 16:59:20 by carlossalaz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,9 @@ void	ft_error_concat(int count, ...)
 	}
 	ft_putstr_fd("\n", 2);
 	va_end(args);
+}
+
+void	ft_error_cd_not_file(char *file)
+{
+	ft_error_concat(3, "minishell: cd: ", file, ": No such file or directory");
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dfernan3 <dfernan3@student.42.fr>          +#+  +:+       +#+        */
+/*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 09:05:29 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/08 15:50:15 by dfernan3         ###   ########.fr       */
+/*   Updated: 2025/04/11 16:11:54 by carlossalaz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,11 +79,18 @@ void	init_minishell(t_shell **shell, char **envp)
 	*shell = malloc(sizeof(t_shell));
 	if (!*shell)
 		ft_exit_error(MALLOC_ERR, EXIT_FAILURE, NULL);
-	(*shell)->pwd = getcwd(NULL, 0);
-	(*shell)->oldpwd = NULL;
-	(*shell)->pipes = NULL;
 	(*shell)->last_exit_status = 0;
 	(*shell)->launched_procs = 0;
+	(*shell)->oldpwd = NULL;
+	(*shell)->pipes = NULL;
 	(*shell)->token = NULL;
+	(*shell)->pids = NULL;
 	init_env(*shell, envp);
+	(*shell)->pwd = getcwd(NULL, 0);
+	if (!(*shell)->pwd)
+	{
+		ft_error_concat(2, "minishell-init: ", CWD_ERR);
+		free_shell(*shell);
+		exit(EXIT_FAILURE);
+	}
 }

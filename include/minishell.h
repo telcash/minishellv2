@@ -15,13 +15,12 @@
 # include <sys/wait.h>
 # include <unistd.h>
 
+# define CWD_ERR "shell-init: error retrieving current directory: getcwd: cannot access parent directories: No such file or directory"
 # define INV_ARG_ERR "Error: invalid input"
 # define MALLOC_ERR "Error: malloc failed"
 # define SIGINT_ERR "ERROR registering SIGINT handler"
 # define SIGQUIT_ERR "ERROR registering SIGQUIT handler"
 # define PATH_UPDATE_ERR "Error updating the path"
-# define DIR_ACCESS_ERR "Error accessing directory"
-# define NO_FILE_ERR "Error: no such file or directory"
 # define CD_TOO_MANY_ARGS_ERR "minishell: cd: too many arguments"
 # define CD_NO_HOME_ERR "minishell: cd: HOME not set"
 # define NO_PATH_ERR "Error getting the path"
@@ -135,6 +134,7 @@ void					ft_exit_error(char *message, int status,
 							t_shell *shell);
 void					ft_error(char *message);
 void					ft_error_concat(int count, ...);
+void					ft_error_cd_not_file(char *file);
 void					free_shell(t_shell *shell);
 void					free_token(t_token **token);
 void					free_split(char **split);
