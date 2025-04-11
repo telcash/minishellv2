@@ -3,32 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
+/*   By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 14:32:31 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/04 14:45:35 by carlossalaz      ###   ########.fr       */
+/*   Updated: 2025/04/11 11:09:18 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-char *ft_strjoin3(char *s1, char *s2, char *s3)
+char	*ft_strjoin3(char *s1, char *s2, char *s3)
 {
-    size_t len1 = ft_strlen(s1);
-    size_t len2 = ft_strlen(s2);
-    size_t len3 = ft_strlen(s3);
-    char *result = malloc(len1 + len2 + len3 + 1);
-    if (!result)
-        return (NULL);
-    ft_strlcpy(result, s1, len1 + 1);
-    ft_strlcat(result, s2, len1 + len2 + 1);
-    ft_strlcat(result, s3, len1 + len2 + len3 + 1);
-    return (result);
+	size_t	len1;
+	size_t	len2;
+	size_t	len3;
+	char	*result;
+
+	len1 = ft_strlen(s1);
+	len2 = ft_strlen(s2);
+	len3 = ft_strlen(s3);
+	result = malloc(len1 + len2 + len3 + 1);
+	if (!result)
+		return (NULL);
+	ft_strlcpy(result, s1, len1 + 1);
+	ft_strlcat(result, s2, len1 + len2 + 1);
+	ft_strlcat(result, s3, len1 + len2 + len3 + 1);
+	return (result);
 }
 
-static void copy_env_to_array(char **env_array, t_env *env)
+static void	copy_env_to_array(char **env_array, t_env *env)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (env)
@@ -46,11 +51,11 @@ static void copy_env_to_array(char **env_array, t_env *env)
 	env_array[i] = NULL;
 }
 
-char **env_to_array(t_env *env)
+char	**env_to_array(t_env *env)
 {
-	int len;
-	t_env *tmp;
-	char **env_array;
+	int		len;
+	t_env	*tmp;
+	char	**env_array;
 
 	if (!env)
 		return (NULL);
@@ -67,7 +72,6 @@ char **env_to_array(t_env *env)
 	copy_env_to_array(env_array, env);
 	return (env_array);
 }
-
 
 int	len_2d_array(char **arr)
 {

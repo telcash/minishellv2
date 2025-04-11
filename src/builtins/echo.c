@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
+/*   By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 13:43:02 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/06 16:11:11 by carlossalaz      ###   ########.fr       */
+/*   Updated: 2025/04/11 11:00:45 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static int check_n(char *str)
+static int	check_n(char *str)
 {
-	int i;
+	int	i;
 
 	if (str[0] == '-' && str[1] == 'n')
 	{
@@ -51,5 +51,5 @@ int	ft_echo(char **cmdargs, int out)
 	}
 	if (n == 0)
 		write(out, "\n", 1);
-    return (0);
+	return (0);
 }

@@ -12,15 +12,15 @@
 
 #include "../../include/minishell.h"
 
-int process_out(char *file)
+int	process_out(char *file)
 {
-    int fd;
+	int	fd;
 
-    fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-    if (fd == -1)
-    {
-        perror("open");
-        return (STDOUT_FILENO);
-    }
-    return (fd);
+	fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	if (fd == -1)
+	{
+		perror("open");
+		return (STDOUT_FILENO);
+	}
+	return (fd);
 }

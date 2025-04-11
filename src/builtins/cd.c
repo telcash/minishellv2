@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dfernan3 <dfernan3@student.42.fr>          +#+  +:+       +#+        */
+/*   By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 13:41:58 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/08 18:35:14 by dfernan3         ###   ########.fr       */
+/*   Updated: 2025/04/11 11:03:46 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ static int	update_path(t_shell *shell)
 	shell->oldpwd = ft_strdup(shell->pwd);
 	if (find_env_var_by_name(shell, "OLDPWD"))
 	{
-		if (!find_env_var_by_name(shell, "PWD") && get_env_value(shell, "OLDPWD")[0])
+		if (!find_env_var_by_name(shell, "PWD") && get_env_value(shell,
+				"OLDPWD")[0])
 			append_or_update(shell, ft_strdup("OLDPWD"), ft_strdup(""));
 		else
 			append_or_update(shell, ft_strdup("OLDPWD"), ft_strdup(shell->pwd));
@@ -54,12 +55,12 @@ static int	ft_cd_no_pipes2(t_shell *shell, char **cmdargs)
 			else
 				return (update_path(shell));
 		else
-			return(ft_error("minishell: cd: OLDPWD not set"), 1);
+			return (ft_error("minishell: cd: OLDPWD not set"), 1);
 	}
 	else
 	{
 		if (chdir(cmdargs[1]) != 0)
-			return (ft_error(NO_FILE_ERR),1);
+			return (ft_error(NO_FILE_ERR), 1);
 		else
 			return (update_path(shell));
 	}
@@ -78,7 +79,7 @@ static int	ft_cd_no_pipes(t_shell *shell, char **cmdargs)
 			return (ft_error(CD_NO_HOME_ERR), 1);
 		else
 		{
-			if(chdir(home) != 0)
+			if (chdir(home) != 0)
 			{
 				if (!home[0])
 					return (0);

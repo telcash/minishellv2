@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
+/*   By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 09:53:39 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/07 17:44:16 by carlossalaz      ###   ########.fr       */
+/*   Updated: 2025/04/11 11:27:19 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-t_interactive		g_interactive = INTERACTIVE;
+t_interactive	g_interactive = INTERACTIVE;
 
 void	handle_signal(int sig)
 {
@@ -37,7 +37,7 @@ void	handle_signal(int sig)
 
 void	set_signal(void)
 {
-	struct sigaction sa;
+	struct sigaction	sa;
 
 	sa.sa_handler = handle_signal;
 	sigemptyset(&sa.sa_mask);

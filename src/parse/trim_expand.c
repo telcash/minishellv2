@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   trim_expand.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
+/*   By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 09:19:39 by csalazar          #+#    #+#             */
-/*   Updated: 2025/04/06 23:05:38 by carlossalaz      ###   ########.fr       */
+/*   Updated: 2025/04/11 11:26:49 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static char *append_word_segment(char *data, char *word, int start, int end)
+static char	*append_word_segment(char *data, char *word, int start, int end)
 {
-	char *tmp;
-	char *new_data;
+	char	*tmp;
+	char	*new_data;
 
 	tmp = ft_substr(word, start, end - start);
 	if (!tmp)
@@ -29,10 +29,12 @@ static char *append_word_segment(char *data, char *word, int start, int end)
 	free(data);
 	return (new_data);
 }
-static char *get_expanded_variable(int start, int end, char *word, t_shell *shell)
+
+static char	*get_expanded_variable(int start, int end, char *word,
+		t_shell *shell)
 {
-	char *tmp1;
-	char *tmp2;
+	char	*tmp1;
+	char	*tmp2;
 
 	if (end - start > 1)
 	{
@@ -48,16 +50,17 @@ static char *get_expanded_variable(int start, int end, char *word, t_shell *shel
 		return (NULL);
 }
 
-static char	*add_expanded_variable(char *data, char *word, int *i, t_shell *shell)
+static char	*add_expanded_variable(char *data, char *word, int *i,
+		t_shell *shell)
 {
-	char	*expanded_var;
+	char	*exp_var;
 	int		start;
 	int		end;
 
 	start = *i;
 	if (word[start + 1] == '?')
 	{
-		expanded_var = ft_itoa(shell->last_exit_status);
+		exp_var = ft_itoa(shell->last_exit_status);
 		*i += 2;
 		end = start + 2;
 	}
@@ -66,23 +69,23 @@ static char	*add_expanded_variable(char *data, char *word, int *i, t_shell *shel
 		end = start + 1;
 		while (word[end] && (ft_isalnum(word[end]) || word[end] == '_'))
 			end++;
-		expanded_var = get_expanded_variable(start, end, word, shell);
+		exp_var = get_expanded_variable(start, end, word, shell);
 	}
 	*i = end;
-	if (expanded_var)
+	if (exp_var)
 	{
-		data = append_word_segment(data, expanded_var, 0, ft_strlen(expanded_var));
-		free(expanded_var);
+		data = append_word_segment(data, exp_var, 0, ft_strlen(exp_var));
+		free(exp_var);
 	}
 	return (data);
 }
 
-char *trim_quotes_and_expand(char *word, t_shell *shell)
+char	*trim_quotes_and_expand(char *word, t_shell *shell)
 {
-	char *data;
-	char quote;
-	int start;
-	int i;
+	char	*data;
+	char	quote;
+	int		start;
+	int		i;
 
 	data = NULL;
 	quote = '\0';
@@ -90,7 +93,8 @@ char *trim_quotes_and_expand(char *word, t_shell *shell)
 	while (word[i])
 	{
 		start = i;
-		while (word[i] && ((!quote && word[i] != '\'' && word[i] != '"') || (quote && word[i] != quote)) && word[i] != '$')
+		while (word[i] && ((!quote && word[i] != '\'' && word[i] != '"')
+				|| (quote && word[i] != quote)) && word[i] != '$')
 			i++;
 		data = append_word_segment(data, word, start, i);
 		if (word[i] == '$')

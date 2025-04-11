@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dfernan3 <dfernan3@student.42.fr>          +#+  +:+       +#+        */
+/*   By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 13:45:23 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/08 18:28:30 by dfernan3         ###   ########.fr       */
+/*   Updated: 2025/04/11 11:05:11 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static void remove_env_var(t_env **env, char *name)
+static void	remove_env_var(t_env **env, char *name)
 {
-	t_env *prev;
-	t_env *curr;
+	t_env	*prev;
+	t_env	*curr;
 
 	prev = NULL;
 	curr = *env;
@@ -30,7 +30,7 @@ static void remove_env_var(t_env **env, char *name)
 			free(curr->name);
 			free(curr->value);
 			free(curr);
-			return;
+			return ;
 		}
 		prev = curr;
 		curr = curr->next;
@@ -39,7 +39,7 @@ static void remove_env_var(t_env **env, char *name)
 
 int	ft_unset(t_shell *shell, char **cmdargs)
 {
-	int i;
+	int	i;
 
 	i = 1;
 	while (cmdargs[i])

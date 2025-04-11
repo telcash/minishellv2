@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   append.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
+/*   By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 22:53:40 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/06 22:54:01 by carlossalaz      ###   ########.fr       */
+/*   Updated: 2025/04/11 11:06:26 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static t_token *get_last_token(t_token *token)
+static t_token	*get_last_token(t_token *token)
 {
 	if (!token)
 		return (NULL);

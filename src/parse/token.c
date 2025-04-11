@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
+/*   By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 11:24:45 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/06 17:26:53 by carlossalaz      ###   ########.fr       */
+/*   Updated: 2025/04/11 11:02:20 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static char *get_new_token_data(char *line, int start, int *i, t_shell *shell)
+static char	*get_new_token_data(char *line, int start, int *i, t_shell *shell)
 {
-	char *word;
-	char *token_data;
+	char	*word;
+	char	*token_data;
 
 	word = ft_substr(line, start, *i - start);
 	token_data = trim_quotes_and_expand(word, shell);

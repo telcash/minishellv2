@@ -1,21 +1,33 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   process.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/11 10:59:22 by csalazar          #+#    #+#             */
+/*   Updated: 2025/04/11 10:59:33 by csalazar         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
-static int set_fd(int temp, int fd, int fd_std)
+static int	set_fd(int temp, int fd, int fd_std)
 {
 	if (temp == -1)
 		return (-1);
 	if (fd != fd_std)
 		close(fd);
 	fd = temp;
-	return fd;
+	return (fd);
 }
 
-int process_input_redirections(t_token *token)
+int	process_input_redirections(t_token *token)
 {
-	int in;
-	int tmp;
-	char *err_msg;
-	
+	int		in;
+	int		tmp;
+	char	*err_msg;
+
 	err_msg = NULL;
 	in = STDIN_FILENO;
 	while (token && token->type != PIPE)
@@ -34,14 +46,14 @@ int process_input_redirections(t_token *token)
 	}
 	if (err_msg)
 		return (ft_putendl_fd(err_msg, 2), free(err_msg), -1);
-	return in;
+	return (in);
 }
 
-int process_output_redirections(t_token *token)
+int	process_output_redirections(t_token *token)
 {
-	int out;
-	int tmp;
-	
+	int	out;
+	int	tmp;
+
 	out = STDOUT_FILENO;
 	while (token && token->type != PIPE)
 	{
@@ -50,16 +62,16 @@ int process_output_redirections(t_token *token)
 			tmp = process_out(token->data);
 			out = set_fd(tmp, out, STDOUT_FILENO);
 			if (out == -1)
-				return -1;
+				return (-1);
 		}
 		else if (token->type == APPEND)
 		{
 			tmp = process_append(token->data);
 			out = set_fd(tmp, out, STDOUT_FILENO);
 			if (out == -1)
-				return -1;
+				return (-1);
 		}
 		token = token->next;
 	}
-	return out;
+	return (out);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
+/*   By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 14:16:33 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/04 14:46:46 by carlossalaz      ###   ########.fr       */
+/*   Updated: 2025/04/11 11:01:10 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	is_numeric(char *str)
 		return (0);
 	if (str[0] == '-' || str[0] == '+')
 	{
-		if (str [0] == '-' && str[1] == '-')
+		if (str[0] == '-' && str[1] == '-')
 		{
 			if (str[2] != '\0')
 				return (0);
@@ -40,11 +40,11 @@ static int	is_numeric(char *str)
 	return (1);
 }
 
-static int ft_exit_pipes(char **cmdargs)
+static int	ft_exit_pipes(char **cmdargs)
 {
 	if (cmdargs[1] && !is_numeric(cmdargs[1]))
 	{
-		ft_error_concat(4,"exit\n", "minishell: exit: ", cmdargs[1],
+		ft_error_concat(4, "exit\n", "minishell: exit: ", cmdargs[1],
 			": numeric argument required");
 		return (2);
 	}
@@ -53,14 +53,14 @@ static int ft_exit_pipes(char **cmdargs)
 	return (0);
 }
 
-static void ft_exit_no_pipes(t_shell *minishell, char **cmdargs)
+static void	ft_exit_no_pipes(t_shell *minishell, char **cmdargs)
 {
-	int exit_num;
-	
+	int	exit_num;
+
 	if (cmdargs[1] && !is_numeric(cmdargs[1]))
 	{
-		ft_error_concat(4,"exit\n", "minishell: exit: ", cmdargs[1],
-				": numeric argument required");
+		ft_error_concat(4, "exit\n", "minishell: exit: ", cmdargs[1],
+			": numeric argument required");
 		exit(2);
 	}
 	if (cmdargs[1] && cmdargs[2])

@@ -1,12 +1,25 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pipeline.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/11 11:07:27 by csalazar          #+#    #+#             */
+/*   Updated: 2025/04/11 11:07:35 by csalazar         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
-static void wait_all_childs(t_shell *shell)
+static void	wait_all_childs(t_shell *shell)
 {
-	pid_t pid;
-	int status;
-	int i = 0;
-	int sig;
+	pid_t	pid;
+	int		status;
+	int		i;
+	int		sig;
 
+	i = 0;
 	while (i < shell->launched_procs)
 	{
 		pid = wait(&status);
@@ -26,12 +39,12 @@ static void wait_all_childs(t_shell *shell)
 	}
 }
 
-static char **get_cmdargs(t_token *token)
+static char	**get_cmdargs(t_token *token)
 {
-	int i;
-	t_token *tmp;
-	char **cmdargs;
-	
+	int		i;
+	t_token	*tmp;
+	char	**cmdargs;
+
 	tmp = token;
 	i = 0;
 	while (tmp && tmp->type != PIPE)
@@ -49,24 +62,24 @@ static char **get_cmdargs(t_token *token)
 			cmdargs[i++] = tmp->data;
 		tmp = tmp->next;
 	}
-	return cmdargs;
+	return (cmdargs);
 }
 
-static t_token *get_next_segment(t_token *segment)
+static t_token	*get_next_segment(t_token *segment)
 {
 	while (segment && segment->type != PIPE)
 		segment = segment->next;
 	if (segment)
-		return segment->next;
-	return NULL;
+		return (segment->next);
+	return (NULL);
 }
 
-static void process_tokens(t_token *segment, t_shell *shell)
+static void	process_tokens(t_token *segment, t_shell *shell)
 {
-	int i ;
-	char **cmdargs;
-	t_io *io;
-	
+	int		i;
+	char	**cmdargs;
+	t_io	*io;
+
 	i = 0;
 	while (segment)
 	{
@@ -78,10 +91,10 @@ static void process_tokens(t_token *segment, t_shell *shell)
 	}
 }
 
-int pipeline(t_shell *shell)
+int	pipeline(t_shell *shell)
 {
 	if (!shell->token || !*(shell->token))
-		return 0;
+		return (0);
 	shell->pipes = init_pipes(*(shell->token));
 	shell->pids = ft_calloc(shell->pipes->nb_pipes + 1, sizeof(int));
 	process_tokens(*(shell->token), shell);
@@ -90,5 +103,5 @@ int pipeline(t_shell *shell)
 	wait_all_childs(shell);
 	shell->launched_procs = 0;
 	free(shell->pids);
-	return 0;
+	return (0);
 }

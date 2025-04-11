@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
+/*   By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 08:38:43 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/07 15:51:55 by carlossalaz      ###   ########.fr       */
+/*   Updated: 2025/04/11 11:02:52 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	main(int argc, char **argv, char **envp)
 			ft_putendl_fd("exit", STDERR_FILENO);
 			exit(0);
 		}
- 		else if (!*line)
+		else if (!*line)
 			free(line);
 		else
 			process_line(line, shell);

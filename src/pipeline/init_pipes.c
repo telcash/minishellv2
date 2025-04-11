@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipes.c                                            :+:      :+:    :+:   */
+/*   init_pipes.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
+/*   By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 12:14:50 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/03/29 10:15:56 by carlossalaz      ###   ########.fr       */
+/*   Updated: 2025/04/11 11:00:07 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static int get_number_of_pipes(t_token *token)
+static int	get_number_of_pipes(t_token *token)
 {
 	int		nb_pipes;
 	t_token	*tmp;
@@ -28,10 +28,10 @@ static int get_number_of_pipes(t_token *token)
 	return (nb_pipes);
 }
 
-t_pipe *init_pipes(t_token *token)
+t_pipe	*init_pipes(t_token *token)
 {
-	t_pipe *pipes;
-	int i;
+	t_pipe	*pipes;
+	int		i;
 
 	pipes = ft_calloc(1, sizeof(t_pipe));
 	if (!pipes)

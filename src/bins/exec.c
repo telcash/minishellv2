@@ -12,11 +12,10 @@
 
 #include "../../include/minishell.h"
 
-
-static char **get_paths(t_env **env)
+static char	**get_paths(t_env **env)
 {
-	char **paths;
-	t_env *tmp;
+	t_env	*tmp;
+	char	**paths;
 
 	tmp = *env;
 	while (tmp && ft_strncmp(tmp->name, "PATH", 4))
@@ -29,12 +28,12 @@ static char **get_paths(t_env **env)
 	return (paths);
 }
 
-static char *get_path(char *cmd, t_env **env)
+static char	*get_path(char *cmd, t_env **env)
 {
-	int i;
-	char **paths;
-	char *partial_path;
-	char *path_cmd;
+	int		i;
+	char	**paths;
+	char	*partial_path;
+	char	*path_cmd;
 
 	paths = get_paths(env);
 	if (!paths)
@@ -42,25 +41,25 @@ static char *get_path(char *cmd, t_env **env)
 	i = 0;
 	while (paths[i])
 	{
-        partial_path = ft_strjoin(paths[i], "/");
-        path_cmd = ft_strjoin(partial_path, cmd);
-        free(partial_path);
-        if (access(path_cmd, F_OK) == 0)
-        {
-            free_split(paths);
-            return (path_cmd);
-        }
-        free(path_cmd);
-        i++;
-    }
+		partial_path = ft_strjoin(paths[i], "/");
+		path_cmd = ft_strjoin(partial_path, cmd);
+		free(partial_path);
+		if (access(path_cmd, F_OK) == 0)
+		{
+			free_split(paths);
+			return (path_cmd);
+		}
+		free(path_cmd);
+		i++;
+	}
 	free_split(paths);
-    return (NULL);
+	return (NULL);
 }
 
-void exec_bin(t_shell *shell, char **cmdargs)
+void	exec_bin(t_shell *shell, char **cmdargs)
 {
-	char *path;
-	char **envp;
+	char	*path;
+	char	**envp;
 
 	envp = env_to_array(*shell->env);
 	if (ft_strchr(cmdargs[0], '/') || get_env_value(shell, "PATH") == NULL)
