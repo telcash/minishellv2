@@ -6,7 +6,7 @@
 /*   By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 14:22:53 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/11 11:00:53 by csalazar         ###   ########.fr       */
+/*   Updated: 2025/04/11 12:00:24 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,6 @@ int	exec_built_in(t_shell *shell, char **cmdargs, int out)
 		code = ft_unset(shell, cmdargs);
 	if (shell->pipes->nb_pipes > 0)
 		exit(code);
-	return (0);
+	shell->last_exit_status = code;
+	return (code);
 }

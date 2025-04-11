@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   in.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
+/*   By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 22:02:34 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/03 08:26:24 by carlossalaz      ###   ########.fr       */
+/*   Updated: 2025/04/11 12:13:05 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	process_in(char *file, char **err_msg)
 	int		in;
 	char	*tmp;
 
-	in = STDIN_FILENO;
+	in = -1;
 	if (!*err_msg)
 		in = open(file, O_RDONLY, 0644);
 	if (in == -1)
