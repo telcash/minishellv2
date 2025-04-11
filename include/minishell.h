@@ -104,7 +104,7 @@ int						exec_built_in(t_shell *minishell, char **cmdargs,
 							int out);
 int						cmd_is_builtin(char *cmd);
 int						ft_pwd(t_shell *shell, int out);
-int						ft_cd(t_shell *shell, char **cmdargs);
+int						ft_cd(t_shell *shell, char **cmdargs, int out);
 int						ft_echo(char **cmdargs, int out);
 int						ft_env(t_shell *minishell, int out);
 int						ft_export(t_shell *minishell, char **cmdargs, int out);

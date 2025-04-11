@@ -6,7 +6,7 @@
 /*   By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 14:22:53 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/11 12:00:24 by csalazar         ###   ########.fr       */
+/*   Updated: 2025/04/11 13:20:13 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	exec_built_in(t_shell *shell, char **cmdargs, int out)
 	if (ft_strcmp("pwd", cmdargs[0]) == 0)
 		code = ft_pwd(shell, out);
 	else if (ft_strcmp("cd", cmdargs[0]) == 0)
-		code = ft_cd(shell, cmdargs);
+		code = ft_cd(shell, cmdargs, out);
 	else if (ft_strcmp("echo", cmdargs[0]) == 0)
 		code = ft_echo(cmdargs, out);
 	else if (ft_strcmp("exit", cmdargs[0]) == 0)

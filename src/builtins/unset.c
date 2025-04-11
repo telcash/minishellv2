@@ -6,7 +6,7 @@
 /*   By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 13:45:23 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/11 11:05:11 by csalazar         ###   ########.fr       */
+/*   Updated: 2025/04/11 14:02:43 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,14 @@ int	ft_unset(t_shell *shell, char **cmdargs)
 		{
 			if (ft_strcmp(cmdargs[i], "OLDPWD") == 0)
 			{
-				free(shell->oldpwd);
+				if (shell->oldpwd)
+					free(shell->oldpwd);
+				shell->oldpwd = ft_strdup("");
+			}
+			if (ft_strcmp(cmdargs[i], "PWD") == 0)
+			{
+				if (shell->pwd)
+					free(shell->pwd);
 				shell->oldpwd = ft_strdup("");
 			}
 			remove_env_var(shell->env, cmdargs[i]);
