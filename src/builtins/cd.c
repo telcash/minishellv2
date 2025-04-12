@@ -6,7 +6,7 @@
 /*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 13:41:58 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/11 17:14:32 by carlossalaz      ###   ########.fr       */
+/*   Updated: 2025/04/12 14:45:48 by carlossalaz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ static int	update_pwds(t_shell *shell)
 	if (shell->oldpwd)
 		free(shell->oldpwd);
 	shell->oldpwd = ft_strdup(shell->pwd);
-	if (find_env_var_by_name(shell, "OLDPWD"))
-		append_or_update(shell, ft_strdup("OLDPWD"), ft_strdup(shell->pwd));
+	if (find_env_var_by_name(shell->env, "OLDPWD"))
+		append_or_update(shell->env, ft_strdup("OLDPWD"), ft_strdup(shell->pwd));
 	free(shell->pwd);
 	shell->pwd = getcwd(NULL, 0);
 	if (!shell->pwd)
@@ -29,8 +29,8 @@ static int	update_pwds(t_shell *shell)
 		ft_error_concat(2, "minishell: cd: ", CWD_ERR);
 		shell->pwd = ft_strjoin(tmp, "/..");
 	}
-	if (find_env_var_by_name(shell, "PWD"))
-		append_or_update(shell, ft_strdup("PWD"), ft_strdup(shell->pwd));
+	if (find_env_var_by_name(shell->env, "PWD"))
+		append_or_update(shell->env, ft_strdup("PWD"), ft_strdup(shell->pwd));
 	free(tmp);
 	return (0);
 }
@@ -39,7 +39,7 @@ static int	cd_home(t_shell *shell)
 {
 	char	*home;
 
-	home = get_env_value(shell, "HOME");
+	home = get_env_value(shell->env, "HOME");
 	if (!home)
 		return (ft_error(CD_NO_HOME_ERR), 1);
 	if (!home[0])
@@ -51,16 +51,16 @@ static int	cd_home(t_shell *shell)
 
 static int	cd_previous(t_shell *shell, int out)
 {
-	if (find_env_var_by_name(shell, "OLDPWD"))
+	if (find_env_var_by_name(shell->env, "OLDPWD"))
 	{
-		if (!get_env_value(shell, "OLDPWD")[0])
+		if (!get_env_value(shell->env, "OLDPWD")[0])
 		{
-			ft_putendl_fd(get_env_value(shell, "OLDPWD"), out);
+			ft_putendl_fd(get_env_value(shell->env, "OLDPWD"), out);
 			return (update_pwds(shell));
 		}
-		if (chdir(get_env_value(shell, "OLDPWD")) != 0)
-			return (ft_error_cd_not_file(get_env_value(shell, "OLDPWD")), 1);
-		ft_putendl_fd(get_env_value(shell, "OLDPWD"), out);
+		if (chdir(get_env_value(shell->env, "OLDPWD")) != 0)
+			return (ft_error_cd_not_file(get_env_value(shell->env, "OLDPWD")), 1);
+		ft_putendl_fd(get_env_value(shell->env, "OLDPWD"), out);
 		return (update_pwds(shell));
 	}
 	else if (shell->oldpwd[0])

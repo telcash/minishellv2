@@ -107,7 +107,7 @@ int						ft_pwd(t_shell *shell, int out);
 int						ft_cd(t_shell *shell, char **cmdargs, int out);
 int						ft_echo(char **cmdargs, int out);
 int						ft_env(t_shell *minishell, int out);
-int						ft_export(t_shell *minishell, char **cmdargs, int out);
+int						ft_export(t_shell *shell, char **cmdargs, int out);
 int						ft_unset(t_shell *shell, char **cmdargs);
 int						ft_exit(t_shell *shell, char **cmdargs);
 void					get_token(char *line, t_shell *shell);
@@ -121,12 +121,12 @@ t_pipe					*init_pipes(t_token *token);
 void					set_pipes(t_shell *shell, t_io *io);
 void					close_pipes(t_pipe *pipes);
 void					free_pipes(t_pipe *pipes);
-int						upsert_env(t_shell *shell, char *envp);
-t_env					*append_or_update(t_shell *shell, char *name,
+int						upsert_env(t_env **env, char *envp);
+t_env					*append_or_update(t_env **env, char *name,
 							char *value);
 int						is_valid_env_var(char *str);
-t_env					*find_env_var_by_name(t_shell *shell, char *name);
-char					*get_env_value(t_shell *shell, char *name);
+t_env					*find_env_var_by_name(t_env **env, char *name);
+char					*get_env_value(t_env **env, char *name);
 char					**env_to_array(t_env *env);
 int						print_sorted_env(t_shell *shell, int out);
 int						len_2d_array(char **arr);

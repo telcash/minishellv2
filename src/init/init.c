@@ -6,7 +6,7 @@
 /*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 09:05:29 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/12 12:37:02 by carlossalaz      ###   ########.fr       */
+/*   Updated: 2025/04/12 14:43:11 by carlossalaz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,36 +18,36 @@ static void	init_env(t_shell *shell, char **envp)
 
 	if (!envp || !*envp)
 	{
-		(*shell->env = NULL);
+		shell->env = NULL;
 		return ;
 	}
 	shell->env = malloc(sizeof(t_env *));
 	if (!shell->env)
 		ft_exit_error(MALLOC_ERR, EXIT_FAILURE, shell);
 	i = 0;
-	(*shell->env) = NULL;
+	*(shell->env) = NULL;
 	while (envp[i])
-		upsert_env(shell, envp[i++]);
-	append_or_update(shell, ft_strdup("PWD"), getcwd(NULL, 0));
+		upsert_env(shell->env, envp[i++]);
+	append_or_update(shell->env, ft_strdup("PWD"), getcwd(NULL, 0));
 }
 
-char	*get_env_value(t_shell *shell, char *name)
+char	*get_env_value(t_env **env, char *name)
 {
 	t_env	*tmp;
 
-	tmp = find_env_var_by_name(shell, name);
+	tmp = find_env_var_by_name(env, name);
 	if (!tmp || !tmp->value)
 		return (NULL);
 	return (tmp->value);
 }
 
-t_env	*find_env_var_by_name(t_shell *shell, char *name)
+t_env	*find_env_var_by_name(t_env **env, char *name)
 {
 	t_env	*tmp;
 
 	if (!name)
 		return (NULL);
-	tmp = *(shell->env);
+	tmp = *env;
 	while (tmp && tmp->name)
 	{
 		if (ft_strcmp(tmp->name, name) == 0)

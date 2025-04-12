@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   upsert_env.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 17:24:16 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/11 11:05:57 by csalazar         ###   ########.fr       */
+/*   Updated: 2025/04/12 14:40:09 by carlossalaz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static t_env	*append_env_var(t_shell *shell, char *name, char *value)
+static t_env	*append_env_var(t_env **env, char *name, char *value)
 {
 	t_env	*new;
 	t_env	*tmp;
@@ -20,14 +20,14 @@ static t_env	*append_env_var(t_shell *shell, char *name, char *value)
 	new = malloc(sizeof(t_env));
 	if (!new)
 		return (NULL);
-	if (!*(shell->env))
+	if (!*env)
 	{
-		*(shell->env) = new;
+		*env = new;
 		new->next = NULL;
 	}
 	else
 	{
-		tmp = *(shell->env);
+		tmp = *env;
 		while (tmp->next)
 			tmp = tmp->next;
 		tmp->next = new;
@@ -38,11 +38,11 @@ static t_env	*append_env_var(t_shell *shell, char *name, char *value)
 	return (new);
 }
 
-t_env	*append_or_update(t_shell *shell, char *name, char *value)
+t_env	*append_or_update(t_env **env, char *name, char *value)
 {
 	t_env	*upsert;
 
-	upsert = find_env_var_by_name(shell, name);
+	upsert = find_env_var_by_name(env, name);
 	if (upsert)
 	{
 		free(name);
@@ -51,7 +51,7 @@ t_env	*append_or_update(t_shell *shell, char *name, char *value)
 		upsert->value = value;
 	}
 	else
-		upsert = append_env_var(shell, name, value);
+		upsert = append_env_var(env, name, value);
 	if (!upsert)
 	{
 		free(name);
@@ -61,7 +61,7 @@ t_env	*append_or_update(t_shell *shell, char *name, char *value)
 	return (upsert);
 }
 
-int	upsert_env(t_shell *shell, char *envp)
+int	upsert_env(t_env **env, char *envp)
 {
 	char	*name;
 	char	*value;
@@ -80,7 +80,7 @@ int	upsert_env(t_shell *shell, char *envp)
 		free(name);
 		return (ft_error(MALLOC_ERR), 0);
 	}
-	upsert = append_or_update(shell, name, value);
+	upsert = append_or_update(env, name, value);
 	if (!upsert)
 		return (ft_error(MALLOC_ERR), 0);
 	return (1);

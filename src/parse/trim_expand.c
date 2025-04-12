@@ -6,7 +6,7 @@
 /*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 09:19:39 by csalazar          #+#    #+#             */
-/*   Updated: 2025/04/12 11:49:34 by carlossalaz      ###   ########.fr       */
+/*   Updated: 2025/04/12 14:43:40 by carlossalaz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static char	*get_expanded_variable(int start, int end, char *word,
 	if (end - start > 1)
 	{
 		tmp1 = ft_substr(word, start + 1, end - start - 1);
-		tmp2 = get_env_value(shell, tmp1);
+		tmp2 = get_env_value(shell->env, tmp1);
 		free(tmp1);
 		if (tmp2)
 			return (ft_strdup(tmp2));
