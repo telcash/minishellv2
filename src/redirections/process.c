@@ -6,7 +6,7 @@
 /*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 10:59:22 by csalazar          #+#    #+#             */
-/*   Updated: 2025/04/12 13:38:00 by carlossalaz      ###   ########.fr       */
+/*   Updated: 2025/04/12 16:43:05 by carlossalaz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,16 @@ static int	set_fd(int temp, int fd, int fd_std)
 		close(fd);
 	fd = temp;
 	return (fd);
+}
+
+static int here_doc_fail(char *err_msg)
+{
+	if (err_msg)
+	{
+		ft_putendl_fd(err_msg, 2);
+		free(err_msg);
+	}
+	return (-1);
 }
 
 int	process_input_redirections(t_token *token)
@@ -41,10 +51,8 @@ int	process_input_redirections(t_token *token)
 		{
 			tmp = process_here_doc(token->data);
 			in = set_fd(tmp, in, STDIN_FILENO);
-			if (in == -1 && err_msg)
-				return (ft_putendl_fd(err_msg, 2), free(err_msg), -1);
-			else if (in == -1)
-				return (-1);
+			if (in == -1)
+				return (here_doc_fail(err_msg));
 		}
 		token = token->next;
 	}

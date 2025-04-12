@@ -6,7 +6,7 @@
 /*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 17:24:16 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/12 14:40:09 by carlossalaz      ###   ########.fr       */
+/*   Updated: 2025/04/12 16:40:55 by carlossalaz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,39 @@ static t_env	*append_env_var(t_env **env, char *name, char *value)
 	new->name = name;
 	new->value = value;
 	return (new);
+}
+
+t_env	*find_env_var_by_name(t_env **env, char *name)
+{
+	t_env	*tmp;
+
+	if (!name)
+		return (NULL);
+	tmp = *env;
+	while (tmp && tmp->name)
+	{
+		if (ft_strcmp(tmp->name, name) == 0)
+			return (tmp);
+		tmp = tmp->next;
+	}
+	return (NULL);
+}
+
+int	is_valid_env_var(char *str)
+{
+	int	i;
+
+	i = 0;
+	if (!str || !(ft_isalpha(str[i]) || str[i] == '_'))
+		return (0);
+	i++;
+	while (str[i] && str[i] != '=')
+	{
+		if (!(ft_isalnum(str[i]) || str[i] == '_'))
+			return (0);
+		i++;
+	}
+	return (1);
 }
 
 t_env	*append_or_update(t_env **env, char *name, char *value)
