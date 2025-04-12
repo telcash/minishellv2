@@ -34,6 +34,7 @@ char	*ft_strjoin3(char *s1, char *s2, char *s3)
 static void	copy_env_to_array(char **env_array, t_env *env)
 {
 	int	i;
+	char *tmp;
 
 	i = 0;
 	while (env)
@@ -41,9 +42,13 @@ static void	copy_env_to_array(char **env_array, t_env *env)
 		if (env->name)
 		{
 			if (env->value)
-				env_array[i] = ft_strjoin3(env->name, "=", env->value);
+			{
+				tmp = ft_strjoin3("\"", env->value, "\"");
+				env_array[i] = ft_strjoin3(env->name, "=", tmp);
+				free(tmp);
+			}
 			else
-				env_array[i] = ft_strdup(env->name);
+				env_array[i] = ft_strjoin3(env->name, "=", "\"\"");
 			i++;
 		}
 		env = env->next;
