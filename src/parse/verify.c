@@ -6,7 +6,7 @@
 /*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 22:39:16 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/04 14:18:40 by carlossalaz      ###   ########.fr       */
+/*   Updated: 2025/04/12 17:30:25 by carlossalaz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	verify_next_token_to_redirection(t_token *token)
 	if (is_redirection(token->next) || token->next->type == PIPE)
 	{
 		ft_error_concat(3, "minishell: syntax error near unexpected token `",
-			token->next->data[0], "'");
+			token->next->data, "'");
 		return (1);
 	}
 	return (0);
