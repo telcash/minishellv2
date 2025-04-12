@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process_command.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 11:07:56 by csalazar          #+#    #+#             */
-/*   Updated: 2025/04/11 11:23:14 by csalazar         ###   ########.fr       */
+/*   Updated: 2025/04/12 13:32:51 by carlossalaz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static void	process_child(t_shell *shell, t_io *io, char **cmdargs)
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
 	set_pipes(shell, io);
-	if (io->in == -1)
+	if (io->in == -1 || io->out == -1)
 	{
 		free(io);
 		exit(1);

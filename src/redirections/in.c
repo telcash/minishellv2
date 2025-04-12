@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   in.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 22:02:34 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/11 12:13:05 by csalazar         ###   ########.fr       */
+/*   Updated: 2025/04/12 12:52:52 by carlossalaz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	process_in(char *file, char **err_msg)
 	in = -1;
 	if (!*err_msg)
 		in = open(file, O_RDONLY, 0644);
-	if (in == -1)
+	if (in == -1 && !*err_msg)
 	{
 		tmp = ft_strjoin3("minishell: ", file, ": ");
 		*err_msg = ft_strjoin(tmp, strerror(errno));

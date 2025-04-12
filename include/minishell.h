@@ -84,6 +84,7 @@ typedef struct s_shell
 	t_pipe				*pipes;
 	t_token				**token;
 	t_env				**env;
+	t_env				**export;
 }						t_shell;
 
 void					init_minishell(t_shell **shell, char **envp);
@@ -97,8 +98,8 @@ int						process_input_redirections(t_token *token);
 int						process_output_redirections(t_token *token);
 int						process_here_doc(char *delimiter);
 int						process_in(char *file, char **err_msg);
-int						process_out(char *file);
-int						process_append(char *file);
+int						process_out(char *file, char **err_msg);
+int						process_append(char *file, char **err_msg);
 int						exec_built_in(t_shell *minishell, char **cmdargs,
 							int out);
 int						cmd_is_builtin(char *cmd);

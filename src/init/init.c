@@ -6,7 +6,7 @@
 /*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 09:05:29 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/11 16:11:54 by carlossalaz      ###   ########.fr       */
+/*   Updated: 2025/04/12 12:37:02 by carlossalaz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ void	init_minishell(t_shell **shell, char **envp)
 	(*shell)->token = NULL;
 	(*shell)->pids = NULL;
 	init_env(*shell, envp);
+	(*shell)->export = malloc(sizeof(t_env *));
 	(*shell)->pwd = getcwd(NULL, 0);
 	if (!(*shell)->pwd)
 	{

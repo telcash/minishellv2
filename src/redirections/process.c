@@ -6,7 +6,7 @@
 /*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 10:59:22 by csalazar          #+#    #+#             */
-/*   Updated: 2025/04/12 10:11:16 by carlossalaz      ###   ########.fr       */
+/*   Updated: 2025/04/12 13:38:00 by carlossalaz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,25 +57,25 @@ int	process_output_redirections(t_token *token)
 {
 	int	out;
 	int	tmp;
+	char *err_msg;
 
+	err_msg = NULL;
 	out = STDOUT_FILENO;
 	while (token && token->type != PIPE)
 	{
 		if (token->type == OUT)
 		{
-			tmp = process_out(token->data);
+			tmp = process_out(token->data, &err_msg);
 			out = set_fd(tmp, out, STDOUT_FILENO);
-			if (out == -1)
-				return (-1);
 		}
 		else if (token->type == APPEND)
 		{
-			tmp = process_append(token->data);
+			tmp = process_append(token->data, &err_msg);
 			out = set_fd(tmp, out, STDOUT_FILENO);
-			if (out == -1)
-				return (-1);
 		}
 		token = token->next;
 	}
+	if (err_msg)
+		return (ft_putendl_fd(err_msg, 2), free(err_msg), -1);
 	return (out);
 }
