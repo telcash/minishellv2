@@ -24,6 +24,7 @@
 # define CD_TOO_MANY_ARGS_ERR "minishell: cd: too many arguments"
 # define CD_NO_HOME_ERR "minishell: cd: HOME not set"
 # define NO_PATH_ERR "Error getting the path"
+# define UN_TOKEN_ERR "minishell: syntax error near unexpected token "
 # define UN_TOKEN_NL_ERR "minishell: syntax error near unexpected token `newline'"
 # define UN_TOKEN_PIPE_ERR "minishell: syntax error near unexpected token `|'"
 # define UN_TOKEN_2PIPE_ERR "minishell: syntax error near unexpected token `||'"

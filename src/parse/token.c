@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 11:24:45 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/11 11:02:20 by csalazar         ###   ########.fr       */
+/*   Updated: 2025/04/12 17:02:32 by carlossalaz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,10 @@ static int	tokenize_word(char *line, int *i, t_shell *shell)
 			quote = '\0';
 		(*i)++;
 	}
-	if (quote)
-		return (1);
+	if (quote == '\'')
+		return (ft_error_concat(2, UN_TOKEN_ERR, "`''"), 1);
+	if (quote == '"')
+		return (ft_error_concat(2, UN_TOKEN_ERR, "`\"'"), 1);
 	token_data = get_new_token_data(line, start, i, shell);
 	append_token(token_data, WORD, shell);
 	return (0);

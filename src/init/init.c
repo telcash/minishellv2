@@ -6,17 +6,17 @@
 /*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 09:05:29 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/12 16:40:55 by carlossalaz      ###   ########.fr       */
+/*   Updated: 2025/04/12 17:08:19 by carlossalaz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static void update_shlvl(t_shell *shell)
+static void	update_shlvl(t_shell *shell)
 {
-	char *level;
-	int new_level;
-	char *new_level_str;
+	char	*level;
+	int		new_level;
+	char	*new_level_str;
 
 	level = get_env_value(shell->env, "SHLVL");
 	if (level)
@@ -24,7 +24,8 @@ static void update_shlvl(t_shell *shell)
 		new_level = ft_atoi(level) + 1;
 		new_level_str = ft_itoa(new_level);
 		append_or_update(shell->env, ft_strdup("SHLVL"), new_level_str);
-		append_or_update(shell->export, ft_strdup("SHLVL"), new_level_str);
+		append_or_update(shell->export, ft_strdup("SHLVL"),
+			ft_strdup(new_level_str));
 	}
 }
 
