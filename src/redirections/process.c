@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 10:59:22 by csalazar          #+#    #+#             */
-/*   Updated: 2025/04/11 12:18:04 by csalazar         ###   ########.fr       */
+/*   Updated: 2025/04/12 09:51:54 by carlossalaz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,10 @@ int	process_input_redirections(t_token *token)
 		{
 			tmp = process_here_doc(token->data);
 			in = set_fd(tmp, in, STDIN_FILENO);
-			if (in == -1)
+			if (in == -1 && err_msg)
 				return (ft_putendl_fd(err_msg, 2), free(err_msg), -1);
+			else if (in == -1)
+				return (-1);
 		}
 		token = token->next;
 	}
