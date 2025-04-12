@@ -128,7 +128,7 @@ int						is_valid_env_var(char *str);
 t_env					*find_env_var_by_name(t_env **env, char *name);
 char					*get_env_value(t_env **env, char *name);
 char					**env_to_array(t_env *env);
-int						print_sorted_env(t_shell *shell, int out);
+void					print_sorted_env(t_env **env, int out);
 int						len_2d_array(char **arr);
 char					*ft_strjoin3(char *s1, char *s2, char *s3);
 void					ft_exit_error(char *message, int status,

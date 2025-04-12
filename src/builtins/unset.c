@@ -6,7 +6,7 @@
 /*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 13:45:23 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/12 12:37:09 by carlossalaz      ###   ########.fr       */
+/*   Updated: 2025/04/12 16:18:31 by carlossalaz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	ft_unset(t_shell *shell, char **cmdargs)
 					free(shell->pwd);
 				shell->oldpwd = ft_strdup("");
 			}
-			//remove_export_var(shell->export, cmdargs[i]);
+			remove_env_var(shell->export, cmdargs[i]);
 			remove_env_var(shell->env, cmdargs[i]);
 		}
 		i++;

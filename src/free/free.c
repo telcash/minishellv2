@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dfernan3 <dfernan3@student.42.fr>          +#+  +:+       +#+        */
+/*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 09:24:50 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/08 15:52:52 by dfernan3         ###   ########.fr       */
+/*   Updated: 2025/04/12 16:17:29 by carlossalaz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ void	free_shell(t_shell *shell)
 		return ;
 	if (shell->env)
 		free_env(shell->env);
+	if (shell->export)
+		free_env(shell->export);
 	if (shell->pwd)
 		free(shell->pwd);
 	if (shell->oldpwd)

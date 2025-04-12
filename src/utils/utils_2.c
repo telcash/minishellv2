@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 22:44:57 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/11 11:25:07 by csalazar         ###   ########.fr       */
+/*   Updated: 2025/04/12 14:55:42 by carlossalaz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,22 +41,23 @@ static void	sort_env(char **env)
 	}
 }
 
-int	print_sorted_env(t_shell *shell, int out)
+void	print_sorted_env(t_env **env, int out)
 {
-	char	**env;
+	char	**env_arr;
 	int		i;
 
-	env = env_to_array(*(shell->env));
-	sort_env(env);
+	if (!env || !*env)
+		return ;
+	env_arr = env_to_array(*env);
+	sort_env(env_arr);
 	i = 0;
-	while (env[i])
+	while (env_arr[i])
 	{
 		ft_putstr_fd("declare -x ", out);
-		ft_putendl_fd(env[i], out);
+		ft_putendl_fd(env_arr[i], out);
 		i++;
 	}
-	free_split(env);
-	return (0);
+	free_split(env_arr);
 }
 
 int	ft_isspace(char c)

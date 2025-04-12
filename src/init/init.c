@@ -6,7 +6,7 @@
 /*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 09:05:29 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/12 14:43:11 by carlossalaz      ###   ########.fr       */
+/*   Updated: 2025/04/12 15:23:48 by carlossalaz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,24 @@ static void	init_env(t_shell *shell, char **envp)
 	if (!envp || !*envp)
 	{
 		shell->env = NULL;
+		shell->export = NULL;
 		return ;
 	}
 	shell->env = malloc(sizeof(t_env *));
 	if (!shell->env)
 		ft_exit_error(MALLOC_ERR, EXIT_FAILURE, shell);
+	shell->export = malloc(sizeof(t_env *));
+	if (!shell->export)
+		ft_exit_error(MALLOC_ERR, EXIT_FAILURE, shell);
 	i = 0;
 	*(shell->env) = NULL;
+	*(shell->export) = NULL;
 	while (envp[i])
-		upsert_env(shell->env, envp[i++]);
+	{
+		upsert_env(shell->env, envp[i]);
+		upsert_env(shell->export, envp[i]);
+		i++;
+	}
 	append_or_update(shell->env, ft_strdup("PWD"), getcwd(NULL, 0));
 }
 
@@ -86,7 +95,6 @@ void	init_minishell(t_shell **shell, char **envp)
 	(*shell)->token = NULL;
 	(*shell)->pids = NULL;
 	init_env(*shell, envp);
-	(*shell)->export = malloc(sizeof(t_env *));
 	(*shell)->pwd = getcwd(NULL, 0);
 	if (!(*shell)->pwd)
 	{
