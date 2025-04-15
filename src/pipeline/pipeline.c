@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipeline.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 11:07:27 by csalazar          #+#    #+#             */
-/*   Updated: 2025/04/11 11:07:35 by csalazar         ###   ########.fr       */
+/*   Updated: 2025/04/15 19:33:35 by carlossalaz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ static void	process_tokens(t_token *segment, t_shell *shell)
 	while (segment)
 	{
 		cmdargs = get_cmdargs(segment);
-		io = get_io(segment, i);
+		io = get_io(segment, i, shell);
 		process_command(cmdargs, shell, i++, io);
 		free(cmdargs);
 		segment = get_next_segment(segment);

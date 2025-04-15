@@ -6,7 +6,7 @@
 /*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 18:36:10 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/15 19:03:58 by carlossalaz      ###   ########.fr       */
+/*   Updated: 2025/04/15 20:41:45 by carlossalaz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,28 @@ static char	*add_expanded_variable(char *data, char *word, int *i,
 	{
 		data = append_word_segment(data, exp_var, 0, ft_strlen(exp_var));
 		free(exp_var);
+	}
+	return (data);
+}
+
+char *expand_here_doc(char *line, int has_quotes, t_shell *shell)
+{
+	char *data;
+	int i;
+	int start;
+
+	if (has_quotes)
+		return (ft_strdup(line));
+	data = NULL;
+	i = 0;
+	while (line[i])
+	{
+		start = i;
+		while (line[i] && line[i] != '$')
+			i++;
+		data = append_word_segment(data, line, start, i);
+		if (line[i]	=='$')
+			data = add_expanded_variable(data, line, &i, shell);
 	}
 	return (data);
 }

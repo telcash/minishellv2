@@ -6,13 +6,13 @@
 /*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 11:24:45 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/15 19:03:58 by carlossalaz      ###   ########.fr       */
+/*   Updated: 2025/04/15 20:23:46 by carlossalaz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static char	*get_new_token_data(char *line, int start, int *i)
+/* static char	*get_new_token_data(char *line, int start, int *i)
 {
 	char	*word;
 	char	*token_data;
@@ -21,7 +21,7 @@ static char	*get_new_token_data(char *line, int start, int *i)
 	token_data = trim_line_quotes(word);
 	free(word);
 	return (token_data);
-}
+} */
 
 static int	tokenize_word(char *line, int *i, t_shell *shell)
 {
@@ -44,7 +44,7 @@ static int	tokenize_word(char *line, int *i, t_shell *shell)
 		return (ft_error_concat(2, UN_TOKEN_ERR, "`''"), 1);
 	if (quote == '"')
 		return (ft_error_concat(2, UN_TOKEN_ERR, "`\"'"), 1);
-	token_data = get_new_token_data(line, start, i);
+	token_data = ft_substr(line, start, *i - start);
 	append_token(token_data, WORD, shell);
 	return (0);
 }

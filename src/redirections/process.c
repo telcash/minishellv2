@@ -6,7 +6,7 @@
 /*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 10:59:22 by csalazar          #+#    #+#             */
-/*   Updated: 2025/04/12 16:43:05 by carlossalaz      ###   ########.fr       */
+/*   Updated: 2025/04/15 19:31:05 by carlossalaz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int here_doc_fail(char *err_msg)
 	return (-1);
 }
 
-int	process_input_redirections(t_token *token)
+int	process_input_redirections(t_token *token, t_shell *shell)
 {
 	int		in;
 	int		tmp;
@@ -49,7 +49,7 @@ int	process_input_redirections(t_token *token)
 		}
 		else if (token->type == HERE_DOC)
 		{
-			tmp = process_here_doc(token->data);
+			tmp = process_here_doc(token->data, shell);
 			in = set_fd(tmp, in, STDIN_FILENO);
 			if (in == -1)
 				return (here_doc_fail(err_msg));

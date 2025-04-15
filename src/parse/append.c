@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   append.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 22:53:40 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/11 11:06:26 by csalazar         ###   ########.fr       */
+/*   Updated: 2025/04/15 20:23:46 by carlossalaz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,13 @@ void	append_token(char *data, t_token_type type, t_shell *shell)
 	new_token = malloc(sizeof(t_token));
 	if (!new_token)
 		return ;
-	new_token->data = data;
+	if (last_token && last_token->type == HERE_DOC)
+		new_token->data = data;
+	else
+	{
+		new_token->data = trim_line_quotes(data);
+		free(data);
+	}
 	new_token->type = type;
 	new_token->next = NULL;
 	if (!last_token)

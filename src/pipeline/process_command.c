@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process_command.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 11:07:56 by csalazar          #+#    #+#             */
-/*   Updated: 2025/04/15 17:17:32 by csalazar         ###   ########.fr       */
+/*   Updated: 2025/04/15 19:28:42 by carlossalaz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,14 @@ static int	father_process_clean(t_shell *shell, pid_t pid, t_io *io, int i)
 	return (0);
 }
 
-t_io	*get_io(t_token *segment, int com_count)
+t_io	*get_io(t_token *segment, int com_count, t_shell *shell)
 {
 	t_io	*io;
 
 	io = ft_calloc(1, sizeof(t_io));
 	if (!io)
 		ft_exit_error(MALLOC_ERR, 1, NULL);
-	io->in = process_input_redirections(segment);
+	io->in = process_input_redirections(segment, shell);
 	if (io->in == -1)
 		io->out = STDOUT_FILENO;
 	else
