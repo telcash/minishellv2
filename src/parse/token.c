@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
+/*   By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 11:24:45 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/12 17:02:32 by carlossalaz      ###   ########.fr       */
+/*   Updated: 2025/04/15 18:01:03 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,14 @@
 
 static char	*get_new_token_data(char *line, int start, int *i, t_shell *shell)
 {
+	(void)shell;
 	char	*word;
-	char	*token_data;
+	//char	*token_data;
 
 	word = ft_substr(line, start, *i - start);
-	token_data = trim_quotes_and_expand(word, shell);
-	free(word);
-	return (token_data);
+	//token_data = trim_quotes_and_expand(word, shell);
+	//free(word);
+	return (word);
 }
 
 static int	tokenize_word(char *line, int *i, t_shell *shell)
@@ -98,11 +99,14 @@ static int	tokenize(char *line, t_shell *shell)
 
 void	get_token(char *line, t_shell *shell)
 {
+	char *expanded;
+
 	shell->token = (t_token **)malloc(sizeof(t_token *));
 	if (!shell->token)
 		shell->token = NULL;
 	*(shell->token) = NULL;
-	if (tokenize(line, shell))
+	expanded = trim_quotes_and_expand(line, shell);
+	if (tokenize(expanded, shell))
 	{
 		free_token(shell->token);
 		shell->token = NULL;

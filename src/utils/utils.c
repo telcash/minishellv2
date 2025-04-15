@@ -6,11 +6,23 @@
 /*   By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 14:32:31 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/11 11:09:18 by csalazar         ###   ########.fr       */
+/*   Updated: 2025/04/15 17:15:08 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+char *get_last_cmdarg(char **cmdarg)
+{
+	int i;
+
+	if (!cmdarg || !cmdarg[0])
+		return (NULL);
+	i = 0;
+	while (cmdarg[i] && cmdarg[i + 1])
+		i++;
+	return (cmdarg[i]);
+}
 
 char	*ft_strjoin3(char *s1, char *s2, char *s3)
 {

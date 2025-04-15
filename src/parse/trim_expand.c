@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   trim_expand.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
+/*   By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 09:19:39 by csalazar          #+#    #+#             */
-/*   Updated: 2025/04/12 14:43:40 by carlossalaz      ###   ########.fr       */
+/*   Updated: 2025/04/15 17:58:53 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

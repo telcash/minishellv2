@@ -79,6 +79,7 @@ typedef struct s_shell
 {
 	char				*pwd;
 	char				*oldpwd;
+	char				*_;
 	int					last_exit_status;
 	int					*pids;
 	int					launched_procs;
@@ -132,6 +133,7 @@ char					**env_to_array(t_env *env);
 void					print_sorted_env(t_env **env, int out);
 int						len_2d_array(char **arr);
 char					*ft_strjoin3(char *s1, char *s2, char *s3);
+char 					*get_last_cmdarg(char **cmdarg);
 void					ft_exit_error(char *message, int status,
 							t_shell *shell);
 void					ft_error(char *message);

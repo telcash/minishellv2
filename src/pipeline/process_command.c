@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process_command.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
+/*   By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 11:07:56 by csalazar          #+#    #+#             */
-/*   Updated: 2025/04/12 13:32:51 by carlossalaz      ###   ########.fr       */
+/*   Updated: 2025/04/15 17:17:32 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ int	process_command(char **cmdargs, t_shell *shell, int i, t_io *io)
 {
 	pid_t	pid;
 
+	if (shell->pipes->nb_pipes == 0 && cmdargs && cmdargs[0])
+		append_or_update(shell->env, ft_strdup("_"), ft_strdup(get_last_cmdarg(cmdargs)));
 	if (cmdargs[0] && cmd_is_builtin(cmdargs[0]) && shell->pipes->nb_pipes == 0)
 		return (process_built_in_alone(shell, cmdargs, io));
 	g_interactive = NON_INTERACTIVE;
