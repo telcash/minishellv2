@@ -3,25 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 11:24:45 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/15 18:01:03 by csalazar         ###   ########.fr       */
+/*   Updated: 2025/04/15 19:03:58 by carlossalaz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static char	*get_new_token_data(char *line, int start, int *i, t_shell *shell)
+static char	*get_new_token_data(char *line, int start, int *i)
 {
-	(void)shell;
 	char	*word;
-	//char	*token_data;
+	char	*token_data;
 
 	word = ft_substr(line, start, *i - start);
-	//token_data = trim_quotes_and_expand(word, shell);
-	//free(word);
-	return (word);
+	token_data = trim_line_quotes(word);
+	free(word);
+	return (token_data);
 }
 
 static int	tokenize_word(char *line, int *i, t_shell *shell)
@@ -45,7 +44,7 @@ static int	tokenize_word(char *line, int *i, t_shell *shell)
 		return (ft_error_concat(2, UN_TOKEN_ERR, "`''"), 1);
 	if (quote == '"')
 		return (ft_error_concat(2, UN_TOKEN_ERR, "`\"'"), 1);
-	token_data = get_new_token_data(line, start, i, shell);
+	token_data = get_new_token_data(line, start, i);
 	append_token(token_data, WORD, shell);
 	return (0);
 }
@@ -105,17 +104,20 @@ void	get_token(char *line, t_shell *shell)
 	if (!shell->token)
 		shell->token = NULL;
 	*(shell->token) = NULL;
-	expanded = trim_quotes_and_expand(line, shell);
+	expanded = expand_line(line, shell);
 	if (tokenize(expanded, shell))
 	{
 		free_token(shell->token);
+		free(expanded);
 		shell->token = NULL;
 		return ;
 	}
 	if (verify_token(shell->token))
 	{
 		free_token(shell->token);
+		free(expanded);
 		shell->token = NULL;
 		return ;
 	}
+	free(expanded);
 }

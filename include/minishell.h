@@ -115,7 +115,10 @@ int						ft_exit(t_shell *shell, char **cmdargs);
 void					get_token(char *line, t_shell *shell);
 void					append_token(char *data, t_token_type type,
 							t_shell *shell);
-char					*trim_quotes_and_expand(char *word, t_shell *shell);
+void					toggle_quote(char quote, char *s_quote, char *d_quote);
+char					*append_word_segment(char *data, char *word, int start, int end);
+char 					*trim_line_quotes(char *line);
+char					*expand_line(char *line, t_shell *shell);
 int						ft_isspace(char c);
 int						isseparator(char c);
 int						verify_token(t_token **token);
