@@ -6,7 +6,7 @@
 /*   By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 13:43:02 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/11 11:00:45 by csalazar         ###   ########.fr       */
+/*   Updated: 2025/04/15 16:50:08 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	ft_echo(char **cmdargs, int out)
 
 	i = 1;
 	n = 0;
-	if (cmdargs[i] && check_n(cmdargs[i]))
+	while (cmdargs[i] && check_n(cmdargs[i]))
 	{
 		n = 1;
 		i++;
