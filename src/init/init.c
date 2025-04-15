@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
+/*   By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 09:05:29 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/12 17:08:19 by carlossalaz      ###   ########.fr       */
+/*   Updated: 2025/04/15 16:46:51 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,29 +16,24 @@ static void	update_shlvl(t_shell *shell)
 {
 	char	*level;
 	int		new_level;
-	char	*new_level_str;
+	char	*tmp;
 
 	level = get_env_value(shell->env, "SHLVL");
 	if (level)
 	{
 		new_level = ft_atoi(level) + 1;
-		new_level_str = ft_itoa(new_level);
-		append_or_update(shell->env, ft_strdup("SHLVL"), new_level_str);
-		append_or_update(shell->export, ft_strdup("SHLVL"),
-			ft_strdup(new_level_str));
+		tmp = ft_itoa(new_level);
 	}
+	else
+		tmp = ft_strdup("1");
+	append_or_update(shell->env, ft_strdup("SHLVL"), tmp);
+	append_or_update(shell->export, ft_strdup("SHLVL"), ft_strdup(tmp));
 }
 
 static void	init_env(t_shell *shell, char **envp)
 {
 	int	i;
 
-	if (!envp || !*envp)
-	{
-		shell->env = NULL;
-		shell->export = NULL;
-		return ;
-	}
 	shell->env = malloc(sizeof(t_env *));
 	if (!shell->env)
 		ft_exit_error(MALLOC_ERR, EXIT_FAILURE, shell);
@@ -47,6 +42,13 @@ static void	init_env(t_shell *shell, char **envp)
 		ft_exit_error(MALLOC_ERR, EXIT_FAILURE, shell);
 	*(shell->env) = NULL;
 	*(shell->export) = NULL;
+	if (!envp || !*envp)
+	{
+		append_or_update(shell->env, ft_strdup("PWD"), getcwd(NULL, 0));
+		append_or_update(shell->export, ft_strdup("PWD"), getcwd(NULL, 0));
+		update_shlvl(shell);
+		return ;
+	}
 	i = -1;
 	while (envp[++i])
 	{
