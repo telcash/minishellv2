@@ -117,6 +117,7 @@ void					append_token(char *data, t_token_type type,
 							t_shell *shell);
 void					toggle_quote(char quote, char *s_quote, char *d_quote);
 char					*append_word_segment(char *data, char *word, int start, int end);
+char					*expand_tilde(char *data, t_shell *shell);
 char 					*trim_line_quotes(char *line);
 char					*expand_line(char *line, t_shell *shell);
 char 					*expand_here_doc(char *line, int has_quotes, t_shell *shell);

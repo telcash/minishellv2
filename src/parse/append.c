@@ -6,7 +6,7 @@
 /*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 22:53:40 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/15 20:23:46 by carlossalaz      ###   ########.fr       */
+/*   Updated: 2025/04/16 08:00:51 by carlossalaz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	append_token(char *data, t_token_type type, t_shell *shell)
 	t_token	*curr_token;
 	t_token	*last_token;
 	t_token	*new_token;
+	char *tmp;
 
 	curr_token = *(shell->token);
 	last_token = get_last_token(curr_token);
@@ -36,8 +37,10 @@ void	append_token(char *data, t_token_type type, t_shell *shell)
 		new_token->data = data;
 	else
 	{
-		new_token->data = trim_line_quotes(data);
+		tmp = expand_tilde(data, shell);
+		new_token->data = trim_line_quotes(tmp);
 		free(data);
+		free(tmp);
 	}
 	new_token->type = type;
 	new_token->next = NULL;

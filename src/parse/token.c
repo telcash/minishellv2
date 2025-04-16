@@ -6,22 +6,11 @@
 /*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 11:24:45 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/15 20:23:46 by carlossalaz      ###   ########.fr       */
+/*   Updated: 2025/04/15 23:16:21 by carlossalaz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-/* static char	*get_new_token_data(char *line, int start, int *i)
-{
-	char	*word;
-	char	*token_data;
-
-	word = ft_substr(line, start, *i - start);
-	token_data = trim_line_quotes(word);
-	free(word);
-	return (token_data);
-} */
 
 static int	tokenize_word(char *line, int *i, t_shell *shell)
 {

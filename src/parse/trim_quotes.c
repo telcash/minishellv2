@@ -6,7 +6,7 @@
 /*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 18:36:20 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/15 18:55:20 by carlossalaz      ###   ########.fr       */
+/*   Updated: 2025/04/16 07:37:13 by carlossalaz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,24 +28,6 @@ void	toggle_quote(char quote, char *s_quote, char *d_quote)
 		else
 			*d_quote = quote;
 	}
-}
-
-char	*append_word_segment(char *data, char *word, int start, int end)
-{
-	char	*tmp;
-	char	*new_data;
-
-	tmp = ft_substr(word, start, end - start);
-	if (!tmp)
-		return (data);
-	if (!data)
-		data = ft_strdup("");
-	new_data = ft_strjoin(data, tmp);
-	free(tmp);
-	if (!new_data)
-		return (data);
-	free(data);
-	return (new_data);
 }
 
 char *trim_line_quotes(char *line)
