@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 09:05:29 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/15 17:36:51 by csalazar         ###   ########.fr       */
+/*   Updated: 2025/04/16 09:14:26 by carlossalaz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ void	init_minishell(t_shell **shell, char **envp)
 	(*shell)->pipes = NULL;
 	(*shell)->token = NULL;
 	(*shell)->pids = NULL;
+	(*shell)->_= ft_strdup(getenv("_"));
 	init_env(*shell, envp);
 	(*shell)->pwd = getcwd(NULL, 0);
 	if (!(*shell)->pwd)

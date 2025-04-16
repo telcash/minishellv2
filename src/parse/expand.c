@@ -6,7 +6,7 @@
 /*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 18:36:10 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/16 08:00:51 by carlossalaz      ###   ########.fr       */
+/*   Updated: 2025/04/16 10:25:10 by carlossalaz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,12 @@ static char	*add_expanded_variable(char *data, char *word, int *i,
 	if (word[start + 1] == '?')
 	{
 		exp_var = ft_itoa(shell->last_exit_status);
+		*i += 2;
+		end = start + 2;
+	}
+	else if (word[start + 1] == '_')
+	{
+		exp_var = ft_strdup(shell->_);
 		*i += 2;
 		end = start + 2;
 	}
