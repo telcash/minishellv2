@@ -69,16 +69,22 @@ int	upsert_env(t_shell *shell, char *envp)
 
 	if (!envp || !is_valid_env_var(envp))
 		return (-1);
-	if (!ft_strchr(envp, '='))
-		return (0);
-	name = ft_substr(envp, 0, ft_strchr(envp, '=') - envp);
-	if (!name)
-		return (ft_error(MALLOC_ERR), 0);
-	value = ft_strdup(ft_strchr(envp, '=') + 1);
-	if (!value)
+	if (ft_strchr(envp, '='))
 	{
-		free(name);
-		return (ft_error(MALLOC_ERR), 0);
+		name = ft_substr(envp, 0, ft_strchr(envp, '=') - envp);
+		if (!name)
+			return (ft_error(MALLOC_ERR), 0);
+		value = ft_strdup(ft_strchr(envp, '=') + 1);
+		if (!value)
+		{
+			free(name);
+			return (ft_error(MALLOC_ERR), 0);
+		}
+	}
+	else
+	{
+		name = envp;
+		value = NULL;
 	}
 	upsert = append_or_update(shell, name, value);
 	if (!upsert)
