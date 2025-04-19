@@ -6,7 +6,7 @@
 /*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 11:24:45 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/15 23:16:21 by carlossalaz      ###   ########.fr       */
+/*   Updated: 2025/04/16 15:25:56 by carlossalaz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,5 +108,12 @@ void	get_token(char *line, t_shell *shell)
 		shell->token = NULL;
 		return ;
 	}
+	/* ft_putendl_fd(expanded, 1);
+	t_token *tmp = *(shell->token);
+	while (tmp)
+	{
+		ft_putendl_fd(tmp->data, 1);
+		tmp = tmp->next;
+	} */
 	free(expanded);
 }
