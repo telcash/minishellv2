@@ -78,6 +78,7 @@ typedef struct s_env
 typedef struct s_shell
 {
 	char				*pwd;
+	int					pwd_unset;
 	char				*oldpwd;
 	char				*_;
 	int					last_exit_status;

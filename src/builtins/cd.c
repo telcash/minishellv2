@@ -6,7 +6,7 @@
 /*   By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 13:41:58 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/21 15:10:19 by csalazar         ###   ########.fr       */
+/*   Updated: 2025/04/21 17:30:28 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ static int	update_pwds(t_shell *shell)
 		append_or_update(shell->env, ft_strdup("OLDPWD"),
 			ft_strdup(shell->pwd));
 	free(shell->pwd);
+	shell->pwd_unset = 0;
 	shell->pwd = getcwd(NULL, 0);
 	if (!shell->pwd)
 	{

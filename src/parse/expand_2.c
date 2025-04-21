@@ -6,7 +6,7 @@
 /*   By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 15:50:05 by csalazar          #+#    #+#             */
-/*   Updated: 2025/04/21 16:07:19 by csalazar         ###   ########.fr       */
+/*   Updated: 2025/04/21 17:30:28 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,12 @@ static char	*get_expanded_variable(int start, int end, char *word,
 		tmp1 = ft_substr(word, start + 1, end - start - 1);
 		tmp2 = get_env_value(shell->env, tmp1);
 		if (ft_strcmp(tmp1, "PWD") == 0 && !tmp2)
-			tmp2 = shell->pwd;
+		{
+			if (!shell->pwd_unset)
+				tmp2 = shell->pwd;
+			else
+				tmp2 = "";
+		}
 		free(tmp1);
 		if (tmp2)
 			return (ft_strdup(tmp2));
