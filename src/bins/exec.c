@@ -6,7 +6,7 @@
 /*   By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:28:14 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/21 16:30:30 by csalazar         ###   ########.fr       */
+/*   Updated: 2025/04/21 18:09:31 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,6 @@ void	exec_bin(t_shell *shell, char **cmdargs)
 		free_split(envp);
 		free_shell(shell);
 		free(cmdargs);
-		exit(1);
+		exit(127);
 	}
 }
