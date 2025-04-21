@@ -60,7 +60,7 @@ static void	copy_env_to_array(char **env_array, t_env *env)
 				free(tmp);
 			}
 			else
-				env_array[i] = ft_strjoin3(env->name, "=", "\"\"");
+				env_array[i] = ft_strdup(env->name);
 			i++;
 		}
 		env = env->next;

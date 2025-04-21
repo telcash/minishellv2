@@ -20,7 +20,7 @@ static void	append_to_export(char *var, t_shell *shell)
 			append_or_update(shell->export, ft_strdup(var), NULL);
 		else if ((ft_strchr(var, '=') + 1)[0] == '\0')
 			append_or_update(shell->export, ft_substr(var, 0, ft_strchr(var,
-						'=') - var), ft_strdup("\"\""));
+						'=') - var), ft_strdup(""));
 		else
 			upsert_env(shell->export, var);
 	}
