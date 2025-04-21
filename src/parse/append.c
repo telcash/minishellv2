@@ -6,7 +6,7 @@
 /*   By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 22:53:40 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/21 13:53:38 by csalazar         ###   ########.fr       */
+/*   Updated: 2025/04/21 14:47:26 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ void	append_token(char *data, t_token_type type, t_shell *shell, int is_exp)
 	else if (ft_strchr(data, '$'))
 	{
 		expanded = expand_line(data, shell);
+		free(data);
 		tokenize_expansion(expanded, shell);
 		free (expanded);
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
+/*   By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 11:08:37 by csalazar          #+#    #+#             */
-/*   Updated: 2025/04/16 07:22:23 by carlossalaz      ###   ########.fr       */
+/*   Updated: 2025/04/21 15:02:57 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,19 +25,20 @@ static void	run_here_doc_loop(int write_fd, char *delimiter, int has_quotes,
 		line = get_next_line(STDIN_FILENO);
 		if (!line)
 			break ;
-		expanded_line = expand_here_doc(line, has_quotes, shell);
-		free(line);
-		len = ft_strlen(expanded_line);
-		if (len > 0 && expanded_line[len - 1] == '\n')
-			expanded_line[len - 1] = '\0';
-		if (ft_strcmp(expanded_line, delimiter) == 0)
+		//free(line);
+		len = ft_strlen(line);
+		if (len > 0 && line[len - 1] == '\n')
+			line[len - 1] = '\0';
+		if (ft_strcmp(line, delimiter) == 0)
 		{
-			free(expanded_line);
+			free(line);
 			break ;
 		}
-		write(write_fd, expanded_line, len);
+		expanded_line = expand_here_doc(line, has_quotes, shell);
+		write(write_fd, expanded_line, ft_strlen(expanded_line));
 		write(write_fd, "\n", 1);
 		free(expanded_line);
+		free(line);
 	}
 	close(write_fd);
 }
