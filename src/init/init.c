@@ -6,7 +6,7 @@
 /*   By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 09:05:29 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/21 15:34:28 by csalazar         ###   ########.fr       */
+/*   Updated: 2025/04/21 16:16:17 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,7 @@ void	init_minishell(t_shell **shell, char **envp)
 	(*shell)->token = NULL;
 	(*shell)->pids = NULL;
 	(*shell)->_ = NULL;
-	if (getenv("_"))
-		(*shell)->_ = ft_strdup(getenv("_"));
+	(*shell)->_ = ft_strdup("]");
 	init_env(*shell, envp);
 	(*shell)->pwd = getcwd(NULL, 0);
 	if (!(*shell)->pwd)
