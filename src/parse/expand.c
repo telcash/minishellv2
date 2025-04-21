@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 18:36:10 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/21 16:01:36 by csalazar         ###   ########.fr       */
+/*   Updated: 2025/04/21 20:59:53 by carlossalaz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,5 @@ char	*expand_line(char *line, t_shell *shell)
 		if (line[i] == '$' && !s_quote)
 			data = add_expanded_variable(data, line, &i, shell);
 	}
-	free(line);
 	return (data);
 }
