@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
+/*   By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 11:24:45 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/16 15:25:56 by carlossalaz      ###   ########.fr       */
+/*   Updated: 2025/04/21 13:52:34 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,27 +34,27 @@ static int	tokenize_word(char *line, int *i, t_shell *shell)
 	if (quote == '"')
 		return (ft_error_concat(2, UN_TOKEN_ERR, "`\"'"), 1);
 	token_data = ft_substr(line, start, *i - start);
-	append_token(token_data, WORD, shell);
+	append_token(token_data, WORD, shell, 0);
 	return (0);
 }
 
 static int	tokenize_separator(char *line, int *i, t_shell *shell)
 {
 	if (line[*i] == '|')
-		append_token(ft_substr(line, *i, 1), PIPE, shell);
+		append_token(ft_substr(line, *i, 1), PIPE, shell, 0);
 	else if (line[*i] == '<')
 	{
 		if (line[*i + 1] == '<')
-			append_token(ft_substr(line, (*i)++, 2), HERE_DOC, shell);
+			append_token(ft_substr(line, (*i)++, 2), HERE_DOC, shell, 0);
 		else
-			append_token(ft_substr(line, *i, 1), IN, shell);
+			append_token(ft_substr(line, *i, 1), IN, shell, 0);
 	}
 	else if (line[*i] == '>')
 	{
 		if (line[*i + 1] == '>')
-			append_token(ft_substr(line, (*i)++, 2), APPEND, shell);
+			append_token(ft_substr(line, (*i)++, 2), APPEND, shell, 0);
 		else
-			append_token(ft_substr(line, *i, 1), OUT, shell);
+			append_token(ft_substr(line, *i, 1), OUT, shell, 0);
 	}
 	else
 		return (1);
@@ -87,33 +87,26 @@ static int	tokenize(char *line, t_shell *shell)
 
 void	get_token(char *line, t_shell *shell)
 {
-	char *expanded;
+	//char *expanded;
 
 	shell->token = (t_token **)malloc(sizeof(t_token *));
 	if (!shell->token)
 		shell->token = NULL;
 	*(shell->token) = NULL;
-	expanded = expand_line(line, shell);
-	if (tokenize(expanded, shell))
+	//expanded = expand_line(line, shell);
+	if (tokenize(line, shell))
 	{
 		free_token(shell->token);
-		free(expanded);
+		//free(expanded);
 		shell->token = NULL;
 		return ;
 	}
 	if (verify_token(shell->token))
 	{
 		free_token(shell->token);
-		free(expanded);
+		//free(expanded);
 		shell->token = NULL;
 		return ;
 	}
-	/* ft_putendl_fd(expanded, 1);
-	t_token *tmp = *(shell->token);
-	while (tmp)
-	{
-		ft_putendl_fd(tmp->data, 1);
-		tmp = tmp->next;
-	} */
-	free(expanded);
+	//free(expanded);
 }

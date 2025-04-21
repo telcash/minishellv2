@@ -114,7 +114,7 @@ int						ft_unset(t_shell *shell, char **cmdargs);
 int						ft_exit(t_shell *shell, char **cmdargs);
 void					get_token(char *line, t_shell *shell);
 void					append_token(char *data, t_token_type type,
-							t_shell *shell);
+							t_shell *shell, int is_exp);
 void					toggle_quote(char quote, char *s_quote, char *d_quote);
 char					*append_word_segment(char *data, char *word, int start, int end);
 char					*expand_tilde(char *data, t_shell *shell);
