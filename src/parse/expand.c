@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
+/*   By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 18:36:10 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/16 15:44:01 by carlossalaz      ###   ########.fr       */
+/*   Updated: 2025/04/21 11:37:58 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ static char	*get_expanded_variable(int start, int end, char *word,
 	{
 		tmp1 = ft_substr(word, start + 1, end - start - 1);
 		tmp2 = get_env_value(shell->env, tmp1);
+		if (ft_strcmp(tmp1, "PWD") == 0 && !tmp2)
+			tmp2 = shell->pwd;
 		free(tmp1);
 		if (tmp2 && ft_strchr(tmp2, '\''))
 			return (ft_strjoin3("\"", tmp2, "\""));
