@@ -6,7 +6,7 @@
 /*   By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 11:24:45 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/21 13:52:34 by csalazar         ###   ########.fr       */
+/*   Updated: 2025/04/21 15:15:11 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,26 +87,20 @@ static int	tokenize(char *line, t_shell *shell)
 
 void	get_token(char *line, t_shell *shell)
 {
-	//char *expanded;
-
 	shell->token = (t_token **)malloc(sizeof(t_token *));
 	if (!shell->token)
 		shell->token = NULL;
 	*(shell->token) = NULL;
-	//expanded = expand_line(line, shell);
 	if (tokenize(line, shell))
 	{
 		free_token(shell->token);
-		//free(expanded);
 		shell->token = NULL;
 		return ;
 	}
 	if (verify_token(shell->token))
 	{
 		free_token(shell->token);
-		//free(expanded);
 		shell->token = NULL;
 		return ;
 	}
-	//free(expanded);
 }

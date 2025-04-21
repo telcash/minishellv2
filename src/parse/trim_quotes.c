@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   trim_quotes.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
+/*   By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 18:36:20 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/16 07:37:13 by carlossalaz      ###   ########.fr       */
+/*   Updated: 2025/04/21 15:26:29 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,28 +30,28 @@ void	toggle_quote(char quote, char *s_quote, char *d_quote)
 	}
 }
 
-char *trim_line_quotes(char *line)
+char	*trim_line_quotes(char *line)
 {
-    char *trimmed_line;
-    char	s_quote;
+	char	*trimmed_line;
+	char	s_quote;
 	char	d_quote;
 	int		i;
-    int		start;
-    
-    trimmed_line = NULL;
+	int		start;
+
+	trimmed_line = NULL;
 	s_quote = '\0';
 	d_quote = '\0';
 	i = 0;
-    while (line[i])
-    {
-        start = i;
-        while (line[i] && ((line[i] != '\'' && line[i] != '"')
-					|| (line[i] == '\'' && d_quote) 
-                    || (line[i] == '"' && s_quote)))
+	while (line[i])
+	{
+		start = i;
+		while (line[i] && ((line[i] != '\'' && line[i] != '"')
+				|| (line[i] == '\'' && d_quote) || (line[i] == '"'
+					&& s_quote)))
 			i++;
 		trimmed_line = append_word_segment(trimmed_line, line, start, i);
-        if ((line[i] == '\'' && !d_quote) || (line[i] == '"' && !s_quote))
-			toggle_quote(line[i++], &s_quote, &d_quote);	
-    }
-    return (trimmed_line);
+		if ((line[i] == '\'' && !d_quote) || (line[i] == '"' && !s_quote))
+			toggle_quote(line[i++], &s_quote, &d_quote);
+	}
+	return (trimmed_line);
 }

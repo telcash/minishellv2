@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
+/*   By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 13:41:58 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/12 14:45:48 by carlossalaz      ###   ########.fr       */
+/*   Updated: 2025/04/21 15:10:19 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,15 @@
 
 static int	update_pwds(t_shell *shell)
 {
-	char *tmp;
+	char	*tmp;
 
 	tmp = ft_strdup(shell->pwd);
 	if (shell->oldpwd)
 		free(shell->oldpwd);
 	shell->oldpwd = ft_strdup(shell->pwd);
 	if (find_env_var_by_name(shell->env, "OLDPWD"))
-		append_or_update(shell->env, ft_strdup("OLDPWD"), ft_strdup(shell->pwd));
+		append_or_update(shell->env, ft_strdup("OLDPWD"),
+			ft_strdup(shell->pwd));
 	free(shell->pwd);
 	shell->pwd = getcwd(NULL, 0);
 	if (!shell->pwd)
@@ -59,7 +60,8 @@ static int	cd_previous(t_shell *shell, int out)
 			return (update_pwds(shell));
 		}
 		if (chdir(get_env_value(shell->env, "OLDPWD")) != 0)
-			return (ft_error_cd_not_file(get_env_value(shell->env, "OLDPWD")), 1);
+			return (ft_error_cd_not_file(get_env_value(shell->env, "OLDPWD")),
+				1);
 		ft_putendl_fd(get_env_value(shell->env, "OLDPWD"), out);
 		return (update_pwds(shell));
 	}
@@ -86,7 +88,8 @@ int	ft_cd(t_shell *shell, char **cmdargs, int out)
 	else
 	{
 		if (chdir(cmdargs[1]) != 0)
-			return (ft_error_concat(4, "minishell: cd: ", cmdargs[1],": ", strerror(errno)), 1);
+			return (ft_error_concat(4, "minishell: cd: ", cmdargs[1], ": ",
+					strerror(errno)), 1);
 		else
 			return (update_pwds(shell));
 	}

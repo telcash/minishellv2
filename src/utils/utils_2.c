@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
+/*   By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 22:44:57 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/12 14:55:42 by carlossalaz      ###   ########.fr       */
+/*   Updated: 2025/04/21 15:48:50 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,4 +69,13 @@ int	ft_isspace(char c)
 int	isseparator(char c)
 {
 	return (c == '|' || c == '<' || c == '>');
+}
+
+t_token	*get_last_token(t_token *token)
+{
+	if (!token)
+		return (NULL);
+	while (token->next)
+		token = token->next;
+	return (token);
 }

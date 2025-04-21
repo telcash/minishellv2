@@ -94,9 +94,11 @@ void					set_signal(void);
 int						pipeline(t_shell *shell);
 int						process_command(char **cmdargs, t_shell *shell, int i,
 							t_io *io);
-t_io					*get_io(t_token *segment, int com_count, t_shell *shell);
+t_io					*get_io(t_token *segment, int com_count,
+							t_shell *shell);
 void					exec_bin(t_shell *shell, char **cmdargs);
-int						process_input_redirections(t_token *token, t_shell *shell);
+int						process_input_redirections(t_token *token,
+							t_shell *shell);
 int						process_output_redirections(t_token *token);
 int						process_here_doc(char *delimiter, t_shell *shell);
 int						process_in(char *file, char **err_msg);
@@ -115,22 +117,26 @@ int						ft_exit(t_shell *shell, char **cmdargs);
 void					get_token(char *line, t_shell *shell);
 void					append_token(char *data, t_token_type type,
 							t_shell *shell, int is_exp);
+char					*add_expanded_variable(char *data, char *word, int *i,
+							t_shell *shell);
 void					toggle_quote(char quote, char *s_quote, char *d_quote);
-char					*append_word_segment(char *data, char *word, int start, int end);
+char					*append_word_segment(char *data, char *word, int start,
+							int end);
 char					*expand_tilde(char *data, t_shell *shell);
-char 					*trim_line_quotes(char *line);
+char					*trim_line_quotes(char *line);
 char					*expand_line(char *line, t_shell *shell);
-char 					*expand_here_doc(char *line, int has_quotes, t_shell *shell);
+char					*expand_here_doc(char *line, int has_quotes,
+							t_shell *shell);
 int						ft_isspace(char c);
 int						isseparator(char c);
+t_token					*get_last_token(t_token *token);
 int						verify_token(t_token **token);
 t_pipe					*init_pipes(t_token *token);
 void					set_pipes(t_shell *shell, t_io *io);
 void					close_pipes(t_pipe *pipes);
 void					free_pipes(t_pipe *pipes);
 int						upsert_env(t_env **env, char *envp);
-t_env					*append_or_update(t_env **env, char *name,
-							char *value);
+t_env					*append_or_update(t_env **env, char *name, char *value);
 int						is_valid_env_var(char *str);
 t_env					*find_env_var_by_name(t_env **env, char *name);
 char					*get_env_value(t_env **env, char *name);
@@ -138,7 +144,7 @@ char					**env_to_array(t_env *env);
 void					print_sorted_env(t_env **env, int out);
 int						len_2d_array(char **arr);
 char					*ft_strjoin3(char *s1, char *s2, char *s3);
-char 					*get_last_cmdarg(char **cmdarg);
+char					*get_last_cmdarg(char **cmdarg);
 void					ft_exit_error(char *message, int status,
 							t_shell *shell);
 void					ft_error(char *message);

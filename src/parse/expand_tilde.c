@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_tilde.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
+/*   By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 22:43:36 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/16 08:19:53 by carlossalaz      ###   ########.fr       */
+/*   Updated: 2025/04/21 15:20:34 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ static char	*get_exp_tilde_from_getenv(void)
 		return (NULL);
 }
 
-static char	*append_expanded_tilde(char *exp_data, char *data, int i, t_shell *shell)
+static char	*append_expanded_tilde(char *exp_data, char *data, int i,
+		t_shell *shell)
 {
 	t_env	*home;
 	char	*exp_tilde;

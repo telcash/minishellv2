@@ -19,7 +19,7 @@ SRCS = $(SRC_DIR)/main.c \
 	   $(addprefix $(SRC_DIR)/init/, init.c upsert_env.c) \
 	   $(addprefix $(SRC_DIR)/error/, error.c) \
 	   $(addprefix $(SRC_DIR)/free/, free.c) \
-	   $(addprefix $(SRC_DIR)/parse/, token.c trim_quotes.c expand.c expand_tilde.c verify.c append.c) \
+	   $(addprefix $(SRC_DIR)/parse/, token.c trim_quotes.c expand.c expand_2.c expand_tilde.c verify.c append.c) \
 	   $(addprefix $(SRC_DIR)/pipeline/, pipeline.c process_command.c init_pipes.c set_pipes.c) \
 	   $(addprefix $(SRC_DIR)/builtins/, exec.c exit.c pwd.c cd.c echo.c env.c export.c unset.c) \
 	   $(addprefix $(SRC_DIR)/bins/, exec.c) \

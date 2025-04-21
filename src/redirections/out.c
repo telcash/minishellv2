@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   out.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
+/*   By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 20:16:36 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/12 13:40:08 by carlossalaz      ###   ########.fr       */
+/*   Updated: 2025/04/21 15:13:10 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	process_out(char *file, char **err_msg)
 {
-	int	out;
-	char *tmp;
+	int		out;
+	char	*tmp;
 
 	out = -1;
 	if (!*err_msg)

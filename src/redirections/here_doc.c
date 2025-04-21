@@ -6,7 +6,7 @@
 /*   By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 11:08:37 by csalazar          #+#    #+#             */
-/*   Updated: 2025/04/21 15:02:57 by csalazar         ###   ########.fr       */
+/*   Updated: 2025/04/21 15:14:43 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ static void	run_here_doc_loop(int write_fd, char *delimiter, int has_quotes,
 		line = get_next_line(STDIN_FILENO);
 		if (!line)
 			break ;
-		//free(line);
 		len = ft_strlen(line);
 		if (len > 0 && line[len - 1] == '\n')
 			line[len - 1] = '\0';

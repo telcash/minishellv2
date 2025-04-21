@@ -6,7 +6,7 @@
 /*   By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 09:05:29 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/21 11:22:33 by csalazar         ###   ########.fr       */
+/*   Updated: 2025/04/21 15:34:28 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,13 @@ static void	update_shlvl(t_shell *shell)
 	append_or_update(shell->export, ft_strdup("SHLVL"), ft_strdup(tmp));
 }
 
+static void	update_min_env(t_shell *shell)
+{
+	append_or_update(shell->env, ft_strdup("PWD"), getcwd(NULL, 0));
+	append_or_update(shell->export, ft_strdup("PWD"), getcwd(NULL, 0));
+	update_shlvl(shell);
+}
+
 static void	init_env(t_shell *shell, char **envp)
 {
 	int	i;
@@ -44,9 +51,7 @@ static void	init_env(t_shell *shell, char **envp)
 	*(shell->export) = NULL;
 	if (!envp || !*envp)
 	{
-		append_or_update(shell->env, ft_strdup("PWD"), getcwd(NULL, 0));
-		append_or_update(shell->export, ft_strdup("PWD"), getcwd(NULL, 0));
-		update_shlvl(shell);
+		update_min_env(shell);
 		return ;
 	}
 	i = -1;
@@ -55,9 +60,7 @@ static void	init_env(t_shell *shell, char **envp)
 		upsert_env(shell->env, envp[i]);
 		upsert_env(shell->export, envp[i]);
 	}
-	append_or_update(shell->env, ft_strdup("PWD"), getcwd(NULL, 0));
-	append_or_update(shell->export, ft_strdup("PWD"), getcwd(NULL, 0));
-	update_shlvl(shell);
+	update_min_env(shell);
 }
 
 char	*get_env_value(t_env **env, char *name)
@@ -83,7 +86,7 @@ void	init_minishell(t_shell **shell, char **envp)
 	(*shell)->pids = NULL;
 	(*shell)->_ = NULL;
 	if (getenv("_"))
-		(*shell)->_= ft_strdup(getenv("_"));
+		(*shell)->_ = ft_strdup(getenv("_"));
 	init_env(*shell, envp);
 	(*shell)->pwd = getcwd(NULL, 0);
 	if (!(*shell)->pwd)

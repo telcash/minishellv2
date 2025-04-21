@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
+/*   By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 10:59:22 by csalazar          #+#    #+#             */
-/*   Updated: 2025/04/15 19:31:05 by carlossalaz      ###   ########.fr       */
+/*   Updated: 2025/04/21 15:13:21 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int	set_fd(int temp, int fd, int fd_std)
 	return (fd);
 }
 
-static int here_doc_fail(char *err_msg)
+static int	here_doc_fail(char *err_msg)
 {
 	if (err_msg)
 	{
@@ -63,9 +63,9 @@ int	process_input_redirections(t_token *token, t_shell *shell)
 
 int	process_output_redirections(t_token *token)
 {
-	int	out;
-	int	tmp;
-	char *err_msg;
+	int		out;
+	int		tmp;
+	char	*err_msg;
 
 	err_msg = NULL;
 	out = STDOUT_FILENO;

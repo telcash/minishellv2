@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   append.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
+/*   By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 20:19:57 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/12 13:29:39 by carlossalaz      ###   ########.fr       */
+/*   Updated: 2025/04/21 15:18:09 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	process_append(char *file, char **err_msg)
 {
-	int	out;
-	char *tmp;
+	int		out;
+	char	*tmp;
 
 	out = -1;
 	if (!*err_msg)

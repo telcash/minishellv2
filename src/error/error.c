@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
+/*   By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 09:09:52 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/11 16:59:20 by carlossalaz      ###   ########.fr       */
+/*   Updated: 2025/04/21 15:14:09 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

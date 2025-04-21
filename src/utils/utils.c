@@ -6,15 +6,15 @@
 /*   By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 14:32:31 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/15 17:15:08 by csalazar         ###   ########.fr       */
+/*   Updated: 2025/04/21 15:13:33 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-char *get_last_cmdarg(char **cmdarg)
+char	*get_last_cmdarg(char **cmdarg)
 {
-	int i;
+	int	i;
 
 	if (!cmdarg || !cmdarg[0])
 		return (NULL);
