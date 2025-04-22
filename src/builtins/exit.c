@@ -6,18 +6,18 @@
 /*   By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 14:16:33 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/22 15:44:08 by csalazar         ###   ########.fr       */
+/*   Updated: 2025/04/22 17:15:31 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static void ft_free_exit(t_shell *shell, char **cmdargs, t_io *io, int code)
+static void	ft_free_exit(t_shell *shell, char **cmdargs, t_io *io, int code)
 {
 	free_shell(shell);
 	free(cmdargs);
 	free(io);
-	exit (code);
+	exit(code);
 }
 
 static int	is_numeric(char *str)

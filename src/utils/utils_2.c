@@ -6,7 +6,7 @@
 /*   By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 22:44:57 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/21 15:48:50 by csalazar         ###   ########.fr       */
+/*   Updated: 2025/04/22 17:19:04 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,28 @@ static void	sort_env(char **env)
 	}
 }
 
+static int	print_char_var(char *str, int out)
+{
+	char	*tmp;
+
+	ft_putstr_fd("declare -x ", out);
+	if (!ft_strchr(str, '='))
+		return (ft_putendl_fd(str, out), 0);
+	else if ((ft_strchr(str, '=') + 1)[0] == '\0')
+	{
+		ft_putstr_fd(str, out);
+		return (ft_putendl_fd("\"\"", out), 0);
+	}
+	else
+	{
+		tmp = ft_substr(str, 0, ft_strchr(str, '=') - str + 1);
+		ft_putstr_fd(tmp, out);
+		free(tmp);
+		tmp = ft_strjoin3("\"", ft_strchr(str, '=') + 1, "\"");
+		return (ft_putendl_fd(tmp, out), free(tmp), 0);
+	}
+}
+
 void	print_sorted_env(t_env **env, int out)
 {
 	char	**env_arr;
@@ -53,29 +75,8 @@ void	print_sorted_env(t_env **env, int out)
 	i = 0;
 	while (env_arr[i])
 	{
-		ft_putstr_fd("declare -x ", out);
-		ft_putendl_fd(env_arr[i], out);
+		print_char_var(env_arr[i], out);
 		i++;
 	}
 	free_split(env_arr);
-}
-
-int	ft_isspace(char c)
-{
-	return (c == ' ' || c == '\t' || c == '\n' || c == '\v' || c == '\f'
-		|| c == '\r');
-}
-
-int	isseparator(char c)
-{
-	return (c == '|' || c == '<' || c == '>');
-}
-
-t_token	*get_last_token(t_token *token)
-{
-	if (!token)
-		return (NULL);
-	while (token->next)
-		token = token->next;
-	return (token);
 }

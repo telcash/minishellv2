@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   append.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
+/*   By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 22:53:40 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/21 21:00:23 by carlossalaz      ###   ########.fr       */
+/*   Updated: 2025/04/22 17:16:47 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static int	tokenize_expansion(char *data, char *expanded, t_shell *shell)
 {
 	int		i;
 	char	**split;
-	char *trimmed;
+	char	*trimmed;
 
 	if (ft_strchr(data, '\'') || ft_strchr(data, '"'))
 	{
@@ -64,9 +64,9 @@ static void	set_token_type_next(t_token *new_token, t_token_type type,
 		last_token->next = new_token;
 }
 
-static t_token *append_to_here_doc(char *data)
+static t_token	*append_to_here_doc(char *data)
 {
-	t_token *new_token;
+	t_token	*new_token;
 
 	new_token = malloc(sizeof(t_token));
 	if (!new_token)

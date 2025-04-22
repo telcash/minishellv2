@@ -6,7 +6,7 @@
 /*   By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 14:22:53 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/22 14:49:57 by csalazar         ###   ########.fr       */
+/*   Updated: 2025/04/22 17:17:43 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	cmd_is_builtin(char *com)
 int	exec_built_in(t_shell *shell, char **cmdargs, t_io *io)
 {
 	int	code;
-	int out;
+	int	out;
 
 	out = STDOUT_FILENO;
 	if (io)

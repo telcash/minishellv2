@@ -5,7 +5,7 @@ RED				= \033[0;31m
 RESET			= \033[0m
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g3 -I$(LIBFT_DIR) -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g3 -I$(LIBFT_DIR) #-fsanitize=address
 SRC_DIR = src
 OBJ_DIR = obj
 LIBFT_DIR = libft
@@ -25,7 +25,7 @@ SRCS = $(SRC_DIR)/main.c \
 	   $(addprefix $(SRC_DIR)/bins/, exec.c) \
 	   $(addprefix $(SRC_DIR)/redirections/, process.c out.c append.c in.c here_doc.c) \
 	   $(addprefix $(SRC_DIR)/signals/, signals.c) \
-	   $(addprefix $(SRC_DIR)/utils/, utils.c utils_2.c) \
+	   $(addprefix $(SRC_DIR)/utils/, utils.c utils_2.c utils_3.c) \
 
 OBJS = $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 

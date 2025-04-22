@@ -6,7 +6,7 @@
 /*   By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 11:08:37 by csalazar          #+#    #+#             */
-/*   Updated: 2025/04/21 15:14:43 by csalazar         ###   ########.fr       */
+/*   Updated: 2025/04/22 19:31:03 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,12 @@ static void	run_here_doc(int *fd, char *delimiter, t_shell *shell)
 	if (ft_strchr(delimiter, '\'') || ft_strchr(delimiter, '"'))
 		has_quotes = 1;
 	trimmed_delimiter = trim_line_quotes(delimiter);
-	free(delimiter);
+	//free(delimiter);
 	signal(SIGINT, SIG_DFL);
 	close(fd[0]);
 	run_here_doc_loop(fd[1], trimmed_delimiter, has_quotes, shell);
+	free(trimmed_delimiter);
+	free_shell(shell);
 	exit(EXIT_SUCCESS);
 }
 
