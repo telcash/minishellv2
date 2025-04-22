@@ -6,7 +6,7 @@
 /*   By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 08:38:43 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/11 11:02:52 by csalazar         ###   ########.fr       */
+/*   Updated: 2025/04/22 15:39:29 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,9 @@ static void	process_line(char *line, t_shell *shell)
 	free(line);
 	pipeline(shell);
 	free_token(shell->token);
+	shell->token = NULL;
+	shell->pipes = NULL;
+	shell->pids = NULL;
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -45,6 +48,7 @@ int	main(int argc, char **argv, char **envp)
 		if (!line)
 		{
 			ft_putendl_fd("exit", STDERR_FILENO);
+			free_shell(shell);
 			exit(0);
 		}
 		else if (!*line)

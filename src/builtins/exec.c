@@ -6,7 +6,7 @@
 /*   By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 14:22:53 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/11 13:20:13 by csalazar         ###   ########.fr       */
+/*   Updated: 2025/04/22 14:49:57 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,14 @@ int	cmd_is_builtin(char *com)
 		|| ft_strcmp("unset", com) == 0);
 }
 
-int	exec_built_in(t_shell *shell, char **cmdargs, int out)
+int	exec_built_in(t_shell *shell, char **cmdargs, t_io *io)
 {
 	int	code;
+	int out;
 
+	out = STDOUT_FILENO;
+	if (io)
+		out = io->out;
 	if (ft_strcmp("pwd", cmdargs[0]) == 0)
 		code = ft_pwd(shell, out);
 	else if (ft_strcmp("cd", cmdargs[0]) == 0)
@@ -31,7 +35,7 @@ int	exec_built_in(t_shell *shell, char **cmdargs, int out)
 	else if (ft_strcmp("echo", cmdargs[0]) == 0)
 		code = ft_echo(cmdargs, out);
 	else if (ft_strcmp("exit", cmdargs[0]) == 0)
-		code = ft_exit(shell, cmdargs);
+		code = ft_exit(shell, cmdargs, io);
 	else if (ft_strcmp("env", cmdargs[0]) == 0)
 		code = ft_env(shell, out);
 	else if (ft_strcmp("export", cmdargs[0]) == 0)

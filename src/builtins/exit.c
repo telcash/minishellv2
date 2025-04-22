@@ -6,11 +6,19 @@
 /*   By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 14:16:33 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/11 11:01:10 by csalazar         ###   ########.fr       */
+/*   Updated: 2025/04/22 15:44:08 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+static void ft_free_exit(t_shell *shell, char **cmdargs, t_io *io, int code)
+{
+	free_shell(shell);
+	free(cmdargs);
+	free(io);
+	exit (code);
+}
 
 static int	is_numeric(char *str)
 {
@@ -53,7 +61,7 @@ static int	ft_exit_pipes(char **cmdargs)
 	return (0);
 }
 
-static void	ft_exit_no_pipes(t_shell *minishell, char **cmdargs)
+static void	ft_exit_no_pipes(t_shell *shell, char **cmdargs, t_io *io)
 {
 	int	exit_num;
 
@@ -61,7 +69,7 @@ static void	ft_exit_no_pipes(t_shell *minishell, char **cmdargs)
 	{
 		ft_error_concat(4, "exit\n", "minishell: exit: ", cmdargs[1],
 			": numeric argument required");
-		exit(2);
+		ft_free_exit(shell, cmdargs, io, 2);
 	}
 	if (cmdargs[1] && cmdargs[2])
 	{
@@ -72,18 +80,17 @@ static void	ft_exit_no_pipes(t_shell *minishell, char **cmdargs)
 	{
 		exit_num = atoi(cmdargs[1]) % 256;
 		printf("exit\n");
-		exit(exit_num);
+		ft_free_exit(shell, cmdargs, io, exit_num);
 	}
 	printf("exit\n");
-	free_shell(minishell);
-	exit(0);
+	ft_free_exit(shell, cmdargs, io, 0);
 }
 
-int	ft_exit(t_shell *minishell, char **cmdargs)
+int	ft_exit(t_shell *minishell, char **cmdargs, t_io *io)
 {
 	if (minishell->pipes->nb_pipes > 0)
 		return (ft_exit_pipes(cmdargs));
 	else
-		ft_exit_no_pipes(minishell, cmdargs);
+		ft_exit_no_pipes(minishell, cmdargs, io);
 	return (0);
 }

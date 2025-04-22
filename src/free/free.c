@@ -6,7 +6,7 @@
 /*   By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 09:24:50 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/15 17:36:51 by csalazar         ###   ########.fr       */
+/*   Updated: 2025/04/22 15:58:38 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ void	free_shell(t_shell *shell)
 		free(shell->pwd);
 	if (shell->oldpwd)
 		free(shell->oldpwd);
+	if (shell->_)
+		free(shell->_);
 	if (shell->token)
 		free_token(shell->token);
 	if (shell->pipes)
@@ -48,6 +50,7 @@ void	free_shell(t_shell *shell)
 	if (shell->pids)
 		free(shell->pids);
 	free(shell);
+	rl_clear_history();
 }
 
 void	free_token(t_token **token)
@@ -72,19 +75,6 @@ void	free_token(t_token **token)
 	free(token);
 }
 
-void	free_split(char **split)
-{
-	int	i;
-
-	i = 0;
-	while (split[i])
-	{
-		free(split[i]);
-		i++;
-	}
-	free(split);
-}
-
 void	free_pipes(t_pipe *pipes)
 {
 	int	i;
@@ -97,4 +87,17 @@ void	free_pipes(t_pipe *pipes)
 	}
 	free(pipes->pipes);
 	free(pipes);
+}
+
+void	free_split(char **split)
+{
+	int	i;
+
+	i = 0;
+	while (split[i])
+	{
+		free(split[i]);
+		i++;
+	}
+	free(split);
 }

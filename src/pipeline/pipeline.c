@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipeline.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
+/*   By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 11:07:27 by csalazar          #+#    #+#             */
-/*   Updated: 2025/04/15 19:33:35 by carlossalaz      ###   ########.fr       */
+/*   Updated: 2025/04/22 15:39:42 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ static char	**get_cmdargs(t_token *token)
 		tmp = tmp->next;
 	}
 	cmdargs = ft_calloc(i + 1, sizeof(char *));
+	if (!cmdargs)
+		return (NULL);
 	tmp = token;
 	i = 0;
 	while (tmp && tmp->type != PIPE)

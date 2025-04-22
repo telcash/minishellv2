@@ -6,7 +6,7 @@
 /*   By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 11:07:56 by csalazar          #+#    #+#             */
-/*   Updated: 2025/04/21 11:21:33 by csalazar         ###   ########.fr       */
+/*   Updated: 2025/04/22 16:12:22 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,9 @@ static int	process_built_in_alone(t_shell *shell, char **cmdargs, t_io *io)
 {
 	int	code;
 
-	code = exec_built_in(shell, cmdargs, io->out);
-	free(io);
+	code = exec_built_in(shell, cmdargs, io);
+	if (io)
+		free(io);
 	return (code);
 }
 
@@ -25,6 +26,10 @@ static int	father_process_clean(t_shell *shell, pid_t pid, t_io *io, int i)
 {
 	shell->launched_procs++;
 	shell->pids[i] = pid;
+	if (io->in != STDIN_FILENO)
+		close(io->in);
+	if (io->out != STDOUT_FILENO)
+		close(io->out);
 	free(io);
 	return (0);
 }
@@ -59,7 +64,7 @@ static void	process_child(t_shell *shell, t_io *io, char **cmdargs)
 	if (!cmdargs[0])
 		exit(0);
 	if (cmd_is_builtin(cmdargs[0]))
-		exit(exec_built_in(shell, cmdargs, STDOUT_FILENO));
+		exit(exec_built_in(shell, cmdargs, NULL));
 	else
 		exec_bin(shell, cmdargs);
 }

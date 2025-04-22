@@ -106,7 +106,7 @@ int						process_in(char *file, char **err_msg);
 int						process_out(char *file, char **err_msg);
 int						process_append(char *file, char **err_msg);
 int						exec_built_in(t_shell *minishell, char **cmdargs,
-							int out);
+							t_io *io);
 int						cmd_is_builtin(char *cmd);
 int						ft_pwd(t_shell *shell, int out);
 int						ft_cd(t_shell *shell, char **cmdargs, int out);
@@ -114,7 +114,7 @@ int						ft_echo(char **cmdargs, int out);
 int						ft_env(t_shell *minishell, int out);
 int						ft_export(t_shell *shell, char **cmdargs, int out);
 int						ft_unset(t_shell *shell, char **cmdargs);
-int						ft_exit(t_shell *shell, char **cmdargs);
+int						ft_exit(t_shell *shell, char **cmdargs, t_io *io);
 void					get_token(char *line, t_shell *shell);
 void					append_token(char *data, t_token_type type,
 							t_shell *shell, int is_exp);
