@@ -6,7 +6,7 @@
 /*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 11:07:56 by csalazar          #+#    #+#             */
-/*   Updated: 2025/04/23 08:30:21 by carlossalaz      ###   ########.fr       */
+/*   Updated: 2025/04/23 10:04:37 by carlossalaz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ t_io	*get_io(t_token *segment, int com_count, t_shell *shell)
 	io = ft_calloc(1, sizeof(t_io));
 	if (!io)
 		ft_exit_error(MALLOC_ERR, 1, NULL);
-	io->in = process_input_redirections(segment, shell);
+	io->in = process_input_redirections(segment, shell, com_count);
 	if (io->in == -1)
 		io->out = STDOUT_FILENO;
 	else

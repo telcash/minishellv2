@@ -6,17 +6,17 @@
 /*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 10:59:22 by csalazar          #+#    #+#             */
-/*   Updated: 2025/04/23 09:35:57 by carlossalaz      ###   ########.fr       */
+/*   Updated: 2025/04/23 10:57:48 by carlossalaz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static int	set_fd(int temp, int fd, int fd_std)
+static int	set_fd(int temp, int fd, int fd_std, int hd)
 {
 	if (temp == -1)
 		return (-1);
-	if (fd != fd_std)
+	if (fd != fd_std && fd != temp && fd != hd)
 		close(fd);
 	fd = temp;
 	return (fd);
@@ -43,7 +43,7 @@ int process_here_doc_redir(t_token *token, t_shell *shell)
 		if (token->type == HERE_DOC)
 		{
 			tmp = process_here_doc(token->data, shell);
-			hd = set_fd(tmp, hd, STDIN_FILENO);
+			hd = set_fd(tmp, hd, STDIN_FILENO, -1);
 			if (hd == -1)
 				return (here_doc_fail(NULL));
 		}
@@ -52,7 +52,7 @@ int process_here_doc_redir(t_token *token, t_shell *shell)
 	return (hd);
 }
 
-int	process_input_redirections(t_token *token, t_shell *shell)
+int	process_input_redirections(t_token *token, t_shell *shell, int com_count)
 {
 	int		in;
 	int		tmp;
@@ -65,10 +65,13 @@ int	process_input_redirections(t_token *token, t_shell *shell)
 		if (token->type == IN)
 		{
 			tmp = process_in(token->data, &err_msg);
-			in = set_fd(tmp, in, STDIN_FILENO);
+			in = set_fd(tmp, in, STDIN_FILENO, shell->hd[com_count]);
 		}
 		else if (token->type == HERE_DOC)
-			in = shell->hd;
+		{
+			tmp = shell->hd[com_count];
+			in = set_fd(tmp, in, STDIN_FILENO, shell->hd[com_count]);
+		}
 /* 		{
 			tmp = process_here_doc(token->data, shell);
 			in = set_fd(tmp, in, STDIN_FILENO);
@@ -95,12 +98,12 @@ int	process_output_redirections(t_token *token)
 		if (token->type == OUT)
 		{
 			tmp = process_out(token->data, &err_msg);
-			out = set_fd(tmp, out, STDOUT_FILENO);
+			out = set_fd(tmp, out, STDOUT_FILENO, -1);
 		}
 		else if (token->type == APPEND)
 		{
 			tmp = process_append(token->data, &err_msg);
-			out = set_fd(tmp, out, STDOUT_FILENO);
+			out = set_fd(tmp, out, STDOUT_FILENO, -1);
 		}
 		token = token->next;
 	}
