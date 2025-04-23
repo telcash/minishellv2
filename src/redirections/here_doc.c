@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 11:08:37 by csalazar          #+#    #+#             */
-/*   Updated: 2025/04/22 19:31:03 by csalazar         ###   ########.fr       */
+/*   Updated: 2025/04/23 11:59:14 by carlossalaz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,12 @@ static void	run_here_doc_loop(int write_fd, char *delimiter, int has_quotes,
 		line = get_next_line(STDIN_FILENO);
 		if (!line)
 			break ;
+		if (ft_strcmp(line, "\n") == 0)
+		{
+			write(write_fd, "\n", 1);
+			free(line);
+			continue ;
+		}
 		len = ft_strlen(line);
 		if (len > 0 && line[len - 1] == '\n')
 			line[len - 1] = '\0';
@@ -51,7 +57,6 @@ static void	run_here_doc(int *fd, char *delimiter, t_shell *shell)
 	if (ft_strchr(delimiter, '\'') || ft_strchr(delimiter, '"'))
 		has_quotes = 1;
 	trimmed_delimiter = trim_line_quotes(delimiter);
-	//free(delimiter);
 	signal(SIGINT, SIG_DFL);
 	close(fd[0]);
 	run_here_doc_loop(fd[1], trimmed_delimiter, has_quotes, shell);
@@ -77,6 +82,7 @@ int	process_here_doc(char *delimiter, t_shell *shell)
 	waitpid(pid, &status, 0);
 	if (WIFSIGNALED(status))
 	{
+		shell->last_exit_status = 128 + WTERMSIG(status);
 		close(fd[0]);
 		g_interactive = NON_INTERACTIVE;
 		return (-1);
