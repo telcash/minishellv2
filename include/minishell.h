@@ -94,7 +94,7 @@ void					init_minishell(t_shell **shell, char **envp);
 void					set_signal(void);
 int						pipeline(t_shell *shell);
 int						process_command(char **cmdargs, t_shell *shell, int i,
-							t_io *io);
+							t_token *segment);
 t_io					*get_io(t_token *segment, int com_count,
 							t_shell *shell);
 void					exec_bin(t_shell *shell, char **cmdargs);
