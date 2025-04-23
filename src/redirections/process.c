@@ -6,7 +6,7 @@
 /*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 10:59:22 by csalazar          #+#    #+#             */
-/*   Updated: 2025/04/23 09:19:42 by carlossalaz      ###   ########.fr       */
+/*   Updated: 2025/04/23 09:35:57 by carlossalaz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,26 @@ static int	here_doc_fail(char *err_msg)
 	return (-1);
 }
 
+int process_here_doc_redir(t_token *token, t_shell *shell)
+{
+	int tmp;
+	int hd;
+
+	hd = STDIN_FILENO;
+	while (token && token->type != PIPE)
+	{
+		if (token->type == HERE_DOC)
+		{
+			tmp = process_here_doc(token->data, shell);
+			hd = set_fd(tmp, hd, STDIN_FILENO);
+			if (hd == -1)
+				return (here_doc_fail(NULL));
+		}
+		token = token->next;
+	}
+	return (hd);
+}
+
 int	process_input_redirections(t_token *token, t_shell *shell)
 {
 	int		in;
@@ -48,12 +68,13 @@ int	process_input_redirections(t_token *token, t_shell *shell)
 			in = set_fd(tmp, in, STDIN_FILENO);
 		}
 		else if (token->type == HERE_DOC)
-		{
+			in = shell->hd;
+/* 		{
 			tmp = process_here_doc(token->data, shell);
 			in = set_fd(tmp, in, STDIN_FILENO);
 			if (in == -1)
 				return (here_doc_fail(err_msg));
-		}
+		} */
 		token = token->next;
 	}
 	if (err_msg)

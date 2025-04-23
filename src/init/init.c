@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 09:05:29 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/22 17:16:28 by csalazar         ###   ########.fr       */
+/*   Updated: 2025/04/23 09:34:37 by carlossalaz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ void	init_minishell(t_shell **shell, char **envp)
 		ft_exit_error(MALLOC_ERR, EXIT_FAILURE, NULL);
 	(*shell)->last_exit_status = 0;
 	(*shell)->pwd_unset = 0;
+	(*shell)->hd = STDIN_FILENO;
 	(*shell)->launched_procs = 0;
 	(*shell)->oldpwd = NULL;
 	(*shell)->pipes = NULL;

@@ -81,6 +81,7 @@ typedef struct s_shell
 	int					pwd_unset;
 	char				*oldpwd;
 	char				*_;
+	int					hd;
 	int					last_exit_status;
 	int					*pids;
 	int					launched_procs;
@@ -98,6 +99,7 @@ int						process_command(char **cmdargs, t_shell *shell, int i,
 t_io					*get_io(t_token *segment, int com_count,
 							t_shell *shell);
 void					exec_bin(t_shell *shell, char **cmdargs);
+int 					process_here_doc_redir(t_token *token, t_shell *shell);
 int						process_input_redirections(t_token *token,
 							t_shell *shell);
 int						process_output_redirections(t_token *token);
