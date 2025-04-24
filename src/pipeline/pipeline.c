@@ -6,7 +6,7 @@
 /*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 11:07:27 by csalazar          #+#    #+#             */
-/*   Updated: 2025/04/24 18:32:37 by carlossalaz      ###   ########.fr       */
+/*   Updated: 2025/04/24 18:39:51 by carlossalaz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,12 +105,6 @@ static void	process_tokens(t_token *segment, t_shell *shell)
 		free(cmdargs);
 		segment = get_next_segment(segment);
 		//shell->hd = STDIN_FILENO;
-	}
-	while (i >= 0)
-	{
-		if (shell->hd[i] != -1)
-			close(shell->hd[i]);
-		i--;
 	}
 	free(shell->hd);
 }
