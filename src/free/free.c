@@ -6,7 +6,7 @@
 /*   By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 09:24:50 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/22 17:16:01 by csalazar         ###   ########.fr       */
+/*   Updated: 2025/04/26 15:22:03 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ void	free_shell(t_shell *shell)
 		free_pipes(shell->pipes);
 	if (shell->pids)
 		free(shell->pids);
+	if (shell->hd)
+		free(shell->hd);
 	free(shell);
 	rl_clear_history();
 }

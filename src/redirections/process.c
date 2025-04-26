@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
+/*   By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 10:59:22 by csalazar          #+#    #+#             */
-/*   Updated: 2025/04/23 10:57:48 by carlossalaz      ###   ########.fr       */
+/*   Updated: 2025/04/26 15:46:02 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

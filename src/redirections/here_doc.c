@@ -3,14 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
+/*   By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 11:08:37 by csalazar          #+#    #+#             */
-/*   Updated: 2025/04/23 11:59:14 by carlossalaz      ###   ########.fr       */
+/*   Updated: 2025/04/26 15:49:38 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+static char    *ft_get_next_line(void)
+{
+    char    buffer[2];
+    int     ret;
+    char    *tmp;
+    char    *line;
+
+    line = ft_strdup("");
+    ret = 1;
+    buffer[0] = '\0';
+    while (buffer[0] != '\n' && ret > 0)
+    {
+        ret = read(STDIN_FILENO, buffer, 1);
+        buffer[1] = '\0';
+        tmp = line;
+        line = ft_strjoin(line, buffer);
+        free(tmp);
+    }
+    return (line);
+}
 
 static void	run_here_doc_loop(int write_fd, char *delimiter, int has_quotes,
 		t_shell *shell)
@@ -22,7 +43,7 @@ static void	run_here_doc_loop(int write_fd, char *delimiter, int has_quotes,
 	while (1)
 	{
 		write(1, "> ", 2);
-		line = get_next_line(STDIN_FILENO);
+		line = ft_get_next_line();
 		if (!line)
 			break ;
 		if (ft_strcmp(line, "\n") == 0)
@@ -40,6 +61,11 @@ static void	run_here_doc_loop(int write_fd, char *delimiter, int has_quotes,
 			break ;
 		}
 		expanded_line = expand_here_doc(line, has_quotes, shell);
+		if (!expanded_line)
+		{
+			free(line);
+			break ;
+		}
 		write(write_fd, expanded_line, ft_strlen(expanded_line));
 		write(write_fd, "\n", 1);
 		free(expanded_line);
@@ -82,8 +108,8 @@ int	process_here_doc(char *delimiter, t_shell *shell)
 	waitpid(pid, &status, 0);
 	if (WIFSIGNALED(status))
 	{
-		shell->last_exit_status = 128 + WTERMSIG(status);
 		close(fd[0]);
+		shell->last_exit_status = 128 + WTERMSIG(status);
 		g_interactive = NON_INTERACTIVE;
 		return (-1);
 	}

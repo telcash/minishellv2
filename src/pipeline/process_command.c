@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process_command.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
+/*   By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 11:07:56 by csalazar          #+#    #+#             */
-/*   Updated: 2025/04/23 10:04:37 by carlossalaz      ###   ########.fr       */
+/*   Updated: 2025/04/26 15:54:48 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ static int	father_process_clean(t_shell *shell, pid_t pid, int i)
 	if (io->out != STDOUT_FILENO)
 		close(io->out);
 	free(io); */
+	if (shell->hd[i] != -1 && shell->hd[i] != STDIN_FILENO)
+		close (shell->hd[i]);
 	return (0);
 }
 
