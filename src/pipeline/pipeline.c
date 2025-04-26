@@ -6,7 +6,7 @@
 /*   By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 11:07:27 by csalazar          #+#    #+#             */
-/*   Updated: 2025/04/26 15:59:40 by csalazar         ###   ########.fr       */
+/*   Updated: 2025/04/26 18:40:58 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,10 +88,7 @@ static void	process_tokens(t_token *segment, t_shell *shell)
 	{
 		shell->hd[i] = process_here_doc_redir(tmp, shell);
 		if (shell->hd[i] == -1)
-		{
-			free(shell->hd);
 			return ;
-		}
 		i++;
 		tmp = get_next_segment(tmp);
 	}

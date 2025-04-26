@@ -5,7 +5,7 @@ RED				= \033[0;31m
 RESET			= \033[0m
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g3 -I$(LIBFT_DIR) #-fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g3 -I$(LIBFT_DIR) -fsanitize=address
 SRC_DIR = src
 OBJ_DIR = obj
 LIBFT_DIR = libft

@@ -6,7 +6,7 @@
 /*   By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 10:59:22 by csalazar          #+#    #+#             */
-/*   Updated: 2025/04/26 15:46:02 by csalazar         ###   ########.fr       */
+/*   Updated: 2025/04/26 18:39:04 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,12 +72,6 @@ int	process_input_redirections(t_token *token, t_shell *shell, int com_count)
 			tmp = shell->hd[com_count];
 			in = set_fd(tmp, in, STDIN_FILENO, shell->hd[com_count]);
 		}
-/* 		{
-			tmp = process_here_doc(token->data, shell);
-			in = set_fd(tmp, in, STDIN_FILENO);
-			if (in == -1)
-				return (here_doc_fail(err_msg));
-		} */
 		token = token->next;
 	}
 	if (err_msg)

@@ -6,7 +6,7 @@
 /*   By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 11:07:56 by csalazar          #+#    #+#             */
-/*   Updated: 2025/04/26 15:54:48 by csalazar         ###   ########.fr       */
+/*   Updated: 2025/04/26 18:39:04 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,6 @@ static int	father_process_clean(t_shell *shell, pid_t pid, int i)
 {
 	shell->launched_procs++;
 	shell->pids[i] = pid;
-	/* if (io->in != STDIN_FILENO)
-		close(io->in);
-	if (io->out != STDOUT_FILENO)
-		close(io->out);
-	free(io); */
 	if (shell->hd[i] != -1 && shell->hd[i] != STDIN_FILENO)
 		close (shell->hd[i]);
 	return (0);
