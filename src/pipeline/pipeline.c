@@ -6,7 +6,7 @@
 /*   By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 11:07:27 by csalazar          #+#    #+#             */
-/*   Updated: 2025/04/26 18:40:58 by csalazar         ###   ########.fr       */
+/*   Updated: 2025/04/26 20:28:50 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,8 @@ static void	process_tokens(t_token *segment, t_shell *shell)
 		i++;
 		tmp = get_next_segment(tmp);
 	}
+	shell->pipes = init_pipes(*(shell->token));
+	shell->pids = ft_calloc(shell->pipes->nb_pipes + 1, sizeof(int));
 	i = 0;
 	while (segment)
 	{
@@ -106,8 +108,6 @@ int	pipeline(t_shell *shell)
 {
 	if (!shell->token || !*(shell->token))
 		return (0);
-	shell->pipes = init_pipes(*(shell->token));
-	shell->pids = ft_calloc(shell->pipes->nb_pipes + 1, sizeof(int));
 	shell->hd = ft_calloc(1024, sizeof(int));
 	process_tokens(*(shell->token), shell);
 	close_pipes(shell->pipes);
