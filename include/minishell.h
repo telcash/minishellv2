@@ -81,6 +81,7 @@ typedef struct s_shell
 	int					pwd_unset;
 	char				*oldpwd;
 	char				*_;
+	int					*hd;
 	int					last_exit_status;
 	int					*pids;
 	int					launched_procs;
@@ -93,12 +94,18 @@ typedef struct s_shell
 void					init_minishell(t_shell **shell, char **envp);
 void					set_signal(void);
 int						pipeline(t_shell *shell);
+<<<<<<< HEAD
 int						process_command(char **cmdargs, t_shell *shell, int i, t_token *segment);
+=======
+int						process_command(char **cmdargs, t_shell *shell, int i,
+							t_token *segment);
+>>>>>>> redir
 t_io					*get_io(t_token *segment, int com_count,
 							t_shell *shell);
 void					exec_bin(t_shell *shell, char **cmdargs);
+int						process_here_doc_redir(t_token *token, t_shell *shell);
 int						process_input_redirections(t_token *token,
-							t_shell *shell);
+							t_shell *shell, int com_count);
 int						process_output_redirections(t_token *token);
 int						process_here_doc(char *delimiter, t_shell *shell);
 int						process_in(char *file, char **err_msg);
@@ -153,5 +160,6 @@ void					ft_error_cd_not_file(char *file);
 void					free_shell(t_shell *shell);
 void					free_token(t_token **token);
 void					free_split(char **split);
+char					*ft_get_next_line(void);
 
 #endif
