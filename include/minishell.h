@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/06 14:50:42 by csalazar          #+#    #+#             */
+/*   Updated: 2025/05/06 14:51:52 by csalazar         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
@@ -15,7 +27,8 @@
 # include <sys/wait.h>
 # include <unistd.h>
 
-# define CWD_ERR "shell-init: error retrieving current directory: getcwd: cannot access parent directories: No such file or directory"
+# define CWD_ERR "shell-init: error retrieving current directory: getcwd: \
+	cannot access parent directories: No such file or directory"
 # define INV_ARG_ERR "Error: invalid input"
 # define MALLOC_ERR "Error: malloc failed"
 # define SIGINT_ERR "ERROR registering SIGINT handler"
@@ -25,7 +38,8 @@
 # define CD_NO_HOME_ERR "minishell: cd: HOME not set"
 # define NO_PATH_ERR "Error getting the path"
 # define UN_TOKEN_ERR "minishell: syntax error near unexpected token "
-# define UN_TOKEN_NL_ERR "minishell: syntax error near unexpected token `newline'"
+# define UN_TOKEN_NL_ERR "minishell: syntax error near unexpected token \
+	`newline'"
 # define UN_TOKEN_PIPE_ERR "minishell: syntax error near unexpected token `|'"
 # define UN_TOKEN_2PIPE_ERR "minishell: syntax error near unexpected token `||'"
 
@@ -94,12 +108,8 @@ typedef struct s_shell
 void					init_minishell(t_shell **shell, char **envp);
 void					set_signal(void);
 int						pipeline(t_shell *shell);
-<<<<<<< HEAD
-int						process_command(char **cmdargs, t_shell *shell, int i, t_token *segment);
-=======
 int						process_command(char **cmdargs, t_shell *shell, int i,
 							t_token *segment);
->>>>>>> redir
 t_io					*get_io(t_token *segment, int com_count,
 							t_shell *shell);
 void					exec_bin(t_shell *shell, char **cmdargs);

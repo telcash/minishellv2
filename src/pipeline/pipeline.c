@@ -6,11 +6,7 @@
 /*   By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 11:07:27 by csalazar          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2025/04/22 20:09:17 by csalazar         ###   ########.fr       */
-=======
-/*   Updated: 2025/05/06 13:05:51 by csalazar         ###   ########.fr       */
->>>>>>> redir
+/*   Updated: 2025/05/06 14:48:37 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,11 +80,7 @@ static void	process_tokens(t_token *segment, t_shell *shell)
 {
 	int		i;
 	char	**cmdargs;
-<<<<<<< HEAD
-	//t_io	*io;
-=======
 	t_token	*tmp;
->>>>>>> redir
 
 	i = 0;
 	tmp = segment;
@@ -106,10 +98,6 @@ static void	process_tokens(t_token *segment, t_shell *shell)
 	while (segment)
 	{
 		cmdargs = get_cmdargs(segment);
-<<<<<<< HEAD
-		//io = get_io(segment, i, shell);
-=======
->>>>>>> redir
 		process_command(cmdargs, shell, i++, segment);
 		free(cmdargs);
 		segment = get_next_segment(segment);
