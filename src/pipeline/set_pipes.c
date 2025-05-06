@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_pipes.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: carlossalazar <carlossalazar@student.42    +#+  +:+       +#+        */
+/*   By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 10:22:53 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/04 14:31:17 by carlossalaz      ###   ########.fr       */
+/*   Updated: 2025/05/06 14:55:47 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ void	close_pipes(t_pipe *pipes)
 	int	i;
 
 	i = 0;
+	if (!pipes)
+		return ;
 	while (i < pipes->nb_pipes)
 	{
 		close(pipes->pipes[i][0]);

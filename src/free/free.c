@@ -6,7 +6,7 @@
 /*   By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 09:24:50 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/26 15:22:03 by csalazar         ###   ########.fr       */
+/*   Updated: 2025/05/06 14:57:03 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,8 @@ void	free_pipes(t_pipe *pipes)
 {
 	int	i;
 
+	if (!pipes)
+		return ;
 	i = 0;
 	while (i < pipes->nb_pipes)
 	{
