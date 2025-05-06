@@ -6,21 +6,28 @@
 /*   By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 11:07:56 by csalazar          #+#    #+#             */
-/*   Updated: 2025/04/26 20:31:07 by csalazar         ###   ########.fr       */
+/*   Updated: 2025/05/06 13:39:24 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static int	process_built_in_alone(t_shell *shell, char **cmdargs, t_token *segment, int i)
+static int	process_built_in_alone(t_shell *shell, char **cmdargs,
+		t_token *segment, int i)
 {
-	int	code;
+	int		code;
 	t_io	*io;
 
 	io = get_io(segment, i, shell);
 	code = exec_built_in(shell, cmdargs, io);
 	if (io)
+	{
+		if (io->in != STDIN_FILENO)
+			close(io->in);
+		if (io->out != STDOUT_FILENO)
+			close(io->out);	
 		free(io);
+	}
 	return (code);
 }
 
@@ -29,7 +36,7 @@ static int	father_process_clean(t_shell *shell, pid_t pid, int i)
 	shell->launched_procs++;
 	shell->pids[i] = pid;
 	if (shell->hd[i] != -1 && shell->hd[i] != STDIN_FILENO)
-		close (shell->hd[i]);
+		close(shell->hd[i]);
 	return (0);
 }
 
@@ -49,7 +56,8 @@ t_io	*get_io(t_token *segment, int com_count, t_shell *shell)
 	return (io);
 }
 
-static void	process_child(t_shell *shell, t_token *segment, int i, char **cmdargs)
+static void	process_child(t_shell *shell, t_token *segment, int i,
+		char **cmdargs)
 {
 	t_io	*io;
 
@@ -67,7 +75,7 @@ static void	process_child(t_shell *shell, t_token *segment, int i, char **cmdarg
 		exit(1);
 	}
 	if (io->in != STDIN_FILENO)
-			close(io->in);
+		close(io->in);
 	if (io->out != STDOUT_FILENO)
 		close(io->out);
 	free(io);
@@ -75,8 +83,7 @@ static void	process_child(t_shell *shell, t_token *segment, int i, char **cmdarg
 		exit(0);
 	if (cmd_is_builtin(cmdargs[0]))
 		exit(exec_built_in(shell, cmdargs, NULL));
-	else
-		exec_bin(shell, cmdargs);
+	exec_bin(shell, cmdargs);
 }
 
 int	process_command(char **cmdargs, t_shell *shell, int i, t_token *segment)

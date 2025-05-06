@@ -6,7 +6,7 @@
 /*   By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 08:38:43 by carlossalaz       #+#    #+#             */
-/*   Updated: 2025/04/26 15:04:29 by csalazar         ###   ########.fr       */
+/*   Updated: 2025/05/06 13:07:43 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_shell	*shell;
 	char	*line;
+
 	(void)argc;
 	(void)argv;
-
 	set_signal();
 	init_minishell(&shell, envp);
 	while (1)

@@ -6,31 +6,36 @@
 /*   By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 11:08:37 by csalazar          #+#    #+#             */
-/*   Updated: 2025/04/26 19:01:26 by csalazar         ###   ########.fr       */
+/*   Updated: 2025/05/06 14:01:22 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static char    *ft_get_next_line(void)
+static int	write_expanded_line_and_free(char *line, int has_quotes,
+		int write_fd, t_shell *shell)
 {
-    char    buffer[2];
-    int     ret;
-    char    *tmp;
-    char    *line;
+	char	*expanded_line;
 
-    line = ft_strdup("");
-    ret = 1;
-    buffer[0] = '\0';
-    while (buffer[0] != '\n' && ret > 0)
-    {
-        ret = read(STDIN_FILENO, buffer, 1);
-        buffer[1] = '\0';
-        tmp = line;
-        line = ft_strjoin(line, buffer);
-        free(tmp);
-    }
-    return (line);
+	expanded_line = expand_here_doc(line, has_quotes, shell);
+	if (!expanded_line)
+		return (free(line), 1);
+	write(write_fd, expanded_line, ft_strlen(expanded_line));
+	write(write_fd, "\n", 1);
+	free(expanded_line);
+	free(line);
+	return (0);
+}
+
+static int	check_and_print_nl(char *line, int write_fd)
+{
+	if (ft_strcmp(line, "\n") == 0)
+	{
+		write(write_fd, "\n", 1);
+		free(line);
+		return (1);
+	}
+	return (0);
 }
 
 static void	run_here_doc_loop(int write_fd, char *delimiter, int has_quotes,
@@ -38,7 +43,6 @@ static void	run_here_doc_loop(int write_fd, char *delimiter, int has_quotes,
 {
 	char	*line;
 	size_t	len;
-	char	*expanded_line;
 
 	while (1)
 	{
@@ -46,12 +50,8 @@ static void	run_here_doc_loop(int write_fd, char *delimiter, int has_quotes,
 		line = ft_get_next_line();
 		if (!line)
 			break ;
-		if (ft_strcmp(line, "\n") == 0)
-		{
-			write(write_fd, "\n", 1);
-			free(line);
+		if (check_and_print_nl(line, write_fd))
 			continue ;
-		}
 		len = ft_strlen(line);
 		if (len > 0 && line[len - 1] == '\n')
 			line[len - 1] = '\0';
@@ -60,16 +60,8 @@ static void	run_here_doc_loop(int write_fd, char *delimiter, int has_quotes,
 			free(line);
 			break ;
 		}
-		expanded_line = expand_here_doc(line, has_quotes, shell);
-		if (!expanded_line)
-		{
-			free(line);
+		if (write_expanded_line_and_free(line, has_quotes, write_fd, shell))
 			break ;
-		}
-		write(write_fd, expanded_line, ft_strlen(expanded_line));
-		write(write_fd, "\n", 1);
-		free(expanded_line);
-		free(line);
 	}
 	close(write_fd);
 }
@@ -104,8 +96,8 @@ int	process_here_doc(char *delimiter, t_shell *shell)
 		return (perror("fork"), -1);
 	if (pid == 0)
 		run_here_doc(fd, delimiter, shell);
-	close(fd[1]);
 	waitpid(pid, &status, 0);
+	close(fd[1]);
 	if (WIFSIGNALED(status))
 	{
 		close(fd[0]);

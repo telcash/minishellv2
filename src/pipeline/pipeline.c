@@ -6,7 +6,7 @@
 /*   By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 11:07:27 by csalazar          #+#    #+#             */
-/*   Updated: 2025/04/26 20:28:50 by csalazar         ###   ########.fr       */
+/*   Updated: 2025/05/06 13:05:51 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ static void	process_tokens(t_token *segment, t_shell *shell)
 {
 	int		i;
 	char	**cmdargs;
-	t_token *tmp;
+	t_token	*tmp;
 
 	i = 0;
 	tmp = segment;

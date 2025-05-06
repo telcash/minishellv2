@@ -1,4 +1,4 @@
- #ifndef MINISHELL_H
+#ifndef MINISHELL_H
 # define MINISHELL_H
 
 # include "../libft/libft.h"
@@ -99,7 +99,7 @@ int						process_command(char **cmdargs, t_shell *shell, int i,
 t_io					*get_io(t_token *segment, int com_count,
 							t_shell *shell);
 void					exec_bin(t_shell *shell, char **cmdargs);
-int 					process_here_doc_redir(t_token *token, t_shell *shell);
+int						process_here_doc_redir(t_token *token, t_shell *shell);
 int						process_input_redirections(t_token *token,
 							t_shell *shell, int com_count);
 int						process_output_redirections(t_token *token);
@@ -156,5 +156,6 @@ void					ft_error_cd_not_file(char *file);
 void					free_shell(t_shell *shell);
 void					free_token(t_token **token);
 void					free_split(char **split);
+char					*ft_get_next_line(void);
 
 #endif
